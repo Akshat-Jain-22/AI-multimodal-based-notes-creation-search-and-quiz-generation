@@ -1,0 +1,459 @@
+:root {
+  --paper: #f6f6f2;
+  --paper-raised: #ffffff;
+  --ink: #1c2333;
+  --ink-soft: #565f75;
+  --hairline: #d9d9d0;
+  --copper: #c97a2e;
+  --copper-dark: #a8621f;
+  --blue: #3a6ea5;
+  --green: #2f8f5b;
+  --red: #b3432f;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --radius: 3px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.5em 0;
+}
+
+h1 {
+  font-size: 1.9rem;
+}
+h2 {
+  font-size: 1.3rem;
+}
+h3 {
+  font-size: 1.05rem;
+}
+
+a {
+  color: var(--blue);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.app-shell {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 24px 96px;
+}
+
+/* --- Nav --- */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 22px 0 18px;
+  margin-bottom: 8px;
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--ink);
+  text-decoration: none;
+  margin-right: auto;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.nav-brand .dot {
+  color: var(--copper);
+}
+
+.nav a.nav-link {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+}
+
+.nav a.nav-link.active {
+  color: var(--ink);
+  background: var(--paper-raised);
+  border: 1px solid var(--hairline);
+}
+
+/* --- Signature element: circuit-trace divider --- */
+.trace-divider {
+  display: flex;
+  align-items: center;
+  margin: 36px 0 24px;
+  height: 10px;
+}
+.trace-divider::before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--hairline);
+}
+.trace-divider::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--copper);
+  margin-left: -1px;
+}
+
+/* --- Cards --- */
+.card {
+  background: var(--paper-raised);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 14px;
+}
+
+.card-clickable {
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+.card-clickable:hover {
+  border-color: var(--copper);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* --- Forms --- */
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+.field input[type="text"],
+.field input[type="number"],
+.field select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  color: var(--ink);
+}
+
+.field input[type="file"] {
+  width: 100%;
+  font-size: 0.85rem;
+}
+
+.field-hint {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+
+.field-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.field-checkbox label {
+  margin: 0;
+  text-transform: none;
+  letter-spacing: normal;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 11px 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--copper);
+  background: var(--copper);
+  color: #fff;
+  cursor: pointer;
+}
+.btn:hover {
+  background: var(--copper-dark);
+  border-color: var(--copper-dark);
+}
+.btn:disabled {
+  background: var(--hairline);
+  border-color: var(--hairline);
+  color: var(--ink-soft);
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+}
+.btn-secondary:hover {
+  border-color: var(--ink-soft);
+  background: transparent;
+}
+
+/* --- Status / badges --- */
+.badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border-radius: var(--radius);
+  display: inline-block;
+}
+.badge-queued,
+.badge-running {
+  background: #fdf1e2;
+  color: var(--copper-dark);
+}
+.badge-done {
+  background: #e8f5ee;
+  color: var(--green);
+}
+.badge-error {
+  background: #fbeae6;
+  color: var(--red);
+}
+
+.error-box {
+  border: 1px solid var(--red);
+  background: #fbeae6;
+  color: var(--red);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  margin: 16px 0;
+}
+
+.empty-state {
+  border: 1px dashed var(--hairline);
+  border-radius: var(--radius);
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+/* --- Notes markdown rendering --- */
+.notes-content {
+  font-size: 0.98rem;
+}
+.notes-content h1 {
+  font-size: 1.6rem;
+}
+.notes-content h2 {
+  font-size: 1.2rem;
+  margin-top: 1.6em;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 6px;
+}
+.notes-content img {
+  max-width: 100%;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+}
+.notes-content code {
+  font-family: var(--font-mono);
+  background: var(--paper);
+  padding: 1px 5px;
+  border-radius: 2px;
+  font-size: 0.88em;
+}
+
+/* --- Search --- */
+.search-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.search-bar input {
+  flex: 1;
+  padding: 12px 14px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  font-size: 1rem;
+}
+
+.source-item {
+  border-left: 2px solid var(--blue);
+  padding-left: 14px;
+  margin-bottom: 14px;
+}
+.source-item .score {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+
+/* --- Quiz --- */
+.quiz-question-text p,
+.quiz-option-text p {
+  margin: 0;
+  display: inline;
+}
+.quiz-option-text {
+  flex: 1;
+}
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.quiz-option:hover {
+  border-color: var(--ink-soft);
+}
+.quiz-option.selected {
+  border-color: var(--blue);
+  background: #f0f5fa;
+}
+.quiz-option.correct {
+  border-color: var(--green);
+  background: #e8f5ee;
+}
+.quiz-option.incorrect {
+  border-color: var(--red);
+  background: #fbeae6;
+}
+.quiz-explanation {
+  margin-top: 10px;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  background: var(--paper);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+}
+.quiz-score {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--copper-dark);
+}
+
+/* --- Utility --- */
+.muted {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.row-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* --- PDF export via the browser's print dialog ---
+   Rather than a separate PDF-generation library (which would mean
+   re-rendering formulas through a different, unverified code path),
+   "Download PDF" triggers window.print() and this stylesheet hides
+   everything except the element marked .print-area, so "Save as PDF" in
+   the print dialog captures just the notes/answer/quiz content — with the
+   same KaTeX-rendered math already on screen, not a re-render. */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .app-shell {
+    max-width: none;
+    padding: 0;
+  }
+  .print-area {
+    padding: 24px;
+  }
+  .print-only-title {
+    display: block !important;
+  }
+}
+
+.print-only-title {
+  display: none;
+}
+
+/* Explanations render into the DOM immediately (not just after "Check
+   answers") so a PDF export always includes the answer key, matching the
+   .md download's behavior — but stay hidden on-screen until checked, so
+   taking the quiz on-screen isn't spoiled. */
+.quiz-explanation.pending {
+  display: none;
+}
+@media print {
+  .quiz-explanation.pending {
+    display: block;
+  }
+}
+
