@@ -66,7 +66,6 @@ JOBS_FILE = os.path.join(THIS_DIR, "jobs.json")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 _registry_lock = threading.Lock()
 
-# db.py + auth.py live next to this file in backend/
 import db
 from auth import router as auth_router, get_current_user, require_role
 
@@ -78,16 +77,12 @@ app.include_router(auth_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,  # required for the session cookie to be sent cross-origin (Vite dev server)
+    allow_credentials=True,  
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 
-# ---------------------------------------------------------------------------
-# Tiny flat-file persistence helpers (jobs.json only — lectures/classes/users
-# are all in db.py now)
-# ---------------------------------------------------------------------------
 
 def _load_json(path, default):
     if not os.path.exists(path):
@@ -114,9 +109,7 @@ def _get_job(job_id):
     return jobs.get(job_id)
 
 
-# ---------------------------------------------------------------------------
 # Request/response models
-# ---------------------------------------------------------------------------
 
 class CreateClassRequest(BaseModel):
     name: str
@@ -142,9 +135,7 @@ class QuizAPIRequest(BaseModel):
     needs_diagram: bool = False
 
 
-# ---------------------------------------------------------------------------
 # Access-control helper shared by several endpoints below
-# ---------------------------------------------------------------------------
 
 def _require_class_access(user, class_id):
     if not db.user_has_access_to_class(user["id"], class_id):
@@ -155,9 +146,7 @@ def _lecture_ids_for_class(class_id):
     return [l["lecture_id"] for l in db.get_lectures_for_class(class_id)]
 
 
-# ---------------------------------------------------------------------------
 # Background lecture-processing job
-# ---------------------------------------------------------------------------
 
 def _run_lecture_job(job_id, title, class_id, requested_by, audio_path, video_path, pptx_path,
                       force_language, model_size="small"):
@@ -222,18 +211,46 @@ def _run_lecture_job(job_id, title, class_id, requested_by, audio_path, video_pa
         shutil.rmtree(job_upload_dir, ignore_errors=True)
 
 
-# ---------------------------------------------------------------------------
 # Health
-# ---------------------------------------------------------------------------
+
+@app.delete("/lectures/{lecture_id}")
+def delete_lecture_endpoint(lecture_id: str, user: dict = Depends(require_role("teacher"))):
+    entry = db.get_lecture(lecture_id)
+    if entry is None:
+        raise HTTPException(status_code=404, detail="Unknown lecture_id.")
+
+    cls = db.get_class(entry["class_id"])
+    if cls is None or cls["teacher_id"] != user["id"]:
+        raise HTTPException(status_code=403, detail="You can only delete lectures from classes you teach.")
+
+    # Remove this lecture's passages from the search index so deleted
+    # lectures can't still surface in /search or /quiz results. Passage ids
+    # are "{lecture_id}::{section_heading}::{i}" (see chunk_notes_for_search.py),
+    # so a prefix match reliably scopes to just this lecture.
+    try:
+        vs = get_vectorstore(CHROMA_PERSIST_DIR)
+        all_ids = vs.get()["ids"]
+        ids_to_delete = [i for i in all_ids if i.startswith(f"{lecture_id}::")]
+        if ids_to_delete:
+            vs.delete(ids=ids_to_delete)
+    except Exception as e:
+        print(f"Warning: failed to remove Chroma passages for {lecture_id}: {e}")
+
+    # Best-effort cleanup of on-disk notes/transcripts for this lecture.
+    if entry.get("work_dir") and os.path.isdir(entry["work_dir"]):
+        shutil.rmtree(entry["work_dir"], ignore_errors=True)
+
+    db.delete_lecture(lecture_id)
+
+    return {"status": "deleted", "lecture_id": lecture_id}
+
 
 @app.get("/")
 def health():
     return {"status": "ok", "docs": "/docs"}
 
 
-# ---------------------------------------------------------------------------
 # Classes
-# ---------------------------------------------------------------------------
 
 @app.post("/classes")
 def create_class_endpoint(request: CreateClassRequest, user: dict = Depends(require_role("teacher"))):
@@ -263,9 +280,32 @@ def list_class_lectures(class_id: int, user: dict = Depends(get_current_user)):
     return db.get_lectures_for_class(class_id)
 
 
-# ---------------------------------------------------------------------------
+@app.get("/classes/{class_id}/roster")
+def get_class_roster(class_id: int, user: dict = Depends(require_role("teacher"))):
+    cls = db.get_class(class_id)
+    if cls is None:
+        raise HTTPException(status_code=404, detail="Unknown class_id.")
+    if cls["teacher_id"] != user["id"]:
+        raise HTTPException(status_code=403, detail="You can only view the roster for classes you teach.")
+    return db.get_enrolled_students(class_id)
+
+
+@app.delete("/classes/{class_id}/roster/{student_id}")
+def remove_student_endpoint(class_id: int, student_id: int, user: dict = Depends(require_role("teacher"))):
+    cls = db.get_class(class_id)
+    if cls is None:
+        raise HTTPException(status_code=404, detail="Unknown class_id.")
+    if cls["teacher_id"] != user["id"]:
+        raise HTTPException(status_code=403, detail="You can only manage the roster for classes you teach.")
+
+    removed = db.remove_student_from_class(student_id, class_id)
+    if not removed:
+        raise HTTPException(status_code=404, detail="That student is not enrolled in this class.")
+
+    return {"status": "removed", "student_id": student_id, "class_id": class_id}
+
+
 # Lecture processing
-# ---------------------------------------------------------------------------
 
 @app.post("/lectures/process")
 async def process_lecture(
@@ -279,20 +319,12 @@ async def process_lecture(
     pptx: Union[UploadFile, str, None] = File(None),
     user: dict = Depends(require_role("teacher")),
 ):
-    # Swagger UI's /docs form sends "" (empty string) for a blank optional
-    # file field instead of omitting it, which fails strict UploadFile
-    # validation. The only non-UploadFile value that can arrive here is that
-    # empty string, so treat any str as "no file" — this also sidesteps
-    # isinstance(x, UploadFile) unreliably matching across fastapi's vs
-    # starlette's UploadFile classes depending on version.
     if isinstance(audio, str):
         audio = None
     if isinstance(video, str):
         video = None
     if isinstance(pptx, str):
         pptx = None
-    if force_language == "":
-        force_language = None
 
     if audio is None and video is None:
         raise HTTPException(
@@ -366,9 +398,7 @@ def get_lecture_notes(lecture_id: str, user: dict = Depends(get_current_user)):
     return {**entry, "notes_markdown": notes_markdown}
 
 
-# ---------------------------------------------------------------------------
 # Search / Quiz — both scoped to one class's lectures at a time
-# ---------------------------------------------------------------------------
 
 @app.post("/search")
 def search(request: SearchRequest, user: dict = Depends(get_current_user)):
@@ -410,9 +440,7 @@ def quiz(request: QuizAPIRequest, user: dict = Depends(get_current_user)):
     return {**result, "markdown": format_questions_as_markdown(result)}
 
 
-# ---------------------------------------------------------------------------
 # Index stats — scoped per class rather than global
-# ---------------------------------------------------------------------------
 
 @app.get("/classes/{class_id}/index-stats")
 def class_index_stats(class_id: int, user: dict = Depends(get_current_user)):

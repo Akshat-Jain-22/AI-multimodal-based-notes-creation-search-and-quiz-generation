@@ -20,9 +20,7 @@ def build_audio_events(audio_data):
     if not audio_data:
         return events
 
-    # Case 1: segment-level data (has "segments" with start/end + text)
-    # Supports both the raw audio_to_text.py output (field "text") and the
-    # translate_transcript.py output (field "translated_text").
+
     if "segments" in audio_data:
         for seg in audio_data["segments"]:
             content = seg.get("translated_text") or seg.get("text", "")
@@ -32,7 +30,6 @@ def build_audio_events(audio_data):
                 "content": content
             })
 
-    # Case 2: whole-document translated data (single translated_text, no per-segment timestamps)
     elif "translated_text" in audio_data:
         events.append({
             "timestamp": 0.0,
@@ -85,21 +82,18 @@ def fuse_lecture_data(audio_path=None, screen_path=None, pptx_path=None):
     timeline.extend(build_audio_events(audio_data))
     timeline.extend(build_screen_events(screen_data))
 
-    # Sort everything chronologically into one unified timeline
     timeline.sort(key=lambda x: x["timestamp"])
 
     result = {
         "sources_used": sources_found,
         "timeline": timeline,
-        "supplementary_pptx": pptx_data  # not merged into timeline; available as reference
+        "supplementary_pptx": pptx_data  
     }
 
     return result
 
 
 if __name__ == "__main__":
-    # Usage: python fuse_lecture_data.py [audio_json] [screen_json] [pptx_json]
-    # Any argument can be omitted/empty if that source isn't available for this lecture
     audio_path = sys.argv[1] if len(sys.argv) > 1 and sys.argv[1] != "-" else None
     screen_path = sys.argv[2] if len(sys.argv) > 2 and sys.argv[2] != "-" else None
     pptx_path = sys.argv[3] if len(sys.argv) > 3 and sys.argv[3] != "-" else None

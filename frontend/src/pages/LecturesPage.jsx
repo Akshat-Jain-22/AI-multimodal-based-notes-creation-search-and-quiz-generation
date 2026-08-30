@@ -1,39 +1,40 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { listLectures } from "../api.js";
+import { Link, useParams } from "react-router-dom";
+import { listClassLectures } from "../api.js";
 import TraceDivider from "../components/TraceDivider.jsx";
 
 export default function LecturesPage() {
+  const { classId } = useParams();
   const [lectures, setLectures] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    listLectures()
+    setLectures(null);
+    setError(null);
+    listClassLectures(classId)
       .then(setLectures)
       .catch((e) => setError(e.message));
-  }, []);
+  }, [classId]);
 
   return (
     <div>
       <span className="eyebrow">Library</span>
       <h1>Lectures</h1>
-      <p className="muted">Everything that's been processed and indexed so far.</p>
+      <p className="muted">Everything processed and indexed for this class.</p>
 
       <TraceDivider />
 
       {error && <div className="error-box">{error}</div>}
 
       {lectures && lectures.length === 0 && (
-        <div className="empty-state">
-          Nothing processed yet. <Link to="/">Upload a lecture</Link> to get started.
-        </div>
+        <div className="empty-state">Nothing processed yet for this class.</div>
       )}
 
       {lectures &&
         lectures.map((l) => (
           <Link
             key={l.lecture_id}
-            to={`/lectures/${l.lecture_id}`}
+            to={`/classes/${classId}/lectures/${l.lecture_id}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <div className="card card-clickable">

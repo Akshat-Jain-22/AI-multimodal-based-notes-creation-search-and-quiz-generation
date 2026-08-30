@@ -31,22 +31,30 @@ from render_chart_diagram import render_chart, chart_caption, unique_chart_path
 load_dotenv()
 
 
-# ---------------------------------------------------------------------------
-# Structured output schemas. These replace the old hand-written JSON
-# structure documentation in prompts — the schema itself tells the LLM
-# (via Groq's tool-calling) exactly what shape to return, and LangChain
-# validates/parses the response into real Python objects automatically.
-# ---------------------------------------------------------------------------
-
 class DiagramComponent(BaseModel):
     type: Literal["resistor", "voltage_source", "current_source"]
     label: str
     value: str
 
 
+class ComponentGroup(BaseModel):
+    """One link in the overall series chain from terminal A to terminal B.
+    connection="series" (the default) means this group is a single
+    component in series with the rest of the chain — for a source, this
+    MUST be a single-component group. connection="parallel" with 2+
+    resistors means those resistors are in parallel WITH EACH OTHER, and
+    that combined bank sits in series with whatever comes before/after it
+    in "groups" — this is the only parallel topology the renderer/verifier
+    support (a single parallel bank within an otherwise-series chain), but
+    it covers the large majority of intro-level Thevenin/Norton problems
+    that actually involve a parallel combination."""
+    connection: Literal["series", "parallel"] = "series"
+    components: List[DiagramComponent]
+
+
 class CircuitDiagramSpec(BaseModel):
     kind: Literal["circuit"] = "circuit"
-    components: List[DiagramComponent]
+    groups: List[ComponentGroup]
     terminal_labels: List[str] = Field(default_factory=lambda: ["A", "B"])
 
 
@@ -72,26 +80,15 @@ DiagramSpec = Annotated[Union[CircuitDiagramSpec, ChartDiagramSpec], Field(discr
 
 class Question(BaseModel):
     question: str
-    # Scratch-work field, generated FIRST (field order matters for structured
-    # output — Groq generates JSON fields in schema order). Without this, the
-    # model was observed committing to correct_answer_index before doing any
-    # actual arithmetic, then spiraling into long, self-contradictory
-    # "explanation" text trying to reconcile a wrong pre-committed answer
-    # with its real calculation. Forcing the math to happen here first, then
-    # popped before output, fixes that failure mode.
     reasoning: Optional[str] = Field(
         default=None,
         description="Private step-by-step calculation, computed BEFORE deciding on options/answer. Not shown to students."
     )
-    # mcq
     options: Optional[List[str]] = None
     correct_answer_index: Optional[int] = None
     explanation: Optional[str] = None
-    # one_word (also uses explanation above)
     correct_answer: Optional[str] = None
-    # short_answer / long_answer
     expected_answer_summary: Optional[str] = None
-    # populated only for questions that genuinely warrant an image
     diagram_spec: Optional[DiagramSpec] = None
 
 
@@ -108,9 +105,7 @@ class QuizRequest(BaseModel):
     needs_diagram: bool = False
 
 
-# ---------------------------------------------------------------------------
 # Prompt content
-# ---------------------------------------------------------------------------
 
 FORMAT_FIELD_GUIDE = {
     "mcq": (
@@ -165,7 +160,18 @@ DIFFICULTY_GUIDE = {
         "actually asked (e.g. load voltage, load current, Norton current). This — deriving an "
         "intermediate quantity before using it — is what makes a question medium rather than easy. "
         "A question that hands over V_TH/R_TH directly and asks for one more plug-in step is EASY, "
-        "not medium, no matter how tedious the arithmetic is. Ask about exactly ONE quantity per "
+        "not medium, no matter how tedious the arithmetic is. "
+        "\n\nCOMMON MISTAKE THAT STILL COUNTS AS EASY, NOT MEDIUM: describing a source network with "
+        "only ONE resistor between the source and the load — e.g. \"a 20V source and a single 10-ohm "
+        "resistor feed a 5-ohm load resistor.\" This technically avoids stating R_TH directly, but "
+        "R_TH here is just that single resistor's value — there is nothing to COMBINE, so 'deriving' "
+        "it is zero actual work. This is EASY wearing a medium label, and must be avoided. A genuinely "
+        "medium question needs AT LEAST TWO resistors in the source network (besides the load) that "
+        "must be combined — in series, in parallel, or a mix — to find R_TH. Example of a real medium "
+        "question: \"A 20V source connects to R1=10 ohm and R2=15 ohm in parallel, which then feeds a "
+        "5-ohm load resistor. Find the load current.\" (R_TH here requires an actual parallel-"
+        "combination step, not just reading off one number.) "
+        "\n\nAsk about exactly ONE quantity per "
         "question — never blend two different quantities together in one question's wording (e.g. "
         "do not ask for 'the Thevenin voltage across the load resistor'; that conflates V_TH, which "
         "is a property of the source network alone, with V_L, the actual loaded voltage — these are "
@@ -173,12 +179,14 @@ DIFFICULTY_GUIDE = {
     ),
     "hard": (
         "Same requirement as medium (derive intermediate quantities from raw circuit component "
-        "values, never hand them over directly), PLUS at least one of: 3+ chained calculation "
+        "values, never hand them over directly, AND the source network must have 2+ resistors to "
+        "actually combine — not just one), PLUS at least one of: 3+ chained calculation "
         "steps, a non-obvious application not directly demonstrated in the source content, an edge "
         "case, or synthesizing multiple concepts/theorems together (e.g. combining Thevenin AND "
         "Norton analysis, or maximum power transfer alongside a Thevenin equivalent)."
     ),
 }
+
 
 DIFFICULTY_REMINDER = """
 REMINDER before you finalize: for medium/hard numerical questions, do NOT directly state V_TH,
@@ -186,7 +194,11 @@ R_TH, V_OC, or I_SC as given values unless that's the exact unknown being solved
 the underlying circuit's actual source/resistor values instead, so the student must derive these
 themselves as an intermediate step. Check each question: if it hands over V_TH/R_TH directly and
 only needs one more formula to finish, that question is actually EASY — revise it before
-finalizing.
+finalizing. ALSO check that the source network has AT LEAST TWO resistors that must be combined
+(series, parallel, or mixed) to find R_TH — a source network with only ONE resistor makes
+"deriving" R_TH trivial (nothing to combine), which is EASY wearing a medium/hard label even
+though it technically avoided stating R_TH directly. Add a second source-network resistor to any
+question that has only one before finalizing.
 """
 
 FORMULA_FORMATTING_NOTE = """
@@ -209,6 +221,14 @@ diagram_spec for that question — do not skip it just because the field is opti
 - Every number and label inside diagram_spec MUST exactly match the numbers stated in that
   question's own text.
 
+A CIRCUIT spec's "groups" is a series chain from terminal A to terminal B. Each entry is a group:
+- A single component (source or resistor): {"connection": "series", "components": [ {...} ]}
+- Two or more resistors that are in PARALLEL WITH EACH OTHER (not with the rest of the circuit):
+  {"connection": "parallel", "components": [ {...}, {...}, ... ]} — this one group's combined
+  effect then sits in series with whatever groups come before/after it.
+Only use "parallel" when the circuit you're describing genuinely has resistors wired in parallel —
+do not invent a parallel bank for a question that's actually a plain series circuit.
+
 For SYMBOLIC or purely conceptual/derivation questions with no actual numbers (e.g. "derive R_TH
 in terms of V_OC and I_SC", or describing a graphical METHOD without concrete data points), leave
 diagram_spec UNSET (null). Never invent placeholder numeric values just to force a diagram, and
@@ -221,6 +241,17 @@ REMINDER before you finalize: diagrams were explicitly requested for this quiz. 
 question one more time — if it states concrete numeric values (e.g. "10 ohms", "15V"), that
 question's diagram_spec MUST be populated with those exact values. Leaving diagram_spec empty on a
 numeric question is a mistake, not a valid choice, even though the field is technically optional.
+If a question describes resistors wired in parallel, that MUST be represented as a
+connection="parallel" group in diagram_spec, not flattened into separate series groups.
+"""
+
+PARALLEL_TOPOLOGY_REMINDER = """
+REMINDER: resistors in PARALLEL combine as 1/R_eq = 1/R1 + 1/R2 + ... (or R1*R2/(R1+R2) for
+exactly two) — NEVER as simple addition (R1 + R2 + ...), which only applies to resistors in
+SERIES. This applies to every question type here — theory, numerical, derivation, and
+descriptive — not only diagram-based ones. Before finalizing, re-check every question that
+involves or describes parallel resistors: if its stated relationship, reasoning, or numeric answer
+used series addition instead of the reciprocal-sum rule, that's a mistake — fix it now.
 """
 
 FORMAT_REMINDER_TEMPLATE = """
@@ -289,7 +320,7 @@ Difficulty: {difficulty}
 {difficulty_note}
 
 {count_instruction}
-{diagram_reminder}{difficulty_reminder}{format_reminder}
+{diagram_reminder}{difficulty_reminder}{PARALLEL_TOPOLOGY_REMINDER}{format_reminder}
 Retrieved content:
 {content_block}
 """
@@ -338,20 +369,78 @@ def shuffle_mcq_options(question_dict):
     question_dict["correct_answer_index"] = order.index(idx)
 
 
-def verify_series_circuit_answer(question_dict):
+_ASK_TRIGGER_RE = re.compile(
+    r"\b(find|determine|calculate|compute|what\s+is|what's)\b", re.IGNORECASE
+)
+
+
+def _extract_ask_segment(question_text):
+    """Return just the clause of the question that specifies what's being
+    ASKED for (e.g. "...find the load current?"), not the full question
+    text — which typically also states GIVEN values using the same kind of
+    phrasing (e.g. "...the load current is 2A, find the load voltage
+    across R_L."). Keyword-matching the full text can't distinguish "load
+    current" appearing as a given from "load voltage" appearing as the
+    actual ask; scoping the match to this trailing clause fixes that.
+
+    Takes the LAST ask-trigger word in the text — questions state their
+    givens first and their ask last far more often than the reverse, so
+    biasing toward the final trigger match is the safer default. Falls
+    back to the full text if no trigger word is found at all, so behavior
+    degrades to the old (less precise) approach on unusually-phrased
+    questions rather than losing the check entirely.
+    """
+    if not question_text:
+        return question_text
+    matches = list(_ASK_TRIGGER_RE.finditer(question_text))
+    if not matches:
+        return question_text
+    return question_text[matches[-1].start():]
+
+
+def _resolve_group_resistance(group):
+    """Equivalent resistance of one resistor group: a single resistor's
+    value, or the parallel combination of a parallel bank (reciprocal-sum
+    rule — this is the actual fix for the "defaults to series-sum on
+    parallel topologies" bug, applied to the independently-computed check,
+    not just the prompt asking the model to do it right). Returns None if
+    any value can't be parsed as a number."""
+    values = [_parse_numeric(c.get("value")) for c in group.get("components", [])
+              if c.get("type") == "resistor"]
+    if not values or any(v is None for v in values):
+        return None
+    if group.get("connection") == "parallel" and len(values) > 1:
+        if any(v == 0 for v in values):
+            return 0.0
+        return 1.0 / sum(1.0 / v for v in values)
+    return sum(values)
+
+
+def verify_circuit_answer(question_dict):
     """LLM arithmetic on multi-step circuit problems is unreliable even once
     the model's reasoning is self-consistent (self-consistency isn't the
-    same as correctness). Since diagram_spec only ever describes a simple
-    series chain (that's all render_circuit_svg supports), we already have
-    everything needed to compute the real answer ourselves in plain Python
-    and cross-check the model's chosen option against it.
+    same as correctness). diagram_spec's "groups" fully describe the
+    topology (a series chain where any one group may be a parallel
+    resistor bank — see ComponentGroup), so we already have everything
+    needed to compute the real answer ourselves in plain Python and
+    cross-check the model's chosen option against it.
 
-    Checks against WHICHEVER quantity the question text actually asks about
+    Checks against WHICHEVER quantity the question is actually ASKING about
     (Thevenin resistance, Thevenin voltage, load current, or load voltage) —
     not just load voltage/current — since many of these questions ask for
-    R_TH or V_TH directly. Only handles the topology this project actually
-    generates: one voltage source, one or more series resistors, with the
-    LAST resistor treated as the load.
+    R_TH or V_TH directly. Handles one voltage source plus a series chain
+    of resistor groups, where any ONE group may itself be a parallel bank,
+    and the LAST resistor group is treated as the load — this covers plain
+    series circuits (every group has exactly one resistor) as well as the
+    single-parallel-bank case, but not multiple separate parallel banks or
+    other more complex networks.
+
+    Only keyword-matches against the question's ASK clause (see
+    _extract_ask_segment), not the full question text. Matching the full
+    text used to conflate a GIVEN value's phrasing (e.g. "...the load
+    current is 2A...") with an actual ask for that same quantity elsewhere
+    — verifying, and sometimes "auto-correcting", against the wrong target
+    entirely. Scoping to the ask clause fixes that.
 
     Auto-corrects correct_answer_index if a different option matches the
     real computed value (and updates the explanation to match, so the answer
@@ -365,32 +454,48 @@ def verify_series_circuit_answer(question_dict):
     if not diagram_spec or diagram_spec.get("kind") != "circuit" or not options:
         return False
 
-    components = diagram_spec.get("components", [])
-    voltage_sources = [c for c in components if c.get("type") == "voltage_source"]
-    resistors = [c for c in components if c.get("type") == "resistor"]
-    if len(voltage_sources) != 1 or len(resistors) < 1:
-        return False  # only the single-source series case is handled
+    groups = diagram_spec.get("groups")
+    if not groups:
+        groups = [{"connection": "series", "components": [c]}
+                   for c in diagram_spec.get("components", [])]
 
-    v_values = [_parse_numeric(v.get("value")) for v in voltage_sources]
-    r_values = [_parse_numeric(r.get("value")) for r in resistors]
-    if any(v is None for v in v_values) or any(r is None for r in r_values):
+    source_idx = None
+    for i, g in enumerate(groups):
+        if any(c.get("type") in ("voltage_source", "current_source")
+               for c in g.get("components", [])):
+            source_idx = i
+            break
+    if source_idx is None:
         return False
 
-    v_source = v_values[0]
-    r_load = r_values[-1]
-    r_th = sum(r_values[:-1])
+    source_group = groups[source_idx]
+    source_components = source_group.get("components", [])
+    if len(source_components) != 1 or source_components[0].get("type") != "voltage_source":
+        return False  
+
+    v_source = _parse_numeric(source_components[0].get("value"))
+    if v_source is None:
+        return False
+
+    resistor_groups = [g for i, g in enumerate(groups) if i != source_idx]
+    if not resistor_groups:
+        return False  # only the single-source-plus-resistors case is handled
+
+    group_resistances = [_resolve_group_resistance(g) for g in resistor_groups]
+    if any(r is None for r in group_resistances):
+        return False
+
+    r_load = group_resistances[-1]
+    r_th = sum(group_resistances[:-1])
     if r_load + r_th <= 0:
         return False
 
     v_load = v_source * r_load / (r_load + r_th)
     i_load = v_source / (r_load + r_th)
-    # For this pure series topology, V_TH as seen from the load terminals
-    # equals the source voltage exactly — removing the load breaks the only
-    # loop, so no current flows and there's no drop across the other
-    # resistors before that point.
     v_th = v_source
 
-    q_lower = (question_dict.get("question") or "").lower()
+    ask_segment = _extract_ask_segment(question_dict.get("question") or "")
+    q_lower = ask_segment.lower()
     candidates = []
     if "thevenin resistance" in q_lower or "r_th" in q_lower:
         candidates.append(("Thevenin resistance", r_th))
@@ -401,8 +506,6 @@ def verify_series_circuit_answer(question_dict):
     if "load voltage" in q_lower or "voltage across the load" in q_lower or "voltage across" in q_lower:
         candidates.append(("load voltage", v_load))
     if not candidates:
-        # question text didn't clearly say which quantity — try the two most
-        # common asks as a fallback
         candidates = [("load voltage", v_load), ("load current", i_load)]
 
     option_values = [_parse_numeric(opt) for opt in options]
@@ -437,8 +540,6 @@ def verify_series_circuit_answer(question_dict):
               f"the circuit's own values: {matched_label} = {matched_value:.4g}) — "
               f"\"{question_preview}...\"")
         question_dict["correct_answer_index"] = match_idx
-        # Keep the explanation consistent with the corrected answer instead
-        # of leaving it pointing at the model's original (wrong) value.
         old_explanation = (question_dict.get("explanation") or "").rstrip()
         question_dict["explanation"] = (
             f"{old_explanation} [Corrected: recalculating from the circuit's own stated "
@@ -447,6 +548,64 @@ def verify_series_circuit_answer(question_dict):
         ).strip()
 
     return True
+
+
+def _count_source_network_resistors(diagram_spec):
+    """Number of individual resistors in the SOURCE network — every
+    resistor group except the last one, which verify_circuit_answer (and
+    this project's question-generation convention) treats as the load.
+    0 or 1 means R_TH can be read off directly with no combination step —
+    see check_question_difficulty()'s docstring for why that matters."""
+    groups = diagram_spec.get("groups")
+    if not groups:
+        groups = [{"connection": "series", "components": [c]}
+                   for c in diagram_spec.get("components", [])]
+
+    resistor_groups = [
+        g for g in groups
+        if g.get("components") and all(c.get("type") == "resistor" for c in g["components"])
+    ]
+    if len(resistor_groups) <= 1:
+        return sum(len(g.get("components", [])) for g in resistor_groups)
+
+    source_network_groups = resistor_groups[:-1]  # exclude the load (last group)
+    return sum(len(g.get("components", [])) for g in source_network_groups)
+
+
+def check_question_difficulty(question_dict, difficulty):
+    """Best-effort AUDIT, not an auto-fix — flags (via print, same pattern
+    as verify_circuit_answer's unverifiable-question notes) the known
+    "medium drifts toward single-formula plug-ins" failure mode: a question
+    can technically satisfy DIFFICULTY_GUIDE's "don't hand over R_TH
+    directly" rule while still being trivial, if the source network is
+    just ONE resistor — there's nothing to combine, so "deriving" R_TH is
+    really just reading it off, which is functionally EASY regardless of
+    the stated difficulty label.
+
+    Only meaningful for numerical questions that have a circuit
+    diagram_spec — there's no structured data to check complexity against
+    otherwise, and a text-only heuristic (e.g. counting "R1"/"R2" mentions)
+    would be unreliable enough to create false confidence, which is worse
+    than not checking at all. This is a visibility tool for you to spot-
+    check flagged questions, not a guarantee every weak question gets
+    caught — e.g. it can't detect a two-resistor source network that's
+    still trivial because both resistors happen to be in series (formally
+    fine, per the difficulty rule, since it IS a real combination step).
+    """
+    if difficulty not in ("medium", "hard"):
+        return
+
+    diagram_spec = question_dict.get("diagram_spec")
+    if not diagram_spec or diagram_spec.get("kind") != "circuit":
+        return
+
+    source_resistor_count = _count_source_network_resistors(diagram_spec)
+    if source_resistor_count <= 1:
+        preview = (question_dict.get("question") or "")[:80]
+        print(f"Note: this '{difficulty}' question's source network has only "
+              f"{source_resistor_count} resistor(s) — there's nothing to combine, so deriving "
+              f"R_TH here is trivial and this likely reads as EASY despite its label. Consider "
+              f"regenerating with a source network that has 2+ resistors — \"{preview}...\"")
 
 
 def attach_generated_diagrams(questions, output_dir="generated_diagrams"):
@@ -462,7 +621,7 @@ def attach_generated_diagrams(questions, output_dir="generated_diagrams"):
 
         kind = spec.get("kind")
         try:
-            if kind == "circuit" and spec.get("components"):
+            if kind == "circuit" and (spec.get("groups") or spec.get("components")):
                 path = unique_diagram_path(output_dir=output_dir)
                 render_circuit_svg(spec, path)
                 q["diagram"] = {"caption": circuit_caption(spec), "image_file": path}
@@ -502,42 +661,58 @@ def get_topic_content(topic, lecture_id_filter=None, needs_diagram=False, persis
     return results
 
 
-# gpt-oss-120b is a reasoning model: unlike llama-3.3-70b-versatile, its
-# internal reasoning tokens are included in the response by default and
-# count against max_tokens. reasoning_effort is capped at "low" since the
-# schema's own "reasoning" field already makes the model work through each
-# answer step-by-step as part of the structured output — full internal
-# reasoning depth on top of that mostly just burns tokens without adding
-# accuracy here.
-#
-# max_tokens is NOT a fixed constant here — see _build_quiz_llm() below.
-# This project's Groq account is on the on_demand/free tier, which caps
-# PROMPT tokens + max_tokens COMBINED at a hard 8000 tokens per request.
-# A fixed max_tokens value can't safely serve every request: a plain-text
-# topic prompt runs ~2200 input tokens, but a diagram-enabled or broad-topic
-# prompt can run ~3600+ — confirmed by hitting Groq's 413 rate_limit_exceeded
-# at multiple different fixed max_tokens values as prompt size varied.
-# max_tokens is now computed per-request instead, based on the actual
-# prompt's estimated size, so it adapts rather than needing to be re-tuned
-# by hand every time a bigger request comes through.
-_QUIZ_TPM_BUDGET = 6500  # stay under the account's real 8000 cap with margin
+_QUIZ_TPM_BUDGET = 6500  
 _QUIZ_MAX_TOKENS_FLOOR = 2000
 _QUIZ_MAX_TOKENS_CEILING = 6000
 
 
-def _estimate_tokens(text):
-    """Rough chars-per-token estimate — NOT a substitute for this model's
-    real tokenizer, just good enough to stay under a hard account-level cap.
+_TOKENIZER_MODEL_NAME = "openai/gpt-oss-120b"
+_cached_tokenizer = None
+_tokenizer_load_attempted = False
 
-    Uses 3 chars/token rather than the more typical ~4, because this
-    project's retrieved content (circuit/electronics text: Ω, subscripts,
-    repeated technical terms, LaTeX-ish notation) tokenizes less
-    efficiently than average English prose. A real request that used
-    len//4 still exceeded Groq's 8000 TPM cap despite the safety budget
-    below it — len//3 combined with a lower _QUIZ_TPM_BUDGET (6500, down
-    from 7500) is a more conservative correction, not a precise fix; if
-    this project ever adds a real tokenizer (e.g. tiktoken) this whole
-    function should be replaced rather than tuned further by hand."""
+
+def _get_tokenizer():
+    """Lazily loads and caches the real tokenizer for the model actually
+    being called (gpt-oss-120b, served via Groq). Only the tokenizer files
+    are downloaded from Hugging Face (a few MB — NOT the 120B model weights),
+    so this is cheap on the 8GB-RAM machine and on a slow college network.
+
+    Loaded once per process and reused (module-level cache), not per-call —
+    re-downloading/re-initializing per request would defeat the point of
+    replacing a cheap heuristic with something more accurate. If the
+    download fails (offline, network restrictions, HF rate limit), this
+    caches that failure too (_tokenizer_load_attempted) so we don't retry
+    a slow failing lookup on every single quiz request — we just fall back
+    to the old heuristic silently after the first warning.
+    """
+    global _cached_tokenizer, _tokenizer_load_attempted
+    if _tokenizer_load_attempted:
+        return _cached_tokenizer
+
+    _tokenizer_load_attempted = True
+    try:
+        from transformers import AutoTokenizer
+        _cached_tokenizer = AutoTokenizer.from_pretrained(_TOKENIZER_MODEL_NAME)
+    except Exception as e:
+        print(f"Warning: could not load the real '{_TOKENIZER_MODEL_NAME}' tokenizer "
+              f"({e}) — falling back to the chars/3 heuristic for token estimation "
+              f"this session. Re-run once you have a working connection to Hugging "
+              f"Face to get accurate counts again.")
+        _cached_tokenizer = None
+
+    return _cached_tokenizer
+
+
+def _estimate_tokens(text):
+    """Real token count via the actual model's tokenizer when available,
+    since Groq's 8000 TPM cap is enforced against real tokens, not an
+    approximation. Falls back to the old chars/3 heuristic (deliberately
+    conservative — this project's electronics text with Ω, subscripts, and
+    LaTeX-ish notation tokenizes less efficiently than average English
+    prose) only if the tokenizer couldn't be loaded."""
+    tokenizer = _get_tokenizer()
+    if tokenizer is not None:
+        return len(tokenizer.encode(text))
     return max(1, len(text) // 3)
 
 
@@ -562,7 +737,7 @@ def _build_quiz_llm(prompt_text):
         model="openai/gpt-oss-120b",
         max_tokens=max_tok,
         reasoning_effort="low",
-    ).with_structured_output(QuestionSet)
+    ).with_structured_output(QuestionSet, method="json_schema")
 
 
 NO_BACKSLASH_REINFORCEMENT = (
@@ -626,10 +801,6 @@ def generate_question_set(request, persist_directory=PERSIST_DIR):
 
     prompt_variants = [base_prompt, base_prompt + NO_BACKSLASH_REINFORCEMENT]
     if needs_diagram:
-        # Diagrams add real failure risk beyond plain JSON formatting (e.g.
-        # symbolic/non-numeric content that can't be cleanly diagrammed), so
-        # give this case one more fallback: disable diagrams entirely rather
-        # than losing the whole quiz over a diagram-specific error.
         prompt_variants.append(base_prompt + NO_BACKSLASH_REINFORCEMENT + DIAGRAM_DISABLE_OVERRIDE)
 
     question_set, attempt_index = _invoke_with_retries(prompt_variants)
@@ -645,19 +816,17 @@ def generate_question_set(request, persist_directory=PERSIST_DIR):
     for q in questions:
         q.pop("reasoning", None)
 
-    # Randomize option order — see shuffle_mcq_options() docstring. Runs
-    # before verification below so the "corrected option X" messages there
-    # refer to the same option positions the user will actually see.
     if request["format"] == "mcq":
         for q in questions:
             shuffle_mcq_options(q)
 
-    # Independent arithmetic check for simple series-circuit numerical MCQs.
-    # Must run BEFORE attach_generated_diagrams, which consumes/replaces
-    # diagram_spec's raw component values with just a rendered image path.
     if request["format"] == "mcq" and request.get("content_type") == "numerical":
         for q in questions:
-            verify_series_circuit_answer(q)
+            verify_circuit_answer(q)
+
+    if request.get("content_type") == "numerical":
+        for q in questions:
+            check_question_difficulty(q, request.get("difficulty", "medium"))
 
     if needs_diagram:
         diagram_count = attach_generated_diagrams(questions)
@@ -718,12 +887,6 @@ def format_questions_as_markdown(result):
         elif q.get("expected_answer_summary"):
             answer_lines.append(f"**Q{i}.** {q['expected_answer_summary']}")
         else:
-            # The model didn't populate the fields expected for the requested
-            # format (an occasional LLM inconsistency even with a structured
-            # schema, since nothing enforces "mcq requires options" at the
-            # schema level — all Question fields are Optional so the same
-            # model can serve all four formats). Surface whatever answer
-            # content IS available instead of crashing the whole export.
             fallback_text = (
                 q.get("explanation") or q.get("expected_answer_summary")
                 or q.get("correct_answer") or "(No answer content was generated for this question.)"
@@ -736,8 +899,6 @@ def format_questions_as_markdown(result):
     lines.extend(answer_lines)
     return "\n".join(lines)
 
-
-# --- natural language request parsing ---
 
 PARSE_REQUEST_SYSTEM = """Extract quiz generation parameters from the student's natural-language
 request.
@@ -767,14 +928,12 @@ parse_request_prompt = ChatPromptTemplate.from_messages([
     ("human", "{user_text}"),
 ])
 
-# Small classification-style task (extracting a QuizRequest from free text) —
-# low reasoning effort is plenty and keeps this call fast.
 _parse_llm = ChatGroq(
     model="openai/gpt-oss-120b",
     temperature=0,
     reasoning_effort="low",
 )
-parse_request_chain = parse_request_prompt | _parse_llm.with_structured_output(QuizRequest)
+parse_request_chain = parse_request_prompt | _parse_llm.with_structured_output(QuizRequest, method="json_schema")
 
 
 def parse_natural_language_request(user_text):
@@ -809,9 +968,6 @@ def build_request_interactively():
 
 
 if __name__ == "__main__":
-    # Two ways to run:
-    #   python generate_quiz.py                  -> interactive prompts
-    #   python generate_quiz.py my_request.json   -> load from a saved JSON file
     if len(sys.argv) > 1:
         with open(sys.argv[1], "r", encoding="utf-8") as f:
             request = json.load(f)

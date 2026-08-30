@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import { generateQuiz, listLectures } from "../api.js";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { generateQuiz } from "../api.js";
 import TraceDivider from "../components/TraceDivider.jsx";
 import MathMarkdown from "../components/MathMarkdown.jsx";
 import { downloadText, slugForFilename } from "../utils/download.js";
 
 export default function QuizPage() {
-  const [lectures, setLectures] = useState([]);
+  const { classId } = useParams();
 
   const [topic, setTopic] = useState("");
   const [format, setFormat] = useState("mcq");
@@ -13,7 +14,6 @@ export default function QuizPage() {
   const [difficulty, setDifficulty] = useState("medium");
   const [count, setCount] = useState("5");
   const [needsDiagram, setNeedsDiagram] = useState(false);
-  const [lectureId, setLectureId] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -22,14 +22,6 @@ export default function QuizPage() {
   // answers: { [questionIndex]: selectedOptionIndex }
   const [answers, setAnswers] = useState({});
   const [checked, setChecked] = useState(false);
-
-  useEffect(() => {
-    listLectures()
-      .then(setLectures)
-      .catch(() => {
-        /* non-fatal — the lecture filter is optional */
-      });
-  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -47,13 +39,13 @@ export default function QuizPage() {
 
     try {
       const result = await generateQuiz({
+        classId,
         topic: topic.trim(),
         format,
         content_type: contentType,
         difficulty,
         count: countValue,
         needs_diagram: needsDiagram,
-        lecture_id: lectureId || null,
       });
       setQuiz(result);
     } catch (e) {
@@ -86,7 +78,7 @@ export default function QuizPage() {
     <div>
       <span className="eyebrow">Self-test</span>
       <h1>Generate a quiz</h1>
-      <p className="muted">Questions are generated from and grounded in your indexed lectures.</p>
+      <p className="muted">Questions are generated from and grounded in this class's indexed lectures.</p>
 
       <TraceDivider />
 
@@ -141,20 +133,6 @@ export default function QuizPage() {
           <label htmlFor="count">Number of questions (or "all")</label>
           <input id="count" type="text" value={count} onChange={(e) => setCount(e.target.value)} />
         </div>
-
-        {lectures.length > 0 && (
-          <div className="field">
-            <label htmlFor="lecture">Restrict to lecture (optional)</label>
-            <select id="lecture" value={lectureId} onChange={(e) => setLectureId(e.target.value)}>
-              <option value="">All indexed lectures</option>
-              {lectures.map((l) => (
-                <option key={l.lecture_id} value={l.lecture_id}>
-                  {l.title}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
 
         <div className="field field-checkbox">
           <input
@@ -229,7 +207,7 @@ export default function QuizPage() {
                     </p>
                   )}
 
-                  {(checked || true) && q.explanation && (
+                  {q.explanation && (
                     <div className={"quiz-explanation" + (checked ? "" : " pending")}>
                       <MathMarkdown>{q.explanation}</MathMarkdown>
                     </div>

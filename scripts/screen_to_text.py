@@ -44,11 +44,8 @@ def extract_screen_content(video_path, sample_interval_sec=5, percent_trigger=1.
                 rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 pil_img = Image.fromarray(rgb_frame)
 
-                # OCR text
                 ocr_text = pytesseract.image_to_string(pil_img).strip()
 
-                # Save the actual frame as an image file (always, even if OCR is empty —
-                # a diagram-only slide with no text is still worth keeping)
                 img_filename = f"frame_{round(timestamp,1)}s.png"
                 img_path = os.path.join(images_dir, img_filename)
                 pil_img.save(img_path)

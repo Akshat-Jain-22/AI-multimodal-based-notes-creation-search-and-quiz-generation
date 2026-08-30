@@ -1,14 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { processLecture, getJobStatus } from "../api.js";
 import TraceDivider from "../components/TraceDivider.jsx";
 import StatusBadge from "../components/StatusBadge.jsx";
 
 const POLL_INTERVAL_MS = 4000;
+const MODEL_SIZES = ["tiny", "base", "small", "medium", "large-v3"];
 
 export default function UploadPage() {
+  const { classId } = useParams();
+
   const [title, setTitle] = useState("");
   const [forceLanguage, setForceLanguage] = useState("");
+  const [modelSize, setModelSize] = useState("small");
   const [audio, setAudio] = useState(null);
   const [video, setVideo] = useState(null);
   const [pptx, setPptx] = useState(null);
@@ -48,7 +52,7 @@ export default function UploadPage() {
       return;
     }
     if (!audio && !video) {
-      setSubmitError("Provide at least an audio or a video file — same as the pipeline itself requires.");
+      setSubmitError("Provide at least an audio or a video file same as the pipeline itself requires.");
       return;
     }
 
@@ -56,10 +60,12 @@ export default function UploadPage() {
     try {
       const { job_id } = await processLecture({
         title: title.trim(),
+        classId,
         audio,
         video,
         pptx,
         forceLanguage: forceLanguage.trim() || undefined,
+        modelSize,
       });
       setJob({ job_id, status: "queued" });
       startPolling(job_id);
@@ -76,6 +82,7 @@ export default function UploadPage() {
     setSubmitError(null);
     setTitle("");
     setForceLanguage("");
+    setModelSize("small");
     setAudio(null);
     setVideo(null);
     setPptx(null);
@@ -86,8 +93,8 @@ export default function UploadPage() {
       <span className="eyebrow">Ingest</span>
       <h1>Process a lecture</h1>
       <p className="muted">
-        Upload audio and/or a screen recording. Transcription and note generation run in
-        the background — this page polls for progress rather than blocking.
+        Upload audio and/or a screen recording for this class. Transcription and note generation
+        run in the background this page polls for progress rather than blocking.
       </p>
 
       <TraceDivider />
@@ -139,6 +146,21 @@ export default function UploadPage() {
           </div>
 
           <div className="field">
+            <label htmlFor="modelSize">Whisper model size</label>
+            <select id="modelSize" value={modelSize} onChange={(e) => setModelSize(e.target.value)}>
+              {MODEL_SIZES.map((m) => (
+                <option key={m} value={m}>
+                  {m}
+                </option>
+              ))}
+            </select>
+            <div className="field-hint">
+              Smaller runs much faster with some accuracy cost "tiny" or "base" is worth trying
+              first on limited RAM.
+            </div>
+          </div>
+
+          <div className="field">
             <label htmlFor="lang">Force language (optional)</label>
             <input
               id="lang"
@@ -168,8 +190,8 @@ export default function UploadPage() {
           {job.status === "queued" && <p className="muted">Waiting to start…</p>}
           {job.status === "running" && (
             <p className="muted">
-              Transcribing and generating notes — a real lecture can take several minutes.
-              This page will update automatically.
+              Transcribing and generating notes a real lecture can take several minutes. This
+              page will update automatically.
             </p>
           )}
           {job.status === "error" && <div className="error-box">{job.error}</div>}
@@ -178,7 +200,7 @@ export default function UploadPage() {
               <p className="muted">
                 Indexed as <code>{job.result.lecture_id}</code>
               </p>
-              <Link className="btn" to={`/lectures/${job.result.lecture_id}`}>
+              <Link className="btn" to={`/classes/${classId}/lectures/${job.result.lecture_id}`}>
                 View notes
               </Link>
             </div>

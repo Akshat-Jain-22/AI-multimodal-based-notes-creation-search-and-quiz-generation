@@ -51,7 +51,7 @@ Transcript lines:
 
     translated_segments = []
     for i, seg in enumerate(segments):
-        translated_text = translated_lines.get(i + 1, seg["text"])  # fallback to original if parsing missed a line
+        translated_text = translated_lines.get(i + 1, seg["text"]) 
         translated_segments.append({
             "start": seg["start"],
             "end": seg["end"],

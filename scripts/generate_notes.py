@@ -79,8 +79,6 @@ def format_diagram_images_markdown(diagram_images):
         ocr_hint = img.get("ocr_text", "").strip()
 
         if ocr_hint:
-            # Use a short snippet of the OCR text as a descriptive hint,
-            # falling back to the timestamp if it's empty/unhelpful
             snippet = " ".join(ocr_hint.split())[:60]
             caption = f"{snippet} (captured at {img['timestamp']:.1f}s)"
         else:

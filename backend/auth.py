@@ -36,9 +36,7 @@ SESSION_COOKIE_NAME = "session_token"
 COOKIE_MAX_AGE_SECONDS = db.SESSION_LIFETIME_HOURS * 3600
 
 
-# ---------------------------------------------------------------------------
 # Request/response models
-# ---------------------------------------------------------------------------
 
 class RegisterRequest(BaseModel):
     username: str
@@ -59,9 +57,7 @@ class UserResponse(BaseModel):
     display_name: str
 
 
-# ---------------------------------------------------------------------------
 # Dependencies — use these in api.py to protect endpoints
-# ---------------------------------------------------------------------------
 
 def get_current_user(session_token: str = Cookie(default=None, alias=SESSION_COOKIE_NAME)) -> dict:
     """FastAPI dependency: resolves the logged-in user from the session
@@ -92,9 +88,7 @@ def require_role(role: str):
     return _check
 
 
-# ---------------------------------------------------------------------------
 # Endpoints
-# ---------------------------------------------------------------------------
 
 @router.post("/auth/register", response_model=UserResponse)
 def register(request: RegisterRequest, response: Response):
@@ -113,7 +107,6 @@ def register(request: RegisterRequest, response: Response):
             display_name=request.display_name,
         )
     except Exception as e:
-        # sqlite3.IntegrityError on duplicate username surfaces here
         if "UNIQUE" in str(e):
             raise HTTPException(status_code=409, detail="Username already taken.")
         raise HTTPException(status_code=500, detail=f"Registration failed: {e}")

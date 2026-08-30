@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { search } from "../api.js";
 import TraceDivider from "../components/TraceDivider.jsx";
 import MathMarkdown from "../components/MathMarkdown.jsx";
 import { downloadText, slugForFilename } from "../utils/download.js";
 
 export default function SearchPage() {
+  const { classId } = useParams();
   const [query, setQuery] = useState("");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -16,7 +18,7 @@ export default function SearchPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await search(query.trim());
+      const res = await search({ query: query.trim(), classId });
       setResult(res);
     } catch (e) {
       setError(e.message);
@@ -52,10 +54,10 @@ export default function SearchPage() {
   return (
     <div>
       <span className="eyebrow">Grounded Q&amp;A</span>
-      <h1>Search your lectures</h1>
+      <h1>Search this class's lectures</h1>
       <p className="muted">
-        Answers are grounded only in indexed lecture content — if nothing relevant is
-        indexed, it says so rather than guessing.
+        Answers are grounded only in lectures indexed for this class if nothing relevant is
+        indexed here, it says so rather than guessing.
       </p>
 
       <TraceDivider />

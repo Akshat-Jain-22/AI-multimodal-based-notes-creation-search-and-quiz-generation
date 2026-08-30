@@ -34,9 +34,7 @@ SESSION_LIFETIME_HOURS = 24 * 7  # 1 week
 PBKDF2_ITERATIONS = 260_000
 
 
-# ---------------------------------------------------------------------------
 # Connection handling
-# ---------------------------------------------------------------------------
 
 @contextmanager
 def get_connection(db_path=DB_PATH):
@@ -110,9 +108,7 @@ def _now():
     return datetime.now(timezone.utc).isoformat()
 
 
-# ---------------------------------------------------------------------------
 # Password hashing
-# ---------------------------------------------------------------------------
 
 def _hash_password(password, salt=None):
     if salt is None:
@@ -128,9 +124,7 @@ def _verify_password(password, password_hash, salt):
     return secrets.compare_digest(check, password_hash)
 
 
-# ---------------------------------------------------------------------------
 # Users
-# ---------------------------------------------------------------------------
 
 def create_user(username, password, role, display_name=None, db_path=DB_PATH):
     """role: 'teacher' | 'student'. Returns the new user's id.
@@ -169,9 +163,7 @@ def authenticate_user(username, password, db_path=DB_PATH):
     return user
 
 
-# ---------------------------------------------------------------------------
 # Sessions
-# ---------------------------------------------------------------------------
 
 def create_session(user_id, db_path=DB_PATH):
     token = secrets.token_urlsafe(32)
@@ -214,9 +206,7 @@ def delete_session(token, db_path=DB_PATH):
         conn.execute("DELETE FROM sessions WHERE token = ?", (token,))
 
 
-# ---------------------------------------------------------------------------
 # Classes
-# ---------------------------------------------------------------------------
 
 def _generate_join_code(length=6):
     alphabet = string.ascii_uppercase + string.digits
@@ -314,9 +304,7 @@ def get_classes_for_user(user, db_path=DB_PATH):
     return get_classes_for_student(user["id"], db_path)
 
 
-# ---------------------------------------------------------------------------
 # Access control
-# ---------------------------------------------------------------------------
 
 def user_has_access_to_class(user_id, class_id, db_path=DB_PATH):
     """True if user_id is the teacher who owns class_id, or a student
@@ -344,9 +332,7 @@ def user_has_access_to_lecture(user_id, lecture_id, db_path=DB_PATH):
         return user_has_access_to_class(user_id, row["class_id"], db_path)
 
 
-# ---------------------------------------------------------------------------
 # Lectures
-# ---------------------------------------------------------------------------
 
 def add_lecture(lecture_id, class_id, title, notes_path, work_dir, uploaded_by, db_path=DB_PATH):
     """Registers a pipeline run's output against a class. uploaded_by must
@@ -391,6 +377,33 @@ def get_lecture_ids_for_user(user_id, db_path=DB_PATH):
             (user_id, user_id),
         ).fetchall()
         return [r["lecture_id"] for r in rows]
+
+
+def get_enrolled_students(class_id, db_path=DB_PATH):
+    with get_connection(db_path) as conn:
+        rows = conn.execute(
+            "SELECT u.id, u.username, u.display_name, e.joined_at FROM users u "
+            "JOIN enrollments e ON e.student_id = u.id "
+            "WHERE e.class_id = ? ORDER BY e.joined_at ASC",
+            (class_id,),
+        ).fetchall()
+        return [dict(r) for r in rows]
+
+
+def remove_student_from_class(student_id, class_id, db_path=DB_PATH):
+    """Returns True if an enrollment was actually removed, False if the
+    student wasn't enrolled in the first place."""
+    with get_connection(db_path) as conn:
+        cur = conn.execute(
+            "DELETE FROM enrollments WHERE student_id = ? AND class_id = ?",
+            (student_id, class_id),
+        )
+        return cur.rowcount > 0
+
+
+def delete_lecture(lecture_id, db_path=DB_PATH):
+    with get_connection(db_path) as conn:
+        conn.execute("DELETE FROM lectures WHERE lecture_id = ?", (lecture_id,))
 
 
 if __name__ == "__main__":

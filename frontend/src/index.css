@@ -115,7 +115,20 @@ textarea {
   border: 1px solid var(--hairline);
 }
 
-/* --- Signature element: circuit-trace divider --- */
+.nav-sep {
+  color: var(--hairline);
+  font-family: var(--font-mono);
+  margin: 0 2px;
+}
+
+.nav-user {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.85rem;
+}
+
 .trace-divider {
   display: flex;
   align-items: center;
@@ -164,7 +177,6 @@ textarea {
   display: block;
 }
 
-/* --- Forms --- */
 .field {
   margin-bottom: 16px;
 }
@@ -248,6 +260,20 @@ textarea {
   background: transparent;
 }
 
+.btn-danger {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+.btn-danger:hover {
+  background: #8f3325;
+  border-color: #8f3325;
+}
+
+.card-danger {
+  border-color: var(--red);
+}
+
 /* --- Status / badges --- */
 .badge {
   font-family: var(--font-mono);
@@ -290,7 +316,6 @@ textarea {
   color: var(--ink-soft);
 }
 
-/* --- Notes markdown rendering --- */
 .notes-content {
   font-size: 0.98rem;
 }
@@ -316,7 +341,6 @@ textarea {
   font-size: 0.88em;
 }
 
-/* --- Search --- */
 .search-bar {
   display: flex;
   gap: 8px;
@@ -341,7 +365,6 @@ textarea {
   color: var(--ink-soft);
 }
 
-/* --- Quiz --- */
 .quiz-question-text p,
 .quiz-option-text p {
   margin: 0;
@@ -394,7 +417,6 @@ textarea {
   color: var(--copper-dark);
 }
 
-/* --- Utility --- */
 .muted {
   color: var(--ink-soft);
   font-size: 0.9rem;
@@ -417,13 +439,6 @@ textarea {
   }
 }
 
-/* --- PDF export via the browser's print dialog ---
-   Rather than a separate PDF-generation library (which would mean
-   re-rendering formulas through a different, unverified code path),
-   "Download PDF" triggers window.print() and this stylesheet hides
-   everything except the element marked .print-area, so "Save as PDF" in
-   the print dialog captures just the notes/answer/quiz content — with the
-   same KaTeX-rendered math already on screen, not a re-render. */
 @media print {
   .no-print {
     display: none !important;
@@ -444,10 +459,6 @@ textarea {
   display: none;
 }
 
-/* Explanations render into the DOM immediately (not just after "Check
-   answers") so a PDF export always includes the answer key, matching the
-   .md download's behavior — but stay hidden on-screen until checked, so
-   taking the quiz on-screen isn't spoiled. */
 .quiz-explanation.pending {
   display: none;
 }
