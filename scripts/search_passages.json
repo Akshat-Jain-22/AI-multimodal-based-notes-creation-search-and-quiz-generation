@@ -1,0 +1,26 @@
+[
+  {
+    "id": "basic_electronics_norton_s_theorem::Introduction to Norton's Theorem and Its Application::0",
+    "lecture_id": "basic_electronics_norton_s_theorem",
+    "lecture_title": "Basic Electronics - Norton's Theorem",
+    "section_heading": "Introduction to Norton's Theorem and Its Application",
+    "text": "Norton's theorem is based on the idea of representing a complex circuit with a simpler equivalent form, consisting of a single current source in parallel with a resistance. To understand this concept, let's consider a circuit with a load resistor $R_L$, where we're interested in finding the current through $R_L$. We assign node voltages to various points in the circuit with respect to a reference node, just as in the Thevenin analysis, but here our objective is the short-circuit current rather than the open-circuit voltage. Using the same KCL-based node equations as before, we can express the system in matrix form, where the matrix $G$ represents the conductances between nodes, $V$ is the column vector of node voltages, and $I_s$ is the source current vector.",
+    "diagram_images": []
+  },
+  {
+    "id": "basic_electronics_norton_s_theorem::Deriving the Norton Equivalent Circuit::0",
+    "lecture_id": "basic_electronics_norton_s_theorem",
+    "lecture_title": "Basic Electronics - Norton's Theorem",
+    "section_heading": "Deriving the Norton Equivalent Circuit",
+    "text": "To find the Norton equivalent, we short-circuit the terminals of interest and calculate the resulting current — this is the Norton current $I_N$. The Norton resistance $R_N$ is identical in value to the Thevenin resistance $R_{TH}$, since both are computed by deactivating all independent sources and finding the resistance seen from the terminals. $$I_N = \\frac{V_{TH}}{R_{TH}}$$ The Norton equivalent circuit consists of a current source $I_N$ in parallel with the resistance $R_N$, and it is directly convertible to and from the Thevenin equivalent circuit using the source transformation relationship above.",
+    "diagram_images": []
+  },
+  {
+    "id": "basic_electronics_norton_s_theorem::Determining Norton Equivalent Circuits::0",
+    "lecture_id": "basic_electronics_norton_s_theorem",
+    "lecture_title": "Basic Electronics - Norton's Theorem",
+    "section_heading": "Determining Norton Equivalent Circuits",
+    "text": "To find the Norton equivalent of a circuit, we need to determine two key components: the Norton current ($I_N$) and the Norton resistance ($R_N$). The Norton current is equivalent to the short-circuit current between the two points of interest. When the circuit is short-circuited, the current measured between these points is the Norton current. To find $R_N$, we can use the same method as for $R_{TH}$: deactivate all independent sources in the original circuit and then find the resistance between the two terminals of interest.",
+    "diagram_images": []
+  }
+]

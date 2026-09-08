@@ -1,0 +1,16 @@
+{
+  "thevenin_theorem": {
+    "lecture_id": "thevenin_theorem",
+    "title": "Thevenin Theorem",
+    "notes_path": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\thevenin_theorem\\lecture_notes_polished.md",
+    "work_dir": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\thevenin_theorem",
+    "created_at": "2026-08-19T20:47:56.870786+00:00"
+  },
+  "new_lecture": {
+    "lecture_id": "new_lecture",
+    "title": "new lecture",
+    "notes_path": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\new_lecture\\lecture_notes_polished.md",
+    "work_dir": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\new_lecture",
+    "created_at": "2026-08-23T17:56:43.541727+00:00"
+  }
+}

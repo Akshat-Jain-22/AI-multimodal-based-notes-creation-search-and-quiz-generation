@@ -1,0 +1,56 @@
+{
+  "video_source": "test_short.mp4",
+  "images_directory": "extracted_images\\test_short",
+  "events": [
+    {
+      "timestamp": 0.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\test_short\\frame_0.0s.png"
+    },
+    {
+      "timestamp": 5.0,
+      "ocr_text": "~ NPTEL",
+      "image_file": "extracted_images\\test_short\\frame_5.0s.png"
+    },
+    {
+      "timestamp": 10.0,
+      "ocr_text": "BASIC ELECTRONICS\n\nmst -",
+      "image_file": "extracted_images\\test_short\\frame_10.0s.png"
+    },
+    {
+      "timestamp": 15.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\test_short\\frame_15.0s.png"
+    },
+    {
+      "timestamp": 20.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\test_short\\frame_20.0s.png"
+    },
+    {
+      "timestamp": 25.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\test_short\\frame_25.0s.png"
+    },
+    {
+      "timestamp": 35.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\test_short\\frame_35.0s.png"
+    },
+    {
+      "timestamp": 40.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\test_short\\frame_40.0s.png"
+    },
+    {
+      "timestamp": 60.0,
+      "ocr_text": "The,\n\nRe Oe R\n\n‘ oN\n\nHow is V related tothe circuit parameters?",
+      "image_file": "extracted_images\\test_short\\frame_60.0s.png"
+    },
+    {
+      "timestamp": 140.0,
+      "ocr_text": "How is V related tothe circuit parameters?\n\nLet 6, =1/Ri, ete. Write KCL equation at each node, taking curent leaving the node as positive",
+      "image_file": "extracted_images\\test_short\\frame_140.0s.png"
+    }
+  ]
+}

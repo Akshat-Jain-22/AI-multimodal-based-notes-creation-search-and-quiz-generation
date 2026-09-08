@@ -1,0 +1,1337 @@
+{
+  "sources_used": [
+    "audio",
+    "screen"
+  ],
+  "timeline": [
+    {
+      "timestamp": 0.0,
+      "source": "audio",
+      "content": "Welcome back to basic electronics. In this lecture we will look at a very useful theorem"
+    },
+    {
+      "timestamp": 0.0,
+      "source": "screen",
+      "content": "",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_0.0s.png"
+    },
+    {
+      "timestamp": 5.0,
+      "source": "screen",
+      "content": "~ NPTEL",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_5.0s.png"
+    },
+    {
+      "timestamp": 10.0,
+      "source": "screen",
+      "content": "BASIC ELECTRONICS\n\nmst -",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_10.0s.png"
+    },
+    {
+      "timestamp": 15.0,
+      "source": "screen",
+      "content": "",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_15.0s.png"
+    },
+    {
+      "timestamp": 20.0,
+      "source": "screen",
+      "content": "",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_20.0s.png"
+    },
+    {
+      "timestamp": 23.92,
+      "source": "audio",
+      "content": "called the Thevenin's theorem. We will first try to understand why it is possible to represent"
+    },
+    {
+      "timestamp": 25.0,
+      "source": "screen",
+      "content": "",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_25.0s.png"
+    },
+    {
+      "timestamp": 28.8,
+      "source": "audio",
+      "content": "a circuit with its Thevenin equivalent form. We will then look at how to extract the associated"
+    },
+    {
+      "timestamp": 34.84,
+      "source": "audio",
+      "content": "parameters namely the Thevenin resistance and the Thevenin voltage. After that we will consider"
+    },
+    {
+      "timestamp": 35.0,
+      "source": "screen",
+      "content": "",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_35.0s.png"
+    },
+    {
+      "timestamp": 40.0,
+      "source": "screen",
+      "content": "",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_40.0s.png"
+    },
+    {
+      "timestamp": 41.52,
+      "source": "audio",
+      "content": "a couple of examples to illustrate how a circuit can be represented by its Thevenin equivalent."
+    },
+    {
+      "timestamp": 48.32,
+      "source": "audio",
+      "content": "We will also see how the Thevenin parameters can be extracted graphically. So, let us"
+    },
+    {
+      "timestamp": 54.04,
+      "source": "audio",
+      "content": "get started. Thevenin's theorem is a very useful and important theorem and particularly"
+    },
+    {
+      "timestamp": 60.0,
+      "source": "screen",
+      "content": "The,\n\nRe Oe R\n\n‘ oN\n\nHow is V related tothe circuit parameters?",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_60.0s.png"
+    },
+    {
+      "timestamp": 62.76,
+      "source": "audio",
+      "content": "in electronic circuits we will find it very useful. But before we look at the statement"
+    },
+    {
+      "timestamp": 69.16,
+      "source": "audio",
+      "content": "of the Thevenin's theorem, let us see briefly where it comes from and we will do that"
+    },
+    {
+      "timestamp": 75.8,
+      "source": "audio",
+      "content": "with the help of this example. Here is a circuit to which we have connected a load resistor"
+    },
+    {
+      "timestamp": 87.16,
+      "source": "audio",
+      "content": "RL and we are interested in this voltage across RL and in particular we want to ask this"
+    },
+    {
+      "timestamp": 95.64,
+      "source": "audio",
+      "content": "question how is V related to the circuit parameters? We begin by assigning node voltages"
+    },
+    {
+      "timestamp": 105.52,
+      "source": "audio",
+      "content": "to these various nodes in the circuit with respect to reference node. So, let us first"
+    },
+    {
+      "timestamp": 110.44,
+      "source": "audio",
+      "content": "choose reference node. We have taken that as the reference node. So, the node voltage there"
+    },
+    {
+      "timestamp": 115.56,
+      "source": "audio",
+      "content": "is 0 volts and with respect to that reference node this voltage at node A is V1. The node"
+    },
+    {
+      "timestamp": 125.08,
+      "source": "audio",
+      "content": "voltage at B is V2 and the voltage at node C is V3."
+    },
+    {
+      "timestamp": 131.92,
+      "source": "audio",
+      "content": "Now what we will do is write KCL equations in terms of V1, V2 and V3 at these nodes, nodes"
+    },
+    {
+      "timestamp": 140.0,
+      "source": "screen",
+      "content": "How is V related tothe circuit parameters?\n\nLet 6, =1/Ri, ete. Write KCL equation at each node, taking curent leaving the node as positive",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_140.0s.png"
+    },
+    {
+      "timestamp": 142.36,
+      "source": "audio",
+      "content": "A, B and C. And in doing that let us define G1 the conductance as 1 over R1, G2 equal"
+    },
+    {
+      "timestamp": 152.56,
+      "source": "audio",
+      "content": "to 1 over R2 etc. These are our KCL equations. Let us look at KCL at node A. That is our node"
+    },
+    {
+      "timestamp": 163.64,
+      "source": "audio",
+      "content": "A. We have three currents entering or leaving node A. There is one current going like that"
+    },
+    {
+      "timestamp": 172.36,
+      "source": "audio",
+      "content": "and that is V1 minus V3 divided by R1. So, that is G1 times V1 minus V3 and since"
+    },
+    {
+      "timestamp": 180.36,
+      "source": "audio",
+      "content": "that current is leaving this node we will take it as positive. Then we have this current V1"
+    },
+    {
+      "timestamp": 186.16,
+      "source": "audio",
+      "content": "minus V2 divided by R2 that means G2 times V1 minus V2 and then we have this current I0"
+    },
+    {
+      "timestamp": 195.76,
+      "source": "audio",
+      "content": "entering the node. Since this current is entering the node we take that as negative and that"
+    },
+    {
+      "timestamp": 200.92,
+      "source": "audio",
+      "content": "is why it appears as minus I0 in this equation. And all these currents must add up to"
+    },
+    {
+      "timestamp": 207.36,
+      "source": "audio",
+      "content": "0 and that gives us KCL at node A. In a similar manner we can write KCL at node B and KCL at"
+    },
+    {
+      "timestamp": 218.36,
+      "source": "audio",
+      "content": "node C in terms of the node voltages V1, V2 and V3. And we can now write these equations"
+    },
+    {
+      "timestamp": 226.36,
+      "source": "audio",
+      "content": "in a matrix form like that. Let us look at one of these equations. Let us say the first"
+    },
+    {
+      "timestamp": 230.0,
+      "source": "screen",
+      "content": "How is V related to the circuit parameters?\n\nLet 6 =1/R, ete. Write KCL equation at each node, taking curent leaving the node as positive\nKCL ata: G(Vi~ VA) + G(Vy — Va) —b = 0.\nKCLaXB: GV V)+G(V-0) =0.\nKCLatC: GV Mi) + GMs +b =o)\nWrite in 2 mati frm:\nGtG -G -G ][M &\n“Ge G 0 wl=|o\nal =@ 70\" asa} ly b\nle, GV=I,, We can sole this matrix equation to get Ve, ke. the voltage across Re.",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_230.0s.png"
+    },
+    {
+      "timestamp": 232.84,
+      "source": "audio",
+      "content": "one. This first equation comes from KCL at node A and let us verify that. What is the coefficient"
+    },
+    {
+      "timestamp": 243.12,
+      "source": "audio",
+      "content": "of V1 in this equation? It is G1 plus G2. So, that goes over there that is going to"
+    },
+    {
+      "timestamp": 250.0,
+      "source": "audio",
+      "content": "multiply V1. What about V2? The coefficient is minus G2. So, that goes there and that"
+    },
+    {
+      "timestamp": 257.2,
+      "source": "audio",
+      "content": "multiplies V2 and the coefficient of V3 is minus G1. So, that goes over there. In addition,"
+    },
+    {
+      "timestamp": 265.48,
+      "source": "audio",
+      "content": "we have minus I0 over here and since that does not depend on V1, V2 or V3, we take that"
+    },
+    {
+      "timestamp": 271.84,
+      "source": "audio",
+      "content": "to the right hand side. So, it becomes plus I0 and that is how it appears here. So,"
+    },
+    {
+      "timestamp": 280.04,
+      "source": "audio",
+      "content": "this matrix equation is of the form G times V equal to Is where G is this matrix"
+    },
+    {
+      "timestamp": 287.52,
+      "source": "audio",
+      "content": "here 3 by 3. V is this column vector consisting of V1, V2, V3 the node voltages in our circuit"
+    },
+    {
+      "timestamp": 296.76,
+      "source": "audio",
+      "content": "and Is is the source current vector this one. Now, if you recall our objective is to find"
+    },
+    {
+      "timestamp": 307.52,
+      "source": "audio",
+      "content": "a relationship between V and the rest of the circuit and in order to do that we want"
+    },
+    {
+      "timestamp": 315.52,
+      "source": "audio",
+      "content": "to solve this matrix equation and obtain V2. Since V2 is the same as V here because this node"
+    },
+    {
+      "timestamp": 325.08,
+      "source": "audio",
+      "content": "voltage is 0. V2 can be obtained using Kramer's rule and what does Kramer's rule say? It"
+    },
+    {
+      "timestamp": 336.12,
+      "source": "audio",
+      "content": "says that V2 is given by D1 divided by D2 where D1 is the determinant of this matrix"
+    },
+    {
+      "timestamp": 345.4,
+      "source": "audio",
+      "content": "with the second column replaced with this RHS vector and D2 is the determinant of this matrix"
+    },
+    {
+      "timestamp": 357.36,
+      "source": "audio",
+      "content": "as it is. So, let us do that and simplify things after that."
+    },
+    {
+      "timestamp": 368.36,
+      "source": "audio",
+      "content": "So, this is what we have for V2 the ratio of two determinants determinant of this"
+    },
+    {
+      "timestamp": 370.0,
+      "source": "screen",
+      "content": "Thevenin\n\nRi 5 Rev\n\nVe can be found using Cramer's rule: Ve =",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_370.0s.png"
+    },
+    {
+      "timestamp": 374.12,
+      "source": "audio",
+      "content": "original G matrix with the second column replaced with the RHS vector like we mentioned in the"
+    },
+    {
+      "timestamp": 380.04,
+      "source": "audio",
+      "content": "last slide and the determinant of the G matrix itself."
+    },
+    {
+      "timestamp": 387.04,
+      "source": "audio",
+      "content": "Now, let us denote this determinant by delta 1 and what we should note about delta 1 is"
+    },
+    {
+      "timestamp": 394.92,
+      "source": "audio",
+      "content": "that it does not have RL or GL in it. So, its value is independent of the load resistance value."
+    },
+    {
+      "timestamp": 409.12,
+      "source": "audio",
+      "content": "Let us look at the denominator now that is determinant of G. This is our G matrix and this determinant"
+    },
+    {
+      "timestamp": 417.12,
+      "source": "audio",
+      "content": "does depend on GL we have GL over here and what we will do now is write this column as the"
+    },
+    {
+      "timestamp": 428.2,
+      "source": "audio",
+      "content": "sum of two columns column 1 minus G2 G2 0 column 2 0 GL 0 and if we do that we can write"
+    },
+    {
+      "timestamp": 436.12,
+      "source": "audio",
+      "content": "this determinant as the sum of two determinants. This determinant has no GL term in it whereas"
+    },
+    {
+      "timestamp": 445.0,
+      "source": "screen",
+      "content": "az Ov nev\n\nVa can be found using Cramer's rule: Ve =\n\nGs\ndex(6) = ae |G\n<6\n\nGate\n= ae] SG\n\n<6\nx",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_445.0s.png"
+    },
+    {
+      "timestamp": 448.36,
+      "source": "audio",
+      "content": "this one does have GL in it right there. Let us denote this first determinant by delta"
+    },
+    {
+      "timestamp": 456.36,
+      "source": "audio",
+      "content": "and let us write this second determinant as GL times delta 2 where delta 2 is the determinant"
+    },
+    {
+      "timestamp": 468.28,
+      "source": "audio",
+      "content": "of this matrix here and notice that we do not have GL here anymore because that has been"
+    },
+    {
+      "timestamp": 475.68,
+      "source": "audio",
+      "content": "taken outside. So, with these substitutions we can write V2 as delta 2."
+    },
+    {
+      "timestamp": 485.52,
+      "source": "audio",
+      "content": "Delta 1 divided by determinant of G that is delta 1 divided by delta plus GL delta 2 that"
+    },
+    {
+      "timestamp": 492.96,
+      "source": "audio",
+      "content": "term where delta delta 1 delta 2 are all independent of GL. So, the only dependence of V2 on GL is"
+    },
+    {
+      "timestamp": 503.68,
+      "source": "audio",
+      "content": "right there. So, here is V2 once again delta 1 divided by delta plus GL times delta 2."
+    },
+    {
+      "timestamp": 510.0,
+      "source": "screen",
+      "content": "az Ov Rev\n\nor ae\nBUG) ~ BF GR\n5\n\nVs\n\nA\n\nThe “open-circuit” value of Vs i obtained by substituting Ri = 20, Le. Gi =0, leading to VPC =\nci italy\n\nsaci ibtlieniog",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_510.0s.png"
+    },
+    {
+      "timestamp": 515.96,
+      "source": "audio",
+      "content": "And let us emphasize once again that delta 1 delta and delta 2 have no dependence on GL"
+    },
+    {
+      "timestamp": 522.96,
+      "source": "audio",
+      "content": "or RL and they will only depend on the circuit parameters here alright. Let us now look at"
+    },
+    {
+      "timestamp": 533.56,
+      "source": "audio",
+      "content": "the open circuit value of V2 that means the value of V2 when RL is infinite and when"
+    },
+    {
+      "timestamp": 541.32,
+      "source": "audio",
+      "content": "RL is infinite GL which is 1 over RL becomes 0 and therefore we have V2 equal to delta 1"
+    },
+    {
+      "timestamp": 549.72,
+      "source": "audio",
+      "content": "divided by delta. So, that is our V2 in the open circuit condition."
+    },
+    {
+      "timestamp": 557.88,
+      "source": "audio",
+      "content": "We can now rewrite V2 by dividing both the numerator and denominator by delta. So, in"
+    },
+    {
+      "timestamp": 564.64,
+      "source": "audio",
+      "content": "the numerator we get delta 1 divided by delta in the denominator we get 1 here. So, 1 plus"
+    },
+    {
+      "timestamp": 571.0,
+      "source": "audio",
+      "content": "GL times delta 2 over delta. Now, delta 1 by delta is nothing but V2 OC V2 open circuit."
+    },
+    {
+      "timestamp": 579.88,
+      "source": "audio",
+      "content": "So, we replace that with V2 OC and that gets divided by 1 plus delta 2 over RL times"
+    },
+    {
+      "timestamp": 587.88,
+      "source": "audio",
+      "content": "delta. Here, we have used the fact that GL is 1 over RL and now let us multiply both numerator"
+    },
+    {
+      "timestamp": 599.96,
+      "source": "audio",
+      "content": "and denominator by RL to get RL divided by RL plus delta 2 over delta times V2 OC."
+    },
+    {
+      "timestamp": 608.88,
+      "source": "audio",
+      "content": "Now, it turns out that this quantity delta 2 divided by delta has no dependence on"
+    },
+    {
+      "timestamp": 610.0,
+      "source": "screen",
+      "content": "a é\nRe Ov Rev\nA A\nO> ge@) = BF GBs\n“The “open-circuit” value of Vp is obtained by substituting Ri =o0. Ke. G, =0, leading to VEC = SY.\nilelry\nA/a vee R_yoc\nWe can now write Vz= —S¥/A__ WP _R_yp\nTF G.A:/8 Be a\n1+ Ae a &\naa ry\nNote that 2/2 has units of resistance. Define Ry = 2/4. (Thevenin resistance). Then we have\n.\nya Fe\nRake\n\n‘ite. oadilVineniog",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_610.0s.png"
+    },
+    {
+      "timestamp": 616.88,
+      "source": "audio",
+      "content": "units of resistance and you should really go back one slide and check that out. So, let"
+    },
+    {
+      "timestamp": 624.28,
+      "source": "audio",
+      "content": "us define R Thevenin that is Thevenin resistance as delta 2 divided by delta and with that"
+    },
+    {
+      "timestamp": 633.96,
+      "source": "audio",
+      "content": "we get V2 equal to RL divided by RL plus R Thevenin times V2 OC like that."
+    },
+    {
+      "timestamp": 641.96,
+      "source": "audio",
+      "content": "Oh, the stop sign has come and why is it there? That means, there is some unfinished business"
+    },
+    {
+      "timestamp": 645.0,
+      "source": "screen",
+      "content": "az Oe Rev\n\nAw\nBUG) ~ BF Gs\n\nVs\n\nier’\n\nWe can now write V== 41/4 _\n\nver\n1 Gave e\n\nNote that 2/2 has units of resistance, Define Ry = A2/A, (Thevenin resistance). Then we have\nR\n\nom\n\nVe=",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_645.0s.png"
+    },
+    {
+      "timestamp": 655.4,
+      "source": "audio",
+      "content": "and that is this delta 2 by delta. You need to really go back and check that it has units"
+    },
+    {
+      "timestamp": 662.92,
+      "source": "audio",
+      "content": "of resistance. So, do that stop the video here and when you complete this assignment"
+    },
+    {
+      "timestamp": 670.68,
+      "source": "audio",
+      "content": "start again with the video. So, this is our expression for V2 and it is looking very much"
+    },
+    {
+      "timestamp": 675.0,
+      "source": "screen",
+      "content": "R_ yor\nRae\n\nve=\n\n“Thi is simply a voltage division formula, corresponding to the following, “Thevenin equivalent ckeut™ (with Vry = VE).\n\nRy\n\nOvn Rg",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_675.0s.png"
+    },
+    {
+      "timestamp": 678.48,
+      "source": "audio",
+      "content": "like a voltage division formula. If we have a source which is equal to V2 OC like that"
+    },
+    {
+      "timestamp": 689.24,
+      "source": "audio",
+      "content": "and R Thevenin and RL in series then the voltage across RL which is V2 here would"
+    },
+    {
+      "timestamp": 697.24,
+      "source": "audio",
+      "content": "be RL divided by RL plus RTH times VTH. So, this circuit and this expression are compatible"
+    },
+    {
+      "timestamp": 710.84,
+      "source": "audio",
+      "content": "with each other if we have VTH equal to V2 open circuit."
+    },
+    {
+      "timestamp": 717.84,
+      "source": "audio",
+      "content": "In other words, this expression allows us to replace the original circuit with an equivalent"
+    },
+    {
+      "timestamp": 720.0,
+      "source": "screen",
+      "content": "tet\nRahn?\n\nThis is simply a voltage dvsion formula, coresponding tothe following “Thevenin equivalent crc\n\nRy\n\nOvn. Rg\n\nThis allows us to replace the orginal circuit with an equivalent, simpler circu\n\nRi\n\n® Rn.\n\nYn\n\ni\n\n(with vn = Ve)",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_720.0s.png"
+    },
+    {
+      "timestamp": 727.96,
+      "source": "audio",
+      "content": "simpler circuit and that simpler circuit is the Thevenin equivalent circuit. So, here"
+    },
+    {
+      "timestamp": 733.96,
+      "source": "audio",
+      "content": "is our original circuit and this entire circuit can now be replaced with this much simpler"
+    },
+    {
+      "timestamp": 740.2,
+      "source": "audio",
+      "content": "circuit consisting of only one voltage source in series with one resistance. The voltage"
+    },
+    {
+      "timestamp": 746.44,
+      "source": "audio",
+      "content": "is called VTH or Thevenin voltage and the resistance is called R Thevenin or RTH and later of course,"
+    },
+    {
+      "timestamp": 757.4,
+      "source": "audio",
+      "content": "we will look at how we can obtain VTH and RTH from the original network and that brings"
+    },
+    {
+      "timestamp": 765.0,
+      "source": "screen",
+      "content": "Rr\n\nCircuit A A\n(resistors,\n‘ sources, Vm\nCevs, Coes,\nvevs, vecs) Log. 8",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_765.0s.png"
+    },
+    {
+      "timestamp": 767.32,
+      "source": "audio",
+      "content": "us to Thevenin's theorem. If we have a circuit consisting of resistors, independent"
+    },
+    {
+      "timestamp": 773.28,
+      "source": "audio",
+      "content": "voltage sources, independent current sources and dependent sources such as current controlled"
+    },
+    {
+      "timestamp": 779.68,
+      "source": "audio",
+      "content": "voltage source, current controlled current source etc. Then Thevenin's theorem says"
+    },
+    {
+      "timestamp": 785.2,
+      "source": "audio",
+      "content": "that this circuit can be represented by its Thevenin equivalent circuit consisting of"
+    },
+    {
+      "timestamp": 792.96,
+      "source": "audio",
+      "content": "a voltage source VTH in series with a resistance RTH."
+    },
+    {
+      "timestamp": 800.76,
+      "source": "audio",
+      "content": "Now, imagine that we have a load resistance RL connected between A and B to the original"
+    },
+    {
+      "timestamp": 809.12,
+      "source": "audio",
+      "content": "circuit as well as to the Thevenin equivalent circuit. Then Thevenin's theorem says that"
+    },
+    {
+      "timestamp": 817.4,
+      "source": "audio",
+      "content": "the load resistance does not see any difference between the original circuit and its Thevenin"
+    },
+    {
+      "timestamp": 822.96,
+      "source": "audio",
+      "content": "equivalent. That means the voltage across the load resistance or the current through"
+    },
+    {
+      "timestamp": 828.44,
+      "source": "audio",
+      "content": "the load resistance would be identical in these two cases."
+    },
+    {
+      "timestamp": 833.32,
+      "source": "audio",
+      "content": "Now, the next question that comes up is how do we figure out VTH and RTH from the original"
+    },
+    {
+      "timestamp": 840.56,
+      "source": "audio",
+      "content": "network? So, let us look at that. First, let us look at how to get VTH from the original"
+    },
+    {
+      "timestamp": 845.0,
+      "source": "screen",
+      "content": "Thevenin's the\n\nts\nCircuit A A\n\n+ Since the two circuits are equivalent, the open-circuit voltage must be the same in both cases. Let Vee be\nthe open-circuit voltage for the left circuit. For the Thevenin equivalent circuit, the open-circuit voltage is\nsimply Vrp since there is no voltage drop across Rr in this case,\n\n+ Vin= Vee",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_845.0s.png"
+    },
+    {
+      "timestamp": 849.28,
+      "source": "audio",
+      "content": "circuit. Since the two circuits are equivalent, the open circuit voltage must be the same"
+    },
+    {
+      "timestamp": 855.08,
+      "source": "audio",
+      "content": "in both cases. Now, let VOC be the open circuit voltage for the left circuit here. That means"
+    },
+    {
+      "timestamp": 862.56,
+      "source": "audio",
+      "content": "we do not connect anything between A and B and measure this voltage, VOC between A and"
+    },
+    {
+      "timestamp": 867.88,
+      "source": "audio",
+      "content": "B. For the Thevenin equivalent circuit, what is the open circuit voltage? If we do not"
+    },
+    {
+      "timestamp": 873.88,
+      "source": "audio",
+      "content": "connect anything between A and B, there is no current and therefore there is no voltage"
+    },
+    {
+      "timestamp": 879.16,
+      "source": "audio",
+      "content": "drop across RTH and therefore this open circuit voltage would be the same as this VTH."
+    },
+    {
+      "timestamp": 889.76,
+      "source": "audio",
+      "content": "And therefore we conclude that this VTH is the same as the open circuit voltage seen"
+    },
+    {
+      "timestamp": 895.88,
+      "source": "audio",
+      "content": "between A and B in the original circuit and that is what this equation tells us."
+    },
+    {
+      "timestamp": 903.52,
+      "source": "audio",
+      "content": "What about RTH, the Thevenin resistance here? That can be found by different methods and"
+    },
+    {
+      "timestamp": 914.2,
+      "source": "audio",
+      "content": "let us see what those methods are. Method one, here is our original circuit and that is"
+    },
+    {
+      "timestamp": 920.0,
+      "source": "screen",
+      "content": "Method 1\n\n~\n\n+ Deactivate all independent sources. This amounts to making Vrq=0 in the Thevenin equivalent circuit",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_920.0s.png"
+    },
+    {
+      "timestamp": 921.2,
+      "source": "audio",
+      "content": "the Thevenin equivalent representation. What we do is deactivate all independent sources"
+    },
+    {
+      "timestamp": 928.48,
+      "source": "audio",
+      "content": "in the original circuit and we do the same thing in the Thevenin equivalent circuit as"
+    },
+    {
+      "timestamp": 935.76,
+      "source": "audio",
+      "content": "well. And in the Thevenin equivalent circuit, the only independent source is this voltage"
+    },
+    {
+      "timestamp": 941.2,
+      "source": "audio",
+      "content": "source here and when we deactivate that, we replace that with a short circuit like"
+    },
+    {
+      "timestamp": 946.32,
+      "source": "audio",
+      "content": "that and what we see then between A and B is simply the Thevenin resistance RTH."
+    },
+    {
+      "timestamp": 950.0,
+      "source": "screen",
+      "content": "a\n\n+ Deactivate all independent sources. This amounts to making Vy =0 in the Thevenin equivalent circuit",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_950.0s.png"
+    },
+    {
+      "timestamp": 954.32,
+      "source": "audio",
+      "content": "And now if we look into the port AB of the original circuit with the voltage sources and"
+    },
+    {
+      "timestamp": 962.4,
+      "source": "audio",
+      "content": "current sources deactivated, then whatever resistance we see must be the same as RTH."
+    },
+    {
+      "timestamp": 973.04,
+      "source": "audio",
+      "content": "Often RTH can be found by inspection of the original circuit with the independent voltage"
+    },
+    {
+      "timestamp": 978.88,
+      "source": "audio",
+      "content": "sources and independent current sources deactivated and if that does not work, what we can do is"
+    },
+    {
+      "timestamp": 985.0,
+      "source": "audio",
+      "content": "to use a test source. We can use either a test voltage source like that or we can use"
+    },
+    {
+      "timestamp": 990.0,
+      "source": "screen",
+      "content": "Thevenin's the\n\nrem: Rr\n\nMethod 1\n\nCircuit A\ncovs, 6\nvows vecs) Fee\n\nCircuit A\nGevs, cocs,\nvevs'vecs) |e\n\n+ Deactivate all independent sources, This amounts to making Vrq=0 in the Thevenin equivalent circuit\n\n+ Often, ry can be found by inspection of the original circuit (with independent sources deactivated).\n+ Rrp can also be found by connecting a test source to the original cicuit (with independent sources\n\ndeactivated): Rr = Vs/",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_990.0s.png"
+    },
+    {
+      "timestamp": 991.92,
+      "source": "audio",
+      "content": "a test current source like this and what we do then is for example, if we use a voltage"
+    },
+    {
+      "timestamp": 1000.72,
+      "source": "audio",
+      "content": "source then we find this current IS and then RTH is given by VS divided by IS."
+    },
+    {
+      "timestamp": 1008.44,
+      "source": "audio",
+      "content": "In this case where we have a test current source then we find this voltage drop between"
+    },
+    {
+      "timestamp": 1014.44,
+      "source": "audio",
+      "content": "A and B and then RTH is given by VS by IS. Let us look at our second method now. This"
+    },
+    {
+      "timestamp": 1025.0,
+      "source": "screen",
+      "content": "Method 2:\n\nA Rn\n+ +\ncil | ue vy Me\nCrit vi\n. - -\n3 a\ni Rn\nOva Me\nH 5\nVin _ Vo Yee\n+ For the Thevenin equivalent circuit, Voe= Vin: he = 2 = Met + fig, = Mit\n: MTR Ry be",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1025.0s.png"
+    },
+    {
+      "timestamp": 1026.24,
+      "source": "audio",
+      "content": "is our original circuit and that is the Thevenin equivalent. We look at two things"
+    },
+    {
+      "timestamp": 1032.04,
+      "source": "audio",
+      "content": "one the open circuit voltage between A and B in both cases. Second the short circuit current"
+    },
+    {
+      "timestamp": 1040.88,
+      "source": "audio",
+      "content": "which flows from A to B when A and B are shorted and we do that again in both cases."
+    },
+    {
+      "timestamp": 1048.88,
+      "source": "audio",
+      "content": "And because the original circuit is equivalent to this Thevenin representation, VOC here"
+    },
+    {
+      "timestamp": 1056.36,
+      "source": "audio",
+      "content": "VOC here must be the same and similarly IAC here and IAC here must be the same. So we use"
+    },
+    {
+      "timestamp": 1064.68,
+      "source": "audio",
+      "content": "this fact to obtain RTH for the Thevenin representation. Let us see how."
+    },
+    {
+      "timestamp": 1073.64,
+      "source": "audio",
+      "content": "Let us look at this circuit. The open circuit voltage between A and B is the same as VTH"
+    },
+    {
+      "timestamp": 1079.64,
+      "source": "audio",
+      "content": "here because there is no voltage drop across RTH the current being zero and therefore we"
+    },
+    {
+      "timestamp": 1086.64,
+      "source": "audio",
+      "content": "get VOC equal to VTH this equation here. All right. Let us now look at the short circuit"
+    },
+    {
+      "timestamp": 1095.28,
+      "source": "audio",
+      "content": "current. IAC is simply VTH divided by RTH because there is no other resistance in the"
+    },
+    {
+      "timestamp": 1103.28,
+      "source": "audio",
+      "content": "circuit. So that gives us IAC equal to VTH divided by RTH and VTH is the same as VOC therefore"
+    },
+    {
+      "timestamp": 1113.0,
+      "source": "audio",
+      "content": "IAC is equal to VOC divided by RTH and that gives us a formula to obtain RTH that is RTH"
+    },
+    {
+      "timestamp": 1123.48,
+      "source": "audio",
+      "content": "equal to VOC divided by IAC. Now since this VOC and this VOC are the same as VOC"
+    },
+    {
+      "timestamp": 1132.56,
+      "source": "audio",
+      "content": "are identical because the two circuits are equivalent and also because this IAC and this IAC are"
+    },
+    {
+      "timestamp": 1140.68,
+      "source": "audio",
+      "content": "the same. What we can do is in the original circuit we find the open circuit voltage"
+    },
+    {
+      "timestamp": 1147.6,
+      "source": "audio",
+      "content": "and the short circuit current and then RTH is given by that open circuit voltage divided"
+    },
+    {
+      "timestamp": 1154.44,
+      "source": "audio",
+      "content": "by the short circuit current and note here that we do not deactivate any sources"
+    },
+    {
+      "timestamp": 1161.92,
+      "source": "audio",
+      "content": "in this case. So the independent sources are left as they are in the original circuit."
+    },
+    {
+      "timestamp": 1171.92,
+      "source": "audio",
+      "content": "Let us find the Thevenin equivalent of this circuit here as seen from RL. So we need to"
+    },
+    {
+      "timestamp": 1175.0,
+      "source": "screen",
+      "content": "Rn\n\nR\n\nOV,\n\nR",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1175.0s.png"
+    },
+    {
+      "timestamp": 1179.76,
+      "source": "audio",
+      "content": "find VTH and RTH. Let us find VTH first and how do we do that? VTH is the same as"
+    },
+    {
+      "timestamp": 1187.76,
+      "source": "audio",
+      "content": "VOC the open circuit voltage between A and B. So we remove RL and then find this voltage"
+    },
+    {
+      "timestamp": 1200.28,
+      "source": "audio",
+      "content": "and that is the same as VTH. That is a straight forward calculation. There is no current"
+    },
+    {
+      "timestamp": 1209.4,
+      "source": "audio",
+      "content": "through this two ohms resistance so no voltage drop there and therefore VOC is the same as"
+    },
+    {
+      "timestamp": 1215.36,
+      "source": "audio",
+      "content": "this voltage drop and that can be found by voltage division that is three ohms divided"
+    },
+    {
+      "timestamp": 1221.52,
+      "source": "audio",
+      "content": "by nine ohms times nine volts. So that comes to three volts. So our VTH which is the same"
+    },
+    {
+      "timestamp": 1225.0,
+      "source": "screen",
+      "content": "rem: exampli\n\nso an Boy\nts i\nR= Ovn\nDy 3FR oy\n8\nVn: 62 20\n3A\nDoy 30 Ve\nVee =9V x 38\n\n“eas\n\nR",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1225.0s.png"
+    },
+    {
+      "timestamp": 1230.68,
+      "source": "audio",
+      "content": "as VOC is three volts. Next let us find RTH and how do we do that? In the original circuit"
+    },
+    {
+      "timestamp": 1238.68,
+      "source": "audio",
+      "content": "we deactivate the independent sources. In this case there is only one independent source that"
+    },
+    {
+      "timestamp": 1248.12,
+      "source": "audio",
+      "content": "is a voltage source. So we short it and then we look from this port AB and this is what we"
+    },
+    {
+      "timestamp": 1256.48,
+      "source": "audio",
+      "content": "see from AB. This six ohms and three ohms come in parallel and that combination comes"
+    },
+    {
+      "timestamp": 1264.4,
+      "source": "audio",
+      "content": "in series with these two ohms and therefore our RTH turns out to be three parallel six"
+    },
+    {
+      "timestamp": 1272.6,
+      "source": "audio",
+      "content": "plus two or four ohms. So our feminine equivalent circuit has VTH equal to three volts and RTH"
+    },
+    {
+      "timestamp": 1280.0,
+      "source": "screen",
+      "content": "Thevenin's the\n\nrem: example\n\n60. 20 Roa 40 A\nA\nRy i\nREC :\nyy 3S R Vm R= Osv Ro\n.\nD\nVi 62 20 Ra: 82 20\n3A A\n\n8\n\nRs | Ra) + Ra = (316) +2\n\n()+\n\n40",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1280.0s.png"
+    },
+    {
+      "timestamp": 1281.48,
+      "source": "audio",
+      "content": "equal to four ohms. Another example this is a little more complicated than the previous"
+    },
+    {
+      "timestamp": 1289.48,
+      "source": "audio",
+      "content": "example. We have two independent sources now a current source six amperes and a voltage source"
+    },
+    {
+      "timestamp": 1290.0,
+      "source": "screen",
+      "content": "4a.\n\n20,\n\non\n\n20\n\n20",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1290.0s.png"
+    },
+    {
+      "timestamp": 1297.48,
+      "source": "audio",
+      "content": "48 volts and we want to find the feminine equivalent circuit as seen from AB. Let us look at RTH"
+    },
+    {
+      "timestamp": 1306.68,
+      "source": "audio",
+      "content": "first how do we find RTH? We deactivate the independent sources that is this current"
+    },
+    {
+      "timestamp": 1313.82,
+      "source": "audio",
+      "content": "source and this voltage source. The current source is replaced with an open circuit and the"
+    },
+    {
+      "timestamp": 1320.32,
+      "source": "audio",
+      "content": "voltage source is replaced with a short circuit and now we look from AB and find the resistance."
+    },
+    {
+      "timestamp": 1329.64,
+      "source": "audio",
+      "content": "That resistance is our RTH and that is fairly straight forward to do. This four ohms"
+    },
+    {
+      "timestamp": 1335.0,
+      "source": "screen",
+      "content": "Thev rem:\n\na0 AB 40\n20, ro 30\non\nRov\na2 AB 40\n201 ne gre\nAB 4\n= gan\n30\nce",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1335.0s.png"
+    },
+    {
+      "timestamp": 1337.2,
+      "source": "audio",
+      "content": "and two ohms are in series. So therefore we have six ohms and that combination comes"
+    },
+    {
+      "timestamp": 1342.44,
+      "source": "audio",
+      "content": "in parallel with 12 ohms and that entire combination is four ohms. On this side we have four ohms"
+    },
+    {
+      "timestamp": 1352.44,
+      "source": "audio",
+      "content": "in parallel with 12 ohms and that turns out to be three ohms. So altogether between A and"
+    },
+    {
+      "timestamp": 1358.6,
+      "source": "audio",
+      "content": "B we have four ohms plus three ohms or seven ohms and that is our RTH. Let us now look"
+    },
+    {
+      "timestamp": 1366.6,
+      "source": "audio",
+      "content": "at V Thevenin. V Thevenin is the same as V OC this voltage here and how do we go about finding"
+    },
+    {
+      "timestamp": 1370.0,
+      "source": "screen",
+      "content": "Thevenin's the\n\naa AB an\n40 AB 4\n20 eo S120 Me\noa 9 ne\ni nae Dey ‘ev@\nRov\na0 AB 40 ba\n28 no ge H\nAB i\n= ge > fn\n30 i\nc",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1370.0s.png"
+    },
+    {
+      "timestamp": 1378.96,
+      "source": "audio",
+      "content": "that voltage drop? We note that this current I must be zero because there is no return"
+    },
+    {
+      "timestamp": 1386.64,
+      "source": "audio",
+      "content": "path for this current. There is an open circuit here and if this current were not"
+    },
+    {
+      "timestamp": 1392.84,
+      "source": "audio",
+      "content": "zero then that would lead to violation of the charge conservation principle. Once we figure"
+    },
+    {
+      "timestamp": 1400.92,
+      "source": "audio",
+      "content": "that out the rest of the calculation is straight forward. What we do now is find this voltage"
+    },
+    {
+      "timestamp": 1407.04,
+      "source": "audio",
+      "content": "drop between A and C. This voltage drop between C and B and then V AB is simply V AC"
+    },
+    {
+      "timestamp": 1415.04,
+      "source": "audio",
+      "content": "plus V CB. So let us do that. Since this current is zero we have two independent circuits here"
+    },
+    {
+      "timestamp": 1425.56,
+      "source": "audio",
+      "content": "one circuit is here and the other circuit is here and that makes things very easy."
+    },
+    {
+      "timestamp": 1433.76,
+      "source": "audio",
+      "content": "Alright let us look at V AC first. What is this resistance? As we have already found"
+    },
+    {
+      "timestamp": 1441.76,
+      "source": "audio",
+      "content": "out that is four ohms and therefore six amperes going through four ohms gives us 24 volts."
+    },
+    {
+      "timestamp": 1449.68,
+      "source": "audio",
+      "content": "So that is V AC. What about V CB? V CB is given by voltage division of this 48 volts"
+    },
+    {
+      "timestamp": 1461.56,
+      "source": "audio",
+      "content": "between 12 ohms and 4 ohms. So it would be 12 divided by 16 times 48 and that is"
+    },
+    {
+      "timestamp": 1471.28,
+      "source": "audio",
+      "content": "out to be 36 volts. So altogether between A and B we have 24 volts plus 36 volts and that"
+    },
+    {
+      "timestamp": 1481.28,
+      "source": "audio",
+      "content": "comes to 60 volts. So that is our open circuit voltage and that is the same as V TH. So we"
+    },
+    {
+      "timestamp": 1490.04,
+      "source": "audio",
+      "content": "have V TH equal to 60 volts or TH equal to 7 ohms and our Thevenin equivalent circuit"
+    },
+    {
+      "timestamp": 1497.04,
+      "source": "audio",
+      "content": "therefore looks like this. Let us now look at a graphical method for finding V TH and RTH."
+    },
+    {
+      "timestamp": 1500.0,
+      "source": "screen",
+      "content": "Thevenin's the\n\nample\na0 A 40\npe Se\nan\nRr\n40 A 4a\n20. no gre\nAB\n= gan Rn\n30\n\n40 AB 40\nFS\nt 2G\nH nnt Vea ‘ev\n\nIh -Ve\nVa ~Ve) + (Ve ~Ve)\n\nVac + Veo\n24V+36V=60V\nAB\nVi = 60V\nRn=7a (7\nov\n*",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1500.0s.png"
+    },
+    {
+      "timestamp": 1505.0,
+      "source": "screen",
+      "content": "for finding\n\nBo Vn,\n\nvn Ov\n\n‘\n\nVn =\n\nv\n1= ~T— (Note: negative slope for I versus V plot)",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1505.0s.png"
+    },
+    {
+      "timestamp": 1509.76,
+      "source": "audio",
+      "content": "This is a Thevenin equivalent circuit of some original circuit and what we do is connect"
+    },
+    {
+      "timestamp": 1518.32,
+      "source": "audio",
+      "content": "voltage source here and plot this current as a function of this voltage and the plot"
+    },
+    {
+      "timestamp": 1525.72,
+      "source": "audio",
+      "content": "that we are going to get is shown over here and let us now try to understand why the plot"
+    },
+    {
+      "timestamp": 1532.32,
+      "source": "audio",
+      "content": "looks like this. What is this current? It is V TH minus V divided by RTH, this equation"
+    },
+    {
+      "timestamp": 1543.16,
+      "source": "audio",
+      "content": "and note that it has a negative slope. The slope is minus 1 over RTH and that has reflected"
+    },
+    {
+      "timestamp": 1550.56,
+      "source": "audio",
+      "content": "in this plot here. What about the intercept of this line on the V axis? To find that we"
+    },
+    {
+      "timestamp": 1566.52,
+      "source": "audio",
+      "content": "put I equal to 0 and we get V equal to V TH. So that gives us the X intercept and V"
+    },
+    {
+      "timestamp": 1574.52,
+      "source": "audio",
+      "content": "TH remember is the same as V OC. What about the Y intercept? To find that what we do is"
+    },
+    {
+      "timestamp": 1585.32,
+      "source": "audio",
+      "content": "put V equal to 0 that gives us I equal to V TH divided by RTH, this quantity here and"
+    },
+    {
+      "timestamp": 1594.6,
+      "source": "audio",
+      "content": "if you recall that is the same as the short circuit current. That means it is the current"
+    },
+    {
+      "timestamp": 1601.04,
+      "source": "audio",
+      "content": "that would flow if we connect these two nodes by a wire just a short circuit."
+    },
+    {
+      "timestamp": 1610.56,
+      "source": "audio",
+      "content": "So now from a plot like this we immediately find V TH as the intercept on the V axis"
+    },
+    {
+      "timestamp": 1619.64,
+      "source": "audio",
+      "content": "and IAC which is equal to V TH by RTH as the intercept on the I axis and from these"
+    },
+    {
+      "timestamp": 1627.32,
+      "source": "audio",
+      "content": "two numbers we can find our Thevenin voltage and Thevenin resistance and as a remark let"
+    },
+    {
+      "timestamp": 1638.86,
+      "source": "audio",
+      "content": "us mention that instead of a voltage source here we could have also connected load resistor"
+    },
+    {
+      "timestamp": 1640.0,
+      "source": "screen",
+      "content": "Ra\n\nvn@ Ov\n\nV (Note: negative slope for! versus V plot)\n\nVim (same 28 Voc)\n\nVin\nFe (ame a5 be)\n\nie, 2 plot of [ versus V can be used to find Vy and Rm\n\n(Instead of a voltage source, we could also connect a resistor load (R), vary R, and then plot J versus V.)\nx",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1640.0s.png"
+    },
+    {
+      "timestamp": 1645.36,
+      "source": "audio",
+      "content": "say R, varied that resistance and then plotted I versus V again. We would get the same"
+    },
+    {
+      "timestamp": 1653.36,
+      "source": "audio",
+      "content": "plot once again. Let us apply the graphical method that we just"
+    },
+    {
+      "timestamp": 1660.0,
+      "source": "screen",
+      "content": "49\n\n40\n\n20 4\n\n120\n\n20 ©\n8",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1660.0s.png"
+    },
+    {
+      "timestamp": 1662.12,
+      "source": "audio",
+      "content": "discussed for this circuit which we have already considered earlier and here is the"
+    },
+    {
+      "timestamp": 1670.2,
+      "source": "audio",
+      "content": "SQL circuit file. So you can run this simulation and obtain the plot that we are going to"
+    },
+    {
+      "timestamp": 1676.56,
+      "source": "audio",
+      "content": "look at very soon. So how do we go about it? We connect a voltage"
+    },
+    {
+      "timestamp": 1680.0,
+      "source": "screen",
+      "content": "Graphical\n\nhod for finding Vrn\nSEQUEL file: ee101.thevenin_1.sqpr\n\n40 AB 40\n\n20 4D 320\n\noA 120\n\nConnect a volage source between A and B.\nPo i versus v.\n\n40\n\n20\noMt\n\nVoc=intercet onthe vais.\n\n‘hes intercept onthe ais",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1680.0s.png"
+    },
+    {
+      "timestamp": 1683.6,
+      "source": "audio",
+      "content": "source between A and P like that and then plot this current as a function of this voltage"
+    },
+    {
+      "timestamp": 1690.8,
+      "source": "audio",
+      "content": "and when we do that V OC is given by the intercept on the V axis and IAC the short"
+    },
+    {
+      "timestamp": 1699.08,
+      "source": "audio",
+      "content": "circuit current is given by the intercept on the I or the current axis."
+    },
+    {
+      "timestamp": 1706.8,
+      "source": "audio",
+      "content": "And here is the result I as a function of V. The intercept on the V axis is 60 volts"
+    },
+    {
+      "timestamp": 1710.0,
+      "source": "screen",
+      "content": "40 AB 40\n10\na\n20 6D) g22 Ene, Fl\n2\nConnect a vokage source between A and B t+\nPo i versus v ¥ (vot\nx\n4 OV, b= 857A\nVec/he\n2a as\nok\nVey = 60V\nRn=7a 7?\nVecintrcept on the vas, av\n\n‘hesintercept onthe ais.",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1710.0s.png"
+    },
+    {
+      "timestamp": 1715.04,
+      "source": "audio",
+      "content": "and that gives us V OC and the intercept on the current axis is 8.57 amperes and that"
+    },
+    {
+      "timestamp": 1724.62,
+      "source": "audio",
+      "content": "gives us IAC and V TH is the same as V OC 60 volts and RTH is the same as V OC divided"
+    },
+    {
+      "timestamp": 1731.74,
+      "source": "audio",
+      "content": "by IAC and that turns out to be 60 divided by 8.57 or 7 amperes and these numbers of course"
+    },
+    {
+      "timestamp": 1743.54,
+      "source": "audio",
+      "content": "are the same as what we got earlier when we analyzed this circuit using different methods."
+    },
+    {
+      "timestamp": 1755.0,
+      "source": "screen",
+      "content": "",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1755.0s.png"
+    },
+    {
+      "timestamp": 1755.1,
+      "source": "audio",
+      "content": "To summarize we have become familiar with Thevenin's theorem. We have also seen how"
+    },
+    {
+      "timestamp": 1760.22,
+      "source": "audio",
+      "content": "to represent a given circuit with this Thevenin equivalent form. This background will be useful"
+    },
+    {
+      "timestamp": 1765.0,
+      "source": "screen",
+      "content": "",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1765.0s.png"
+    },
+    {
+      "timestamp": 1765.9,
+      "source": "audio",
+      "content": "to understand RC circuits, amplifiers, etc. That is all for now. See you next time."
+    },
+    {
+      "timestamp": 1770.0,
+      "source": "screen",
+      "content": "",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1770.0s.png"
+    },
+    {
+      "timestamp": 1775.0,
+      "source": "screen",
+      "content": "NPTEL\nPrincipal Investigator\nSe IIT Bombay\n(NATIONAL PROGRAMME ON TECHNOLOGY\nENHANCED LEARNING.\n\n(NPTED",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1775.0s.png"
+    },
+    {
+      "timestamp": 1780.0,
+      "source": "screen",
+      "content": "",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1780.0s.png"
+    },
+    {
+      "timestamp": 1785.0,
+      "source": "screen",
+      "content": "&\n\nNATIONAL PROGRAMME ON TECHNOLOGY\nENHANCED LEARNING\n(NPTEL)\n\nSt. Web Designer\nBharati Sakpal\nResearch Assistant\nRiya Surange\nSr. Web Designer\nBharati M. Sarang\nWeb Designer\nNisha Thakur\nProject Attendant\nRavi Paswan\nVinayak Raut",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1785.0s.png"
+    },
+    {
+      "timestamp": 1790.0,
+      "source": "screen",
+      "content": "",
+      "image_file": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\extracted_images\\video_test2_full\\frame_1790.0s.png"
+    },
+    {
+      "timestamp": 1790.22,
+      "source": "audio",
+      "content": "Thank you."
+    }
+  ],
+  "supplementary_pptx": null
+}

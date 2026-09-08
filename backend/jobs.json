@@ -1,0 +1,186 @@
+{
+  "3a7ff708693e483982305e2304b4cf9e": {
+    "status": "done",
+    "title": "Thevenin Theorem",
+    "result": {
+      "lecture_id": "thevenin_theorem",
+      "work_dir": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\thevenin_theorem",
+      "notes_path": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\thevenin_theorem\\lecture_notes_polished.md",
+      "passages_path": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\thevenin_theorem\\search_passages.json"
+    }
+  },
+  "9a06cda85a9f4acdb5785d45b734b9dd": {
+    "status": "error",
+    "title": "Thevenin",
+    "error": "Unable to allocate 550. MiB for an array with shape (1, 179218, 201) and data type complex128"
+  },
+  "9c9081a1074943bda1bfd3fc92277e46": {
+    "status": "done",
+    "title": "new lecture",
+    "result": {
+      "lecture_id": "new_lecture",
+      "work_dir": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\new_lecture",
+      "notes_path": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\new_lecture\\lecture_notes_polished.md",
+      "passages_path": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\new_lecture\\search_passages.json"
+    }
+  },
+  "88f4b60f1d59415bae9ec6db2cb4fb17": {
+    "status": "error",
+    "title": "string",
+    "class_id": 2,
+    "requested_by": 3,
+    "error": "'string' is not a valid language code (accepted language codes: af, am, ar, as, az, ba, be, bg, bn, bo, br, bs, ca, cs, cy, da, de, el, en, es, et, eu, fa, fi, fo, fr, gl, gu, ha, haw, he, hi, hr, ht, hu, hy, id, is, it, ja, jw, ka, kk, km, kn, ko, la, lb, ln, lo, lt, lv, mg, mi, mk, ml, mn, mr, ms, mt, my, ne, nl, nn, no, oc, pa, pl, ps, pt, ro, ru, sa, sd, si, sk, sl, sn, so, sq, sr, su, sv, sw, ta, te, tg, th, tk, tl, tr, tt, uk, ur, uz, vi, yi, yo, zh, yue)"
+  },
+  "cc1245edadd748b4be1e2bc38bd39442": {
+    "status": "error",
+    "title": "string",
+    "class_id": 2,
+    "requested_by": 3,
+    "error": "'string' is not a valid language code (accepted language codes: af, am, ar, as, az, ba, be, bg, bn, bo, br, bs, ca, cs, cy, da, de, el, en, es, et, eu, fa, fi, fo, fr, gl, gu, ha, haw, he, hi, hr, ht, hu, hy, id, is, it, ja, jw, ka, kk, km, kn, ko, la, lb, ln, lo, lt, lv, mg, mi, mk, ml, mn, mr, ms, mt, my, ne, nl, nn, no, oc, pa, pl, ps, pt, ro, ru, sa, sd, si, sk, sl, sn, so, sq, sr, su, sv, sw, ta, te, tg, th, tk, tl, tr, tt, uk, ur, uz, vi, yi, yo, zh, yue)"
+  },
+  "b8e95e87a56c4005bf5bda70e7adbbcb": {
+    "status": "error",
+    "title": "string",
+    "class_id": 2,
+    "requested_by": 3,
+    "model_size": "tiny",
+    "error": "'string' is not a valid language code (accepted language codes: af, am, ar, as, az, ba, be, bg, bn, bo, br, bs, ca, cs, cy, da, de, el, en, es, et, eu, fa, fi, fo, fr, gl, gu, ha, haw, he, hi, hr, ht, hu, hy, id, is, it, ja, jw, ka, kk, km, kn, ko, la, lb, ln, lo, lt, lv, mg, mi, mk, ml, mn, mr, ms, mt, my, ne, nl, nn, no, oc, pa, pl, ps, pt, ro, ru, sa, sd, si, sk, sl, sn, so, sq, sr, su, sv, sw, ta, te, tg, th, tk, tl, tr, tt, uk, ur, uz, vi, yi, yo, zh, yue)"
+  },
+  "f580955249494f44b1287a739a2a7ec3": {
+    "status": "error",
+    "title": "string",
+    "class_id": 2,
+    "requested_by": 3,
+    "model_size": "tiny",
+    "error": "'string' is not a valid language code (accepted language codes: af, am, ar, as, az, ba, be, bg, bn, bo, br, bs, ca, cs, cy, da, de, el, en, es, et, eu, fa, fi, fo, fr, gl, gu, ha, haw, he, hi, hr, ht, hu, hy, id, is, it, ja, jw, ka, kk, km, kn, ko, la, lb, ln, lo, lt, lv, mg, mi, mk, ml, mn, mr, ms, mt, my, ne, nl, nn, no, oc, pa, pl, ps, pt, ro, ru, sa, sd, si, sk, sl, sn, so, sq, sr, su, sv, sw, ta, te, tg, th, tk, tl, tr, tt, uk, ur, uz, vi, yi, yo, zh, yue)"
+  },
+  "b1e8d976e0e343c08dfc07771f8dd5a3": {
+    "status": "error",
+    "title": "string",
+    "class_id": 3,
+    "requested_by": 5,
+    "model_size": "tiny",
+    "error": "'string' is not a valid language code (accepted language codes: af, am, ar, as, az, ba, be, bg, bn, bo, br, bs, ca, cs, cy, da, de, el, en, es, et, eu, fa, fi, fo, fr, gl, gu, ha, haw, he, hi, hr, ht, hu, hy, id, is, it, ja, jw, ka, kk, km, kn, ko, la, lb, ln, lo, lt, lv, mg, mi, mk, ml, mn, mr, ms, mt, my, ne, nl, nn, no, oc, pa, pl, ps, pt, ro, ru, sa, sd, si, sk, sl, sn, so, sq, sr, su, sv, sw, ta, te, tg, th, tk, tl, tr, tt, uk, ur, uz, vi, yi, yo, zh, yue)"
+  },
+  "3e709a527c734233b0ea2c8cfe7fa926": {
+    "status": "error",
+    "title": "string",
+    "class_id": 3,
+    "requested_by": 5,
+    "model_size": "tiny",
+    "error": "'string' is not a valid language code (accepted language codes: af, am, ar, as, az, ba, be, bg, bn, bo, br, bs, ca, cs, cy, da, de, el, en, es, et, eu, fa, fi, fo, fr, gl, gu, ha, haw, he, hi, hr, ht, hu, hy, id, is, it, ja, jw, ka, kk, km, kn, ko, la, lb, ln, lo, lt, lv, mg, mi, mk, ml, mn, mr, ms, mt, my, ne, nl, nn, no, oc, pa, pl, ps, pt, ro, ru, sa, sd, si, sk, sl, sn, so, sq, sr, su, sv, sw, ta, te, tg, th, tk, tl, tr, tt, uk, ur, uz, vi, yi, yo, zh, yue)"
+  },
+  "c6efb7b4b45a48858dcf1056ece47bd4": {
+    "status": "error",
+    "title": "Test",
+    "class_id": 3,
+    "requested_by": 5,
+    "model_size": "tiny",
+    "error": "'' is not a valid language code (accepted language codes: af, am, ar, as, az, ba, be, bg, bn, bo, br, bs, ca, cs, cy, da, de, el, en, es, et, eu, fa, fi, fo, fr, gl, gu, ha, haw, he, hi, hr, ht, hu, hy, id, is, it, ja, jw, ka, kk, km, kn, ko, la, lb, ln, lo, lt, lv, mg, mi, mk, ml, mn, mr, ms, mt, my, ne, nl, nn, no, oc, pa, pl, ps, pt, ro, ru, sa, sd, si, sk, sl, sn, so, sq, sr, su, sv, sw, ta, te, tg, th, tk, tl, tr, tt, uk, ur, uz, vi, yi, yo, zh, yue)"
+  },
+  "9fc5d69aabdd471c808a4583dfc95f3d": {
+    "status": "error",
+    "title": "Test",
+    "class_id": 3,
+    "requested_by": 5,
+    "model_size": "tiny",
+    "error": "'' is not a valid language code (accepted language codes: af, am, ar, as, az, ba, be, bg, bn, bo, br, bs, ca, cs, cy, da, de, el, en, es, et, eu, fa, fi, fo, fr, gl, gu, ha, haw, he, hi, hr, ht, hu, hy, id, is, it, ja, jw, ka, kk, km, kn, ko, la, lb, ln, lo, lt, lv, mg, mi, mk, ml, mn, mr, ms, mt, my, ne, nl, nn, no, oc, pa, pl, ps, pt, ro, ru, sa, sd, si, sk, sl, sn, so, sq, sr, su, sv, sw, ta, te, tg, th, tk, tl, tr, tt, uk, ur, uz, vi, yi, yo, zh, yue)"
+  },
+  "fa867fc5abee45d3b62783638bee9879": {
+    "status": "error",
+    "title": "Test",
+    "class_id": 3,
+    "requested_by": 5,
+    "model_size": "tiny",
+    "error": "'' is not a valid language code (accepted language codes: af, am, ar, as, az, ba, be, bg, bn, bo, br, bs, ca, cs, cy, da, de, el, en, es, et, eu, fa, fi, fo, fr, gl, gu, ha, haw, he, hi, hr, ht, hu, hy, id, is, it, ja, jw, ka, kk, km, kn, ko, la, lb, ln, lo, lt, lv, mg, mi, mk, ml, mn, mr, ms, mt, my, ne, nl, nn, no, oc, pa, pl, ps, pt, ro, ru, sa, sd, si, sk, sl, sn, so, sq, sr, su, sv, sw, ta, te, tg, th, tk, tl, tr, tt, uk, ur, uz, vi, yi, yo, zh, yue)"
+  },
+  "1e6e32a112c44e03ae63148505ebc0be": {
+    "status": "error",
+    "title": "ECE",
+    "class_id": 3,
+    "requested_by": 5,
+    "model_size": "small",
+    "error": "'' is not a valid language code (accepted language codes: af, am, ar, as, az, ba, be, bg, bn, bo, br, bs, ca, cs, cy, da, de, el, en, es, et, eu, fa, fi, fo, fr, gl, gu, ha, haw, he, hi, hr, ht, hu, hy, id, is, it, ja, jw, ka, kk, km, kn, ko, la, lb, ln, lo, lt, lv, mg, mi, mk, ml, mn, mr, ms, mt, my, ne, nl, nn, no, oc, pa, pl, ps, pt, ro, ru, sa, sd, si, sk, sl, sn, so, sq, sr, su, sv, sw, ta, te, tg, th, tk, tl, tr, tt, uk, ur, uz, vi, yi, yo, zh, yue)"
+  },
+  "b42abc4ff10a4817bcf6bd55a03f8a81": {
+    "status": "error",
+    "title": "string",
+    "class_id": 3,
+    "requested_by": 5,
+    "model_size": "small",
+    "error": "'string' is not a valid language code (accepted language codes: af, am, ar, as, az, ba, be, bg, bn, bo, br, bs, ca, cs, cy, da, de, el, en, es, et, eu, fa, fi, fo, fr, gl, gu, ha, haw, he, hi, hr, ht, hu, hy, id, is, it, ja, jw, ka, kk, km, kn, ko, la, lb, ln, lo, lt, lv, mg, mi, mk, ml, mn, mr, ms, mt, my, ne, nl, nn, no, oc, pa, pl, ps, pt, ro, ru, sa, sd, si, sk, sl, sn, so, sq, sr, su, sv, sw, ta, te, tg, th, tk, tl, tr, tt, uk, ur, uz, vi, yi, yo, zh, yue)"
+  },
+  "d21f67bc42cb4237b56f1fa32efc3c16": {
+    "status": "done",
+    "title": "string",
+    "class_id": 3,
+    "requested_by": 5,
+    "model_size": "small",
+    "result": {
+      "lecture_id": "string",
+      "work_dir": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\string",
+      "notes_path": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\string\\lecture_notes_polished.md",
+      "passages_path": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\string\\search_passages.json"
+    }
+  },
+  "806a57ef00224c32ab206e02a9cd1d07": {
+    "status": "error",
+    "title": "THEVENIN",
+    "class_id": 4,
+    "requested_by": 7,
+    "model_size": "small",
+    "error": "Pipeline worker process crashed (exit 1): Traceback (most recent call last):\n  File \"D:\\Documents\\classroom-notes\\backend\\pipeline_worker.py\", line 40, in <module>\n    from run_pipeline import run_pipeline\n  File \"D:\\Documents\\classroom-notes\\scripts\\run_pipeline.py\", line 47, in <module>\n    from chunk_notes_for_search import chunk_notes_for_search\nModuleNotFoundError: No module named 'chunk_notes_for_search'\n"
+  },
+  "ce0fc6e9b443460894416628559d7f44": {
+    "status": "done",
+    "title": "THEVENIN",
+    "class_id": 4,
+    "requested_by": 7,
+    "model_size": "small",
+    "result": {
+      "lecture_id": "thevenin",
+      "work_dir": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\thevenin",
+      "notes_path": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\thevenin\\lecture_notes_polished.md",
+      "passages_path": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\thevenin\\search_passages.json"
+    }
+  },
+  "82f9e2b779df417f9b2bc2e5ce6b8afb": {
+    "status": "done",
+    "title": "THEVENIN",
+    "class_id": 4,
+    "requested_by": 7,
+    "model_size": "small",
+    "result": {
+      "lecture_id": "thevenin",
+      "work_dir": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\thevenin",
+      "notes_path": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\thevenin\\lecture_notes_polished.md",
+      "passages_path": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\thevenin\\search_passages.json"
+    }
+  },
+  "a6d2877916d543a3a795ea41496d5ba5": {
+    "status": "done",
+    "title": "thevenin",
+    "class_id": 4,
+    "requested_by": 7,
+    "model_size": "small",
+    "result": {
+      "lecture_id": "thevenin_s_theorem_simplifying_linear_networks",
+      "work_dir": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\thevenin",
+      "notes_path": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\thevenin\\lecture_notes_polished.md",
+      "passages_path": "D:\\Documents\\classroom-notes\\scripts\\pipeline_runs\\thevenin\\search_passages.json"
+    }
+  },
+  "f824afe73d554202ab2be7e44b60da31": {
+    "status": "done",
+    "title": "ABCD",
+    "class_id": 5,
+    "requested_by": 5,
+    "model_size": "small",
+    "result": {
+      "lecture_id": "abcd",
+      "work_dir": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd",
+      "notes_path": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\lecture_notes_polished.md",
+      "passages_path": "D:\\Documents\\classroom-notes - Copy\\scripts\\pipeline_runs\\abcd\\search_passages.json"
+    }
+  }
+}

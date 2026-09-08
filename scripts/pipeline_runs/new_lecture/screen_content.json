@@ -1,0 +1,221 @@
+{
+  "video_source": "D:\\Documents\\classroom-notes\\backend\\api_uploads\\9c9081a1074943bda1bfd3fc92277e46\\video_test2_full.mp4",
+  "images_directory": "extracted_images\\video_test2_full",
+  "events": [
+    {
+      "timestamp": 0.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\video_test2_full\\frame_0.0s.png"
+    },
+    {
+      "timestamp": 5.0,
+      "ocr_text": "~ NPTEL",
+      "image_file": "extracted_images\\video_test2_full\\frame_5.0s.png"
+    },
+    {
+      "timestamp": 10.0,
+      "ocr_text": "BASIC ELECTRONICS\n\nmst -",
+      "image_file": "extracted_images\\video_test2_full\\frame_10.0s.png"
+    },
+    {
+      "timestamp": 15.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\video_test2_full\\frame_15.0s.png"
+    },
+    {
+      "timestamp": 20.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\video_test2_full\\frame_20.0s.png"
+    },
+    {
+      "timestamp": 25.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\video_test2_full\\frame_25.0s.png"
+    },
+    {
+      "timestamp": 35.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\video_test2_full\\frame_35.0s.png"
+    },
+    {
+      "timestamp": 40.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\video_test2_full\\frame_40.0s.png"
+    },
+    {
+      "timestamp": 60.0,
+      "ocr_text": "The,\n\nRe Oe R\n\n‘ oN\n\nHow is V related tothe circuit parameters?",
+      "image_file": "extracted_images\\video_test2_full\\frame_60.0s.png"
+    },
+    {
+      "timestamp": 140.0,
+      "ocr_text": "How is V related tothe circuit parameters?\n\nLet 6, =1/Ri, ete. Write KCL equation at each node, taking curent leaving the node as positive",
+      "image_file": "extracted_images\\video_test2_full\\frame_140.0s.png"
+    },
+    {
+      "timestamp": 230.0,
+      "ocr_text": "How is V related to the circuit parameters?\n\nLet 6 =1/R, ete. Write KCL equation at each node, taking curent leaving the node as positive\nKCL ata: G(Vi~ VA) + G(Vy — Va) —b = 0.\nKCLaXB: GV V)+G(V-0) =0.\nKCLatC: GV Mi) + GMs +b =o)\nWrite in 2 mati frm:\nGtG -G -G ][M &\n“Ge G 0 wl=|o\nal =@ 70\" asa} ly b\nle, GV=I,, We can sole this matrix equation to get Ve, ke. the voltage across Re.",
+      "image_file": "extracted_images\\video_test2_full\\frame_230.0s.png"
+    },
+    {
+      "timestamp": 370.0,
+      "ocr_text": "Thevenin\n\nRi 5 Rev\n\nVe can be found using Cramer's rule: Ve =",
+      "image_file": "extracted_images\\video_test2_full\\frame_370.0s.png"
+    },
+    {
+      "timestamp": 445.0,
+      "ocr_text": "az Ov nev\n\nVa can be found using Cramer's rule: Ve =\n\nGs\ndex(6) = ae |G\n<6\n\nGate\n= ae] SG\n\n<6\nx",
+      "image_file": "extracted_images\\video_test2_full\\frame_445.0s.png"
+    },
+    {
+      "timestamp": 510.0,
+      "ocr_text": "az Ov Rev\n\nor ae\nBUG) ~ BF GR\n5\n\nVs\n\nA\n\nThe “open-circuit” value of Vs i obtained by substituting Ri = 20, Le. Gi =0, leading to VPC =\nci italy\n\nsaci ibtlieniog",
+      "image_file": "extracted_images\\video_test2_full\\frame_510.0s.png"
+    },
+    {
+      "timestamp": 610.0,
+      "ocr_text": "a é\nRe Ov Rev\nA A\nO> ge@) = BF GBs\n“The “open-circuit” value of Vp is obtained by substituting Ri =o0. Ke. G, =0, leading to VEC = SY.\nilelry\nA/a vee R_yoc\nWe can now write Vz= —S¥/A__ WP _R_yp\nTF G.A:/8 Be a\n1+ Ae a &\naa ry\nNote that 2/2 has units of resistance. Define Ry = 2/4. (Thevenin resistance). Then we have\n.\nya Fe\nRake\n\n‘ite. oadilVineniog",
+      "image_file": "extracted_images\\video_test2_full\\frame_610.0s.png"
+    },
+    {
+      "timestamp": 645.0,
+      "ocr_text": "az Oe Rev\n\nAw\nBUG) ~ BF Gs\n\nVs\n\nier’\n\nWe can now write V== 41/4 _\n\nver\n1 Gave e\n\nNote that 2/2 has units of resistance, Define Ry = A2/A, (Thevenin resistance). Then we have\nR\n\nom\n\nVe=",
+      "image_file": "extracted_images\\video_test2_full\\frame_645.0s.png"
+    },
+    {
+      "timestamp": 675.0,
+      "ocr_text": "R_ yor\nRae\n\nve=\n\n“Thi is simply a voltage division formula, corresponding to the following, “Thevenin equivalent ckeut™ (with Vry = VE).\n\nRy\n\nOvn Rg",
+      "image_file": "extracted_images\\video_test2_full\\frame_675.0s.png"
+    },
+    {
+      "timestamp": 720.0,
+      "ocr_text": "tet\nRahn?\n\nThis is simply a voltage dvsion formula, coresponding tothe following “Thevenin equivalent crc\n\nRy\n\nOvn. Rg\n\nThis allows us to replace the orginal circuit with an equivalent, simpler circu\n\nRi\n\n® Rn.\n\nYn\n\ni\n\n(with vn = Ve)",
+      "image_file": "extracted_images\\video_test2_full\\frame_720.0s.png"
+    },
+    {
+      "timestamp": 765.0,
+      "ocr_text": "Rr\n\nCircuit A A\n(resistors,\n‘ sources, Vm\nCevs, Coes,\nvevs, vecs) Log. 8",
+      "image_file": "extracted_images\\video_test2_full\\frame_765.0s.png"
+    },
+    {
+      "timestamp": 845.0,
+      "ocr_text": "Thevenin's the\n\nts\nCircuit A A\n\n+ Since the two circuits are equivalent, the open-circuit voltage must be the same in both cases. Let Vee be\nthe open-circuit voltage for the left circuit. For the Thevenin equivalent circuit, the open-circuit voltage is\nsimply Vrp since there is no voltage drop across Rr in this case,\n\n+ Vin= Vee",
+      "image_file": "extracted_images\\video_test2_full\\frame_845.0s.png"
+    },
+    {
+      "timestamp": 920.0,
+      "ocr_text": "Method 1\n\n~\n\n+ Deactivate all independent sources. This amounts to making Vrq=0 in the Thevenin equivalent circuit",
+      "image_file": "extracted_images\\video_test2_full\\frame_920.0s.png"
+    },
+    {
+      "timestamp": 950.0,
+      "ocr_text": "a\n\n+ Deactivate all independent sources. This amounts to making Vy =0 in the Thevenin equivalent circuit",
+      "image_file": "extracted_images\\video_test2_full\\frame_950.0s.png"
+    },
+    {
+      "timestamp": 990.0,
+      "ocr_text": "Thevenin's the\n\nrem: Rr\n\nMethod 1\n\nCircuit A\ncovs, 6\nvows vecs) Fee\n\nCircuit A\nGevs, cocs,\nvevs'vecs) |e\n\n+ Deactivate all independent sources, This amounts to making Vrq=0 in the Thevenin equivalent circuit\n\n+ Often, ry can be found by inspection of the original circuit (with independent sources deactivated).\n+ Rrp can also be found by connecting a test source to the original cicuit (with independent sources\n\ndeactivated): Rr = Vs/",
+      "image_file": "extracted_images\\video_test2_full\\frame_990.0s.png"
+    },
+    {
+      "timestamp": 1025.0,
+      "ocr_text": "Method 2:\n\nA Rn\n+ +\ncil | ue vy Me\nCrit vi\n. - -\n3 a\ni Rn\nOva Me\nH 5\nVin _ Vo Yee\n+ For the Thevenin equivalent circuit, Voe= Vin: he = 2 = Met + fig, = Mit\n: MTR Ry be",
+      "image_file": "extracted_images\\video_test2_full\\frame_1025.0s.png"
+    },
+    {
+      "timestamp": 1175.0,
+      "ocr_text": "Rn\n\nR\n\nOV,\n\nR",
+      "image_file": "extracted_images\\video_test2_full\\frame_1175.0s.png"
+    },
+    {
+      "timestamp": 1225.0,
+      "ocr_text": "rem: exampli\n\nso an Boy\nts i\nR= Ovn\nDy 3FR oy\n8\nVn: 62 20\n3A\nDoy 30 Ve\nVee =9V x 38\n\n“eas\n\nR",
+      "image_file": "extracted_images\\video_test2_full\\frame_1225.0s.png"
+    },
+    {
+      "timestamp": 1280.0,
+      "ocr_text": "Thevenin's the\n\nrem: example\n\n60. 20 Roa 40 A\nA\nRy i\nREC :\nyy 3S R Vm R= Osv Ro\n.\nD\nVi 62 20 Ra: 82 20\n3A A\n\n8\n\nRs | Ra) + Ra = (316) +2\n\n()+\n\n40",
+      "image_file": "extracted_images\\video_test2_full\\frame_1280.0s.png"
+    },
+    {
+      "timestamp": 1290.0,
+      "ocr_text": "4a.\n\n20,\n\non\n\n20\n\n20",
+      "image_file": "extracted_images\\video_test2_full\\frame_1290.0s.png"
+    },
+    {
+      "timestamp": 1335.0,
+      "ocr_text": "Thev rem:\n\na0 AB 40\n20, ro 30\non\nRov\na2 AB 40\n201 ne gre\nAB 4\n= gan\n30\nce",
+      "image_file": "extracted_images\\video_test2_full\\frame_1335.0s.png"
+    },
+    {
+      "timestamp": 1370.0,
+      "ocr_text": "Thevenin's the\n\naa AB an\n40 AB 4\n20 eo S120 Me\noa 9 ne\ni nae Dey ‘ev@\nRov\na0 AB 40 ba\n28 no ge H\nAB i\n= ge > fn\n30 i\nc",
+      "image_file": "extracted_images\\video_test2_full\\frame_1370.0s.png"
+    },
+    {
+      "timestamp": 1500.0,
+      "ocr_text": "Thevenin's the\n\nample\na0 A 40\npe Se\nan\nRr\n40 A 4a\n20. no gre\nAB\n= gan Rn\n30\n\n40 AB 40\nFS\nt 2G\nH nnt Vea ‘ev\n\nIh -Ve\nVa ~Ve) + (Ve ~Ve)\n\nVac + Veo\n24V+36V=60V\nAB\nVi = 60V\nRn=7a (7\nov\n*",
+      "image_file": "extracted_images\\video_test2_full\\frame_1500.0s.png"
+    },
+    {
+      "timestamp": 1505.0,
+      "ocr_text": "for finding\n\nBo Vn,\n\nvn Ov\n\n‘\n\nVn =\n\nv\n1= ~T— (Note: negative slope for I versus V plot)",
+      "image_file": "extracted_images\\video_test2_full\\frame_1505.0s.png"
+    },
+    {
+      "timestamp": 1640.0,
+      "ocr_text": "Ra\n\nvn@ Ov\n\nV (Note: negative slope for! versus V plot)\n\nVim (same 28 Voc)\n\nVin\nFe (ame a5 be)\n\nie, 2 plot of [ versus V can be used to find Vy and Rm\n\n(Instead of a voltage source, we could also connect a resistor load (R), vary R, and then plot J versus V.)\nx",
+      "image_file": "extracted_images\\video_test2_full\\frame_1640.0s.png"
+    },
+    {
+      "timestamp": 1660.0,
+      "ocr_text": "49\n\n40\n\n20 4\n\n120\n\n20 ©\n8",
+      "image_file": "extracted_images\\video_test2_full\\frame_1660.0s.png"
+    },
+    {
+      "timestamp": 1680.0,
+      "ocr_text": "Graphical\n\nhod for finding Vrn\nSEQUEL file: ee101.thevenin_1.sqpr\n\n40 AB 40\n\n20 4D 320\n\noA 120\n\nConnect a volage source between A and B.\nPo i versus v.\n\n40\n\n20\noMt\n\nVoc=intercet onthe vais.\n\n‘hes intercept onthe ais",
+      "image_file": "extracted_images\\video_test2_full\\frame_1680.0s.png"
+    },
+    {
+      "timestamp": 1710.0,
+      "ocr_text": "40 AB 40\n10\na\n20 6D) g22 Ene, Fl\n2\nConnect a vokage source between A and B t+\nPo i versus v ¥ (vot\nx\n4 OV, b= 857A\nVec/he\n2a as\nok\nVey = 60V\nRn=7a 7?\nVecintrcept on the vas, av\n\n‘hesintercept onthe ais.",
+      "image_file": "extracted_images\\video_test2_full\\frame_1710.0s.png"
+    },
+    {
+      "timestamp": 1755.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\video_test2_full\\frame_1755.0s.png"
+    },
+    {
+      "timestamp": 1765.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\video_test2_full\\frame_1765.0s.png"
+    },
+    {
+      "timestamp": 1770.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\video_test2_full\\frame_1770.0s.png"
+    },
+    {
+      "timestamp": 1775.0,
+      "ocr_text": "NPTEL\nPrincipal Investigator\nSe IIT Bombay\n(NATIONAL PROGRAMME ON TECHNOLOGY\nENHANCED LEARNING.\n\n(NPTED",
+      "image_file": "extracted_images\\video_test2_full\\frame_1775.0s.png"
+    },
+    {
+      "timestamp": 1780.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\video_test2_full\\frame_1780.0s.png"
+    },
+    {
+      "timestamp": 1785.0,
+      "ocr_text": "&\n\nNATIONAL PROGRAMME ON TECHNOLOGY\nENHANCED LEARNING\n(NPTEL)\n\nSt. Web Designer\nBharati Sakpal\nResearch Assistant\nRiya Surange\nSr. Web Designer\nBharati M. Sarang\nWeb Designer\nNisha Thakur\nProject Attendant\nRavi Paswan\nVinayak Raut",
+      "image_file": "extracted_images\\video_test2_full\\frame_1785.0s.png"
+    },
+    {
+      "timestamp": 1790.0,
+      "ocr_text": "",
+      "image_file": "extracted_images\\video_test2_full\\frame_1790.0s.png"
+    }
+  ]
+}

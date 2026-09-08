@@ -1,0 +1,168 @@
+{
+  "source_pptx": "exp.pptx",
+  "images_directory": "extracted_images\\exp",
+  "slides": [
+    {
+      "slide_number": 1,
+      "content": [
+        "MINOR PROJECT",
+        "Medical Image Tampering Detection using Deep Learning in Deepfake Applications",
+        "Presented by",
+        "Ankur Singh ( 2311401140)",
+        "Akshat Jain (2311401141)",
+        "Umesh Patidar (2311401142)",
+        "Shobhit Raghuwanshi (2311401242)",
+        "Under Guidance of:",
+        "Dr. R.N. Yadav",
+        "DEPARTMENT OF ELECTRONICS AND COMMUNICATION ENGINEERING MANIT BHOPAL"
+      ],
+      "images": [],
+      "speaker_notes": ""
+    },
+    {
+      "slide_number": 2,
+      "content": [
+        "Problem Statement and Objectives",
+        "Problem Statement",
+        "Medical images can be manipulated with digital editing tools, potentially altering crucial diagnostic information. These subtle modifications are often hard to detect visually, which can result in erroneous medical decisions. Consequently, there is a pressing need for dependable systems to identify tampered medical images",
+        "Objectives",
+        "The goal of this project is to analyze medical images through image processing techniques to ascertain if they are authentic or altered. Additionally, it seeks to pinpoint the manipulated areas within the images and create a user-friendly interface for testing and analysis"
+      ],
+      "images": [],
+      "speaker_notes": ""
+    },
+    {
+      "slide_number": 3,
+      "content": [
+        "Dataset Used – UCI Medical Image Tamper Detection Dataset",
+        "Overview",
+        "The project uses the UCI Medical                            Image Tamper Detection Dataset.",
+        "It contains medical images labeled based on authenticity and manipulation type.",
+        "The dataset helps train the model to identify tampered and authentic image regions.",
+        "Dataset Preparation",
+        "Images are organized into four folders based on the labels.",
+        "The dataset is split into training, validation and testing sets in the ratio of 70, 15 & 15 respectively.",
+        "All images are resized and normalized before training.",
+        "Data is loaded using Pytorch DataLoader utilities for efficient processing.",
+        "Class Labels",
+        "True-Benign (TB) – no cancer",
+        "True-Malignant (TM) – real cancer",
+        "False-Benign (FB) – real cancer removed (tampered)",
+        "False-Malignant (FM) – fake cancer added (tampered)."
+      ],
+      "images": [],
+      "speaker_notes": ""
+    },
+    {
+      "slide_number": 4,
+      "content": [
+        "Model Selection: Resnet50",
+        "Model Requirements",
+        "Should detect very small tampered changes in medical images.",
+        "Should extract deep and strong features like texture, edges, and abnormal patterns.",
+        "Should support transfer learning because medical datasets are usually limited.",
+        "Should train well even when the network is deep.",
+        "Should work well for binary classification: tampered vs authentic.",
+        "Should support explainability/localization like Grad-CAM heatmaps.",
+        "Should be compatible with PyTorch/Torchvision and your preprocessing pipeline",
+        "Why ResNet50",
+        "Deep architecture (50 layers) helps capture complex image features.",
+        "Residual connections solve vanishing/degradation problems and make deep training easier.",
+        "Works very well with pretrained ImageNet weights, so training becomes faster and more accurate on smaller datasets.",
+        "Final layer can be easily changed for 2-class output in our project.",
+        "Good balance of accuracy and computational cost.",
+        "Supports Grad-CAM visualization, which is useful for highlighting suspicious regions in medical images.",
+        "Easily integrates with our current medical image tampering detection pipeline.",
+        "ResNet50 was selected because it provides strong feature extraction, stable deep learning through skip connections, and effective classification of real and tampered medical images."
+      ],
+      "images": [],
+      "speaker_notes": ""
+    },
+    {
+      "slide_number": 5,
+      "content": [
+        "ResNet50 is a deep convolutional neural network used for image classification. It uses residual learning with skip connections, which helps in training deep networks effectively and reduces the vanishing gradient problem. The model takes an input image of size 224 × 224 × 3, then applies a 7 × 7 convolution layer and max pooling to extract basic features like edges and textures. Its main structure is made of Residual Bottleneck Blocks with 1 × 1, 3 × 3, and 1 × 1 convolution layers. Early layers extract low-level features, while deeper layers learn complex patterns and tampered regions. Finally, Global Average Pooling and a Fully Connected Layer classify the image into Real and Tampered classes.",
+        "Model Architecture and Feature Extraction",
+        "Mathematical Equations Used",
+        "1. Residual Connection:",
+        "y = F(x) + x",
+        "Used to pass input directly to output, helping ResNet50 train deep networks effectively.",
+        "2. Convolution Operation:",
+        "y = W * x + b",
+        "Used to extract important features such as edges, textures, and patterns from the image.",
+        "3. ReLU Activation Function:",
+        "f(x) = max(0, x)",
+        "Used to introduce non-linearity so the model can learn complex patterns."
+      ],
+      "images": [],
+      "speaker_notes": ""
+    },
+    {
+      "slide_number": 6,
+      "content": [],
+      "images": [
+        {
+          "source": "full_slide_render",
+          "image_file": "slide6_full.png",
+          "ocr_text": "ResNet-50 Architecture\n\ninput Bam conv Bagg Conv2_x ag Conv3_x al Conva_x Jl’ Convs_x\n\nStage 2 (56x 56x64) Stage 3 (28x 28x 256) Stage4(14x14x512) Stage 5(7x7x 1024)\n\nConv Block Conv Block Conv Block\n\nConv 7x7\n\n4\n\nBN BN\n¢ ¢\n@- -@)—- Sn\n\nSS a oo\n\nSkip Connection\n\nIdentity Block ' Identity Block Identity Block\n\n3x3 Conv - 3x3 Conv - 3x1 Conv\nBN BN BN\n\nFully Connected\n\nLayer\n\n1 layer\n\n9 layers\n\n12 layers\n\n18 layers\n\n9 layers\n\n1 layer\n\n1 layer\n\nInput image 224x224x3\n\nConv1 — 7x7 conv, 64 filters, stride 2\n\nConv2_x — 1 conv block + 2 identity blocks\n\nConv3_x — 1 conv block + 3 identity blocks\n\nConv4_x — 1 conv block + 5 identity blocks"
+        }
+      ],
+      "speaker_notes": ""
+    },
+    {
+      "slide_number": 7,
+      "content": [
+        "A pre-trained ResNet50 is used with transfer learning, where the final layer is modified for Real and Tampered classification. The dataset is split into 70:15:15 for training, validation, and testing. To handle imbalance, class weights and a weighted sampler are used. The model is trained for 15 epochs using the Adam optimizer and cross-entropy loss, while the best model is saved based on validation performance.",
+        "Preprocessing and Training Methodology",
+        "Preprocessing Pipeline:",
+        "Medical images in JPG and DICOM formats are first converted into a uniform form for analysis. Windowing is applied to DICOM images to enhance important anatomical details. All images are then resized to 224 × 224, augmented to improve generalization, and normalized before being converted into PyTorch tensors for model input.",
+        "Model Training:",
+        "Mathematical Equations Used in Output:",
+        "1-Fully Connected Layer:  Z = Wf + b----- Generate Output score from extracted features",
+        "2-SoftMax Function: P(y_i) = e^{z_i} / \\sum e{z_j}----- Output Score in class probabilities"
+      ],
+      "images": [],
+      "speaker_notes": ""
+    },
+    {
+      "slide_number": 8,
+      "content": [
+        "Result and Analysis",
+        "The system successfully classifies the uploaded medical image as Authentic or Tampered.",
+        "A probability score is displayed to show the confidence of the model prediction.",
+        "For authentic images, the output shows normal classification results.",
+        "For tampered images, the system also generates a heatmap to highlight the suspicious/tampered region.",
+        "The heatmap improves interpretability by helping users visually identify the affected area.",
+        "The average execution time for authentic images is about 0.45 s.",
+        "The average execution time for tampered images is about 1.55 s due to additional heatmap processing.",
+        "Overall, the system provides accurate, fast, and visually explainable results for medical image tampering detection."
+      ],
+      "images": [],
+      "speaker_notes": ""
+    },
+    {
+      "slide_number": 9,
+      "content": [],
+      "images": [
+        {
+          "source": "full_slide_render",
+          "image_file": "slide9_full.png",
+          "ocr_text": "lassification Report:\nprecision\n\nrecall f1-score\n\n8.99\n8.97\n\n8.97\n8.99\n\nAuthentic\nTampered\n\n8.94\n1.00\n\n8.98\n8.98\n8.98\n\naccuracy\nmacro avg\neighted avg\n\nROC-AUC: @.9988995061446944\n\nAccuracy Curve\n\nAccuracy\n\n—— Train Acc\n—— Val Acc\n\nsupport\n\n942\n2291\n\n3233\n3233\n3233\n\n0.254\n\n0.20 4\n\n0.15 4\n\nLoss\n\n0.10 4\n\n0.05 5\n\nActual\n\nConfusion Matrix\n-0.50\n\n—0.25\n\n0.00 942 0\n\n0.25\n\n0.75\n\n1.00 66\n\n1.25\n\n1.50\n—0.50 -—0.25 0.00 0.25 0.50 0.75 1.00 1.25 1.50\nPredicted\n\nLoss Curve\n\n— Train Loss\n—— Val Loss"
+        }
+      ],
+      "speaker_notes": ""
+    },
+    {
+      "slide_number": 10,
+      "content": [],
+      "images": [
+        {
+          "source": "full_slide_render",
+          "image_file": "slide10_full.png",
+          "ocr_text": "Precision\n\nPrecision-Recall Curve\n\n1.00 +\n\n0.95 4\n\n0.90 4\n\n0.85 7\n\n0.80 4\n\n0.75 +\n\n0.70 +\n\n0.0\n\n0.2 0.4 0.6 0.8\nRecall\n\nClassification\n\nConfidence: 99.9%\n\n1.0\n\nClassification\n\nAnalysis Results\n\nProbabilities\n\nTampered: 0.1%\nAuthentic: 99.9%\n\nAnalysis Results\nProbabilities\n\nTampered: 100.0%\n\nAuthentic: 0.0%\n\nTamper Localization (Heatmap)\n\nRisk Level\n\nTrue Positive Rate\n\n1.074\n\n0.8 4\n\n0.6 4\n\n0.454\n\n0.274\n\nROC Curve\n\n- AUC = 0.9986\n\n0.2\n\nT T\n0.4 0.6\nFalse Positive Rate\n\n0.8\n\n1.0"
+        }
+      ],
+      "speaker_notes": ""
+    }
+  ]
+}

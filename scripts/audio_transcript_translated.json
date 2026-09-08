@@ -1,0 +1,1403 @@
+{
+  "source_language": "en",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 21.2,
+      "original_text": "Welcome back to basic electronics.",
+      "translated_text": "Welcome back to basic electronics."
+    },
+    {
+      "start": 21.2,
+      "end": 25.48,
+      "original_text": "In this lecture we will look at a very useful theorem called the Thevenin's theorem.",
+      "translated_text": "In this lecture, we will look at a very useful theorem called Thevenin's theorem."
+    },
+    {
+      "start": 25.96,
+      "end": 31.08,
+      "original_text": "We will first try to understand why it is possible to represent a circuit with its Thevenin equivalent form.",
+      "translated_text": "We will first try to understand why it is possible to represent a circuit with its Thevenin equivalent form."
+    },
+    {
+      "start": 31.08,
+      "end": 39.48,
+      "original_text": "We will then look at how to extract the associated parameters namely the Thevenin resistance and the Thevenin voltage.",
+      "translated_text": "We will then look at how to extract the associated parameters, namely the Thevenin resistance and the Thevenin voltage."
+    },
+    {
+      "start": 39.48,
+      "end": 47.48,
+      "original_text": "After that we will consider a couple of examples to illustrate how a circuit can be represented by its Thevenin equivalent.",
+      "translated_text": "After that, we will consider a couple of examples to illustrate how a circuit can be represented by its Thevenin equivalent."
+    },
+    {
+      "start": 47.48,
+      "end": 52.48,
+      "original_text": "We will also see how the Thevenin parameters can be extracted graphically.",
+      "translated_text": "We will also see how the Thevenin parameters can be extracted graphically."
+    },
+    {
+      "start": 52.48,
+      "end": 57.48,
+      "original_text": "So, let us get started.",
+      "translated_text": "So, let us get started."
+    },
+    {
+      "start": 57.48,
+      "end": 66.48,
+      "original_text": "Thevenin's theorem is a very useful and important theorem and particularly in electronic circuits we will find it very useful.",
+      "translated_text": "Thevenin's theorem is a very useful and important theorem, and particularly in electronic circuits, we will find it very useful."
+    },
+    {
+      "start": 66.48,
+      "end": 78.48,
+      "original_text": "But before we look at the statement of the Thevenin's theorem, let us see briefly where it comes from and we will do that with the help of this example.",
+      "translated_text": "But before we look at the statement of Thevenin's theorem, let us see briefly where it comes from, and we will do that with the help of this example."
+    },
+    {
+      "start": 78.48,
+      "end": 93.48,
+      "original_text": "Here is a circuit to which we have connected a load resistor RL and we are interested in this voltage across RL.",
+      "translated_text": "Here is a circuit to which we have connected a load resistor RL, and we are interested in this voltage across RL."
+    },
+    {
+      "start": 93.48,
+      "end": 102.48,
+      "original_text": "And in particular we want to ask this question, how is V related to the circuit parameters?",
+      "translated_text": "And in particular, we want to ask this question, how is V related to the circuit parameters?"
+    },
+    {
+      "start": 102.48,
+      "end": 109.48,
+      "original_text": "We begin by assigning node voltages to these various nodes in the circuit with respect to reference node.",
+      "translated_text": "We begin by assigning node voltages to these various nodes in the circuit with respect to a reference node."
+    },
+    {
+      "start": 109.48,
+      "end": 114.48,
+      "original_text": "So, let us first choose a reference node. We have taken that as the reference node.",
+      "translated_text": "So, let us first choose a reference node; we have taken that as the reference node."
+    },
+    {
+      "start": 114.48,
+      "end": 124.48,
+      "original_text": "So, the node voltage there is 0 volts and with respect to that reference node, this voltage at node A is V1.",
+      "translated_text": "So, the node voltage there is 0 volts, and with respect to that reference node, this voltage at node A is V1."
+    },
+    {
+      "start": 124.48,
+      "end": 131.48,
+      "original_text": "The node voltage at B is V2 and the voltage at node C is V3.",
+      "translated_text": "The node voltage at B is V2, and the voltage at node C is V3."
+    },
+    {
+      "start": 131.48,
+      "end": 144.48,
+      "original_text": "Now what we will do is write KCL equations in terms of V1, V2 and V3 at these nodes, nodes A, B and C.",
+      "translated_text": "Now what we will do is write KCL equations in terms of V1, V2, and V3 at these nodes, nodes A, B, and C."
+    },
+    {
+      "start": 144.48,
+      "end": 156.48,
+      "original_text": "And in doing that, let us define G1, the conductance as 1 over R1, G2 equal to 1 over R2, etc.",
+      "translated_text": "And in doing that, let us define G1, the conductance as 1 over R1, G2 equal to 1 over R2, etc."
+    },
+    {
+      "start": 156.48,
+      "end": 163.48,
+      "original_text": "These are our KCL equations. Let us look at KCL at node A. That is our node A.",
+      "translated_text": "These are our KCL equations; let us look at KCL at node A; that is our node A."
+    },
+    {
+      "start": 163.48,
+      "end": 175.48,
+      "original_text": "We have three currents entering or leaving node A. There is one current going like that and that is V1 minus V3 divided by R1.",
+      "translated_text": "We have three currents entering or leaving node A; there is one current going like that, and that is V1 minus V3 divided by R1."
+    },
+    {
+      "start": 175.48,
+      "end": 183.48,
+      "original_text": "So, that is G1 times V1 minus V3 and since that current is leaving this node, we will take it as positive.",
+      "translated_text": "So, that is G1 times V1 minus V3, and since that current is leaving this node, we will take it as positive."
+    },
+    {
+      "start": 184.48,
+      "end": 196.48,
+      "original_text": "Then we have this current V1 minus V2 divided by R2. That means G2 times V1 minus V2 and then we have this current I0 entering the node.",
+      "translated_text": "Then we have this current V1 minus V2 divided by R2; that means G2 times V1 minus V2, and then we have this current I0 entering the node."
+    },
+    {
+      "start": 196.48,
+      "end": 204.48,
+      "original_text": "Since this current is entering the node, we take that as negative and that is why it appears as minus I0 in this equation.",
+      "translated_text": "Since this current is entering the node, we take that as negative, and that is why it appears as minus I0 in this equation."
+    },
+    {
+      "start": 204.48,
+      "end": 210.48,
+      "original_text": "And all these currents must add up to 0 and that gives us KCL at node A.",
+      "translated_text": "And all these currents must add up to 0, and that gives us KCL at node A."
+    },
+    {
+      "start": 211.48,
+      "end": 223.48,
+      "original_text": "In a similar manner, we can write KCL at node B and KCL at node C in terms of the node voltages V1, V2 and V3.",
+      "translated_text": "In a similar manner, we can write KCL at node B and KCL at node C in terms of the node voltages V1, V2, and V3."
+    },
+    {
+      "start": 223.48,
+      "end": 231.48,
+      "original_text": "And we can now write these equations in a matrix form like that. Let us look at one of these equations.",
+      "translated_text": "And we can now write these equations in a matrix form like that; let us look at one of these equations."
+    },
+    {
+      "start": 231.48,
+      "end": 241.48,
+      "original_text": "Let us say the first one. This first equation comes from KCL at node A and let us verify that.",
+      "translated_text": "Let us say the first one; this first equation comes from KCL at node A, and let us verify that."
+    },
+    {
+      "start": 241.48,
+      "end": 249.48,
+      "original_text": "What is the coefficient of V1 in this equation? It is G1 plus G2. So, that goes over there.",
+      "translated_text": "What is the coefficient of V1 in this equation? It is G1 plus G2; so, that goes over there."
+    },
+    {
+      "start": 249.48,
+      "end": 255.48,
+      "original_text": "That is going to multiply V1. What about V2? The coefficient is minus G2.",
+      "translated_text": "That is going to multiply V1; what about V2? The coefficient is minus G2."
+    },
+    {
+      "start": 255.48,
+      "end": 264.48,
+      "original_text": "So, that goes there and that multiplies V2 and the coefficient of V3 is minus G1. So, that goes over there.",
+      "translated_text": "So, that goes there, and that multiplies V2, and the coefficient of V3 is minus G1; so, that goes over there."
+    },
+    {
+      "start": 264.48,
+      "end": 273.48,
+      "original_text": "In addition, we have minus I0 over here and since that does not depend on V1, V2 or V3, we take that to the right hand side.",
+      "translated_text": "In addition, we have minus I0 over here, and since that does not depend on V1, V2, or V3, we take that to the right-hand side."
+    },
+    {
+      "start": 273.48,
+      "end": 279.48,
+      "original_text": "So, it becomes plus I0 and that is how it appears here.",
+      "translated_text": "So, it becomes plus I0, and that is how it appears here."
+    },
+    {
+      "start": 279.48,
+      "end": 289.48,
+      "original_text": "So, this matrix equation is of the form G times V equal to Is where G is this matrix here 3 by 3.",
+      "translated_text": "So, this matrix equation is of the form G times V equal to Is, where G is this matrix here, 3 by 3."
+    },
+    {
+      "start": 289.48,
+      "end": 300.48,
+      "original_text": "V is this column vector consisting of V1, V2, V3, the node voltages in our circuit and Is is the source current vector.",
+      "translated_text": "V is this column vector consisting of V1, V2, V3, the node voltages in our circuit, and Is is the source current vector."
+    },
+    {
+      "start": 301.48,
+      "end": 312.48,
+      "original_text": "Now, if you recall, our objective is to find a relationship between V and the rest of the circuit.",
+      "translated_text": "Now, if you recall, our objective is to find a relationship between V and the rest of the circuit."
+    },
+    {
+      "start": 312.48,
+      "end": 329.48,
+      "original_text": "In order to do that, we want to solve this matrix equation and obtain V2 since V2 is the same as V here because this node voltage is 0.",
+      "translated_text": "In order to do that, we want to solve this matrix equation and obtain V2, since V2 is the same as V here, because this node voltage is 0."
+    },
+    {
+      "start": 329.48,
+      "end": 335.48,
+      "original_text": "V2 can be obtained using Kramer's rule and what does Kramer's rule say?",
+      "translated_text": "V2 can be obtained using Kramer's rule, and what does Kramer's rule say?"
+    },
+    {
+      "start": 335.48,
+      "end": 350.48,
+      "original_text": "It says that V2 is given by D1 divided by D2 where D1 is the determinant of this matrix with the second column replaced with this RHS vector",
+      "translated_text": "It says that V2 is given by D1 divided by D2, where D1 is the determinant of this matrix with the second column replaced with this RHS vector."
+    },
+    {
+      "start": 350.48,
+      "end": 358.48,
+      "original_text": "and D2 is the determinant of this matrix as it is.",
+      "translated_text": "And D2 is the determinant of this matrix as it is."
+    },
+    {
+      "start": 358.48,
+      "end": 367.48,
+      "original_text": "So, let us do that and simplify things after that.",
+      "translated_text": "So, let us do that and simplify things after that."
+    },
+    {
+      "start": 367.48,
+      "end": 378.48,
+      "original_text": "So, this is what we have for V2, the ratio of two determinants, determinant of this original G matrix with the second column replaced with the RHS vector",
+      "translated_text": "So, this is what we have for V2, the ratio of two determinants, determinant of this original G matrix with the second column replaced with the RHS vector."
+    },
+    {
+      "start": 378.48,
+      "end": 387.48,
+      "original_text": "like we mentioned in the last slide and the determinant of the G matrix itself.",
+      "translated_text": "Like we mentioned in the last slide, and the determinant of the G matrix itself."
+    },
+    {
+      "start": 387.48,
+      "end": 401.48,
+      "original_text": "Now, let us denote this determinant by delta 1 and what we should note about delta 1 is that it does not have RL or GL in it.",
+      "translated_text": "Now, let us denote this determinant by delta 1, and what we should note about delta 1 is that it does not have RL or GL in it."
+    },
+    {
+      "start": 401.48,
+      "end": 408.48,
+      "original_text": "So, its value is independent of the load resistance value.",
+      "translated_text": "So, its value is independent of the load resistance value."
+    },
+    {
+      "start": 408.48,
+      "end": 413.48,
+      "original_text": "Let us look at the denominator now that is determinant of G.",
+      "translated_text": "Let us look at the denominator now, that is the determinant of G."
+    },
+    {
+      "start": 414.48,
+      "end": 429.48,
+      "original_text": "This is our G matrix and this determinant does depend on GL, we have GL over here and what we will do now is write this column as the sum of two columns",
+      "translated_text": "This is our G matrix, and this determinant does depend on GL; we have GL over here, and what we will do now is write this column as the sum of two columns."
+    },
+    {
+      "start": 429.48,
+      "end": 443.48,
+      "original_text": "column 1 minus G2, G2, 0, column 2, 0, GL, 0 and if we do that we can write this determinant as the sum of two determinants.",
+      "translated_text": "Column 1 minus G2, G2, 0, column 2, 0, GL, 0, and if we do that, we can write this determinant as the sum of two determinants."
+    },
+    {
+      "start": 443.48,
+      "end": 453.48,
+      "original_text": "This determinant has no GL term in it whereas this one does have GL in it right there.",
+      "translated_text": "This determinant has no GL term in it, whereas this one does have GL in it right there."
+    },
+    {
+      "start": 454.48,
+      "end": 470.48,
+      "original_text": "Let us denote this first determinant by delta and let us write this second determinant as GL times delta 2 where delta 2 is the determinant of this matrix here",
+      "translated_text": "Let us denote this first determinant by delta, and let us write this second determinant as GL times delta 2, where delta 2 is the determinant of this matrix here."
+    },
+    {
+      "start": 470.48,
+      "end": 477.48,
+      "original_text": "and notice that we do not have GL here anymore because that has been taken outside.",
+      "translated_text": "And notice that we do not have GL here anymore, because that has been taken outside."
+    },
+    {
+      "start": 478.48,
+      "end": 493.48,
+      "original_text": "So, with these substitutions we can write V2 as delta 1 divided by determinant of G that is delta 1 divided by delta plus GL delta 2 that term",
+      "translated_text": "So, with these substitutions, we can write V2 as delta 1 divided by determinant of G, that is delta 1 divided by delta plus GL delta 2, that term."
+    },
+    {
+      "start": 493.48,
+      "end": 498.48,
+      "original_text": "where delta, delta 1, delta 2 are all independent of GL.",
+      "translated_text": "Where delta, delta 1, and delta 2 are all independent of GL."
+    },
+    {
+      "start": 499.48,
+      "end": 504.48,
+      "original_text": "So, the only dependence of V2 on GL is right there.",
+      "translated_text": "So, the only dependence of V2 on GL is right there."
+    },
+    {
+      "start": 508.48,
+      "end": 520.48,
+      "original_text": "So, here is V2 once again delta 1 divided by delta plus GL times delta 2 and let us emphasize once again that delta 1, delta and delta 2",
+      "translated_text": "So, here is V2 once again, delta 1 divided by delta plus GL times delta 2, and let us emphasize once again that delta 1, delta, and delta 2."
+    },
+    {
+      "start": 520.48,
+      "end": 529.48,
+      "original_text": "have no dependence on GL or RL and they will only depend on the circuit parameters here.",
+      "translated_text": "Have no dependence on GL or RL, and they will only depend on the circuit parameters here."
+    },
+    {
+      "start": 532.48,
+      "end": 545.48,
+      "original_text": "Let us now look at the open circuit value of V2 that means the value of V2 when RL is infinite and when RL is infinite GL which is 1 over RL becomes 0",
+      "translated_text": "Let us now look at the open circuit value of V2, that means the value of V2 when RL is infinite, and when RL is infinite, GL, which is 1 over RL, becomes 0."
+    },
+    {
+      "start": 546.48,
+      "end": 554.48,
+      "original_text": "and therefore we have V2 equal to delta 1 divided by delta so that is our V2 in the open circuit condition.",
+      "translated_text": "And therefore, we have V2 equal to delta 1 divided by delta, so that is our V2 in the open circuit condition."
+    },
+    {
+      "start": 557.48,
+      "end": 563.48,
+      "original_text": "We can now rewrite V2 by dividing both the numerator and denominator by delta.",
+      "translated_text": "We can now rewrite V2 by dividing both the numerator and denominator by delta."
+    },
+    {
+      "start": 563.48,
+      "end": 573.48,
+      "original_text": "So, in the numerator we get delta 1 divided by delta in the denominator we get 1 here so 1 plus GL times delta 2 over delta.",
+      "translated_text": "So, in the numerator, we get delta 1 divided by delta, in the denominator, we get 1 here, so 1 plus GL times delta 2 over delta."
+    },
+    {
+      "start": 574.48,
+      "end": 579.48,
+      "original_text": "Now delta 1 by delta is nothing but V2 OC V2 open circuit.",
+      "translated_text": "Now delta 1 by delta is nothing but V2 OC, V2 open circuit."
+    },
+    {
+      "start": 580.48,
+      "end": 590.48,
+      "original_text": "So, we replace that with V2 OC and that gets divided by 1 plus delta 2 over RL times delta.",
+      "translated_text": "So, we replace that with V2 OC, and that gets divided by 1 plus delta 2 over RL times delta."
+    },
+    {
+      "start": 591.48,
+      "end": 595.48,
+      "original_text": "Here we have used the fact that GL is 1 over RL.",
+      "translated_text": "Here we have used the fact that GL is 1 over RL."
+    },
+    {
+      "start": 596.48,
+      "end": 607.48,
+      "original_text": "And now let us multiply both numerator and denominator by RL to get RL divided by RL plus delta 2 over delta times V2 OC.",
+      "translated_text": "And now let us multiply both numerator and denominator by RL to get RL divided by RL plus delta 2 over delta times V2 OC."
+    },
+    {
+      "start": 610.48,
+      "end": 622.48,
+      "original_text": "Now it turns out that this quantity delta 2 divided by delta has units of resistance and you should really go back one slide and check that out.",
+      "translated_text": "Now it turns out that this quantity delta 2 divided by delta has units of resistance, and you should really go back one slide and check that out."
+    },
+    {
+      "start": 623.48,
+      "end": 641.48,
+      "original_text": "So, let us define R Thevenin that is Thevenin resistance as delta 2 divided by delta and with that we get V2 equal to RL divided by RL plus R Thevenin times V2 OC like that.",
+      "translated_text": "So, let us define R Thevenin, that is Thevenin resistance, as delta 2 divided by delta, and with that, we get V2 equal to RL divided by RL plus R Thevenin times V2 OC, like that."
+    },
+    {
+      "start": 642.48,
+      "end": 649.48,
+      "original_text": "The stop sign has come and why is it there?",
+      "translated_text": "The stop sign has come, and why is it there?"
+    },
+    {
+      "start": 651.48,
+      "end": 659.48,
+      "original_text": "That means there is some unfinished business and that is this delta 2 by delta.",
+      "translated_text": "That means there is some unfinished business, and that is this delta 2 by delta."
+    },
+    {
+      "start": 659.48,
+      "end": 663.48,
+      "original_text": "You need to really go back and check that it has units of resistance.",
+      "translated_text": "You need to really go back and check that it has units of resistance."
+    },
+    {
+      "start": 664.48,
+      "end": 671.48,
+      "original_text": "So, do that stop the video here and when you complete this assignment start again with the video.",
+      "translated_text": "So, do that, stop the video here, and when you complete this assignment, start again with the video."
+    },
+    {
+      "start": 674.48,
+      "end": 680.48,
+      "original_text": "So, this is our expression for V2 and it is looking very much like voltage division formula.",
+      "translated_text": "So, this is our expression for V2, and it is looking very much like the voltage division formula."
+    },
+    {
+      "start": 681.48,
+      "end": 702.48,
+      "original_text": "If we have a source which is equal to V2 OC like that and R Thevenin and RL in series then the voltage across RL which is V2 here would be RL divided by RL plus RTH times VTH.",
+      "translated_text": "If we have a source which is equal to V2 OC, like that, and R Thevenin and RL in series, then the voltage across RL, which is V2 here, would be RL divided by RL plus RTH times VTH."
+    },
+    {
+      "start": 703.48,
+      "end": 716.48,
+      "original_text": "So, this circuit and this expression are compatible with each other if we have VTH equal to V2 open circuit.",
+      "translated_text": "So, this circuit and this expression are compatible with each other if we have VTH equal to V2 open circuit."
+    },
+    {
+      "start": 720.48,
+      "end": 731.48,
+      "original_text": "In other words this expression allows us to replace the original circuit with an equivalent simpler circuit and that simpler circuit is the Thevenin equivalent circuit.",
+      "translated_text": "In other words, this expression allows us to replace the original circuit with an equivalent simpler circuit, and that simpler circuit is the Thevenin equivalent circuit."
+    },
+    {
+      "start": 733.48,
+      "end": 744.48,
+      "original_text": "So, here is our original circuit and this entire circuit can now be replaced with this much simpler circuit consisting of only one voltage source in series with one resistance.",
+      "translated_text": "So, here is our original circuit, and this entire circuit can now be replaced with this much simpler circuit, consisting of only one voltage source in series with one resistance."
+    },
+    {
+      "start": 745.48,
+      "end": 753.48,
+      "original_text": "The voltage is called VTH or Thevenin voltage and the resistance is called R Thevenin or RTH.",
+      "translated_text": "The voltage is called VTH, or Thevenin voltage, and the resistance is called R Thevenin, or RTH."
+    },
+    {
+      "start": 754.48,
+      "end": 768.48,
+      "original_text": "And later of course we will look at how we can obtain VTH and RTH from the original network and that brings us to Thevenin's theorem.",
+      "translated_text": "And later, of course, we will look at how we can obtain VTH and RTH from the original network, and that brings us to Thevenin's theorem."
+    },
+    {
+      "start": 769.48,
+      "end": 782.48,
+      "original_text": "If we have a circuit consisting of resistors, independent voltage sources, independent current sources and dependent sources such as current controlled voltage source, current controlled current source etc.",
+      "translated_text": "If we have a circuit consisting of resistors, independent voltage sources, independent current sources, and dependent sources, such as current-controlled voltage sources, current-controlled current sources, etc."
+    },
+    {
+      "start": 782.48,
+      "end": 797.48,
+      "original_text": "Then Thevenin's theorem says that this circuit can be represented by its Thevenin equivalent circuit consisting of a voltage source VTH in series with a resistance RTH.",
+      "translated_text": "Then Thevenin's theorem says that this circuit can be represented by its Thevenin equivalent circuit, consisting of a voltage source VTH in series with a resistance RTH."
+    },
+    {
+      "start": 798.48,
+      "end": 812.48,
+      "original_text": "And now imagine that we have a load resistance RL connected between A and B to the original circuit as well as to the Thevenin equivalent circuit.",
+      "translated_text": "And now imagine that we have a load resistance RL connected between A and B to the original circuit, as well as to the Thevenin equivalent circuit."
+    },
+    {
+      "start": 813.48,
+      "end": 823.48,
+      "original_text": "Then Thevenin's theorem says that the load resistance does not see any difference between the original circuit and its Thevenin equivalent.",
+      "translated_text": "Then Thevenin's theorem says that the load resistance does not see any difference between the original circuit and its Thevenin equivalent."
+    },
+    {
+      "start": 823.48,
+      "end": 831.48,
+      "original_text": "That means the voltage across the load resistance or the current through the load resistance would be identical in these two cases.",
+      "translated_text": "That means the voltage across the load resistance, or the current through the load resistance, would be identical in these two cases."
+    },
+    {
+      "start": 832.48,
+      "end": 840.48,
+      "original_text": "Now the next question that comes up is how do we figure out VTH and RTH from the original network?",
+      "translated_text": "Now the next question that comes up is how do we figure out VTH and RTH from the original network?"
+    },
+    {
+      "start": 841.48,
+      "end": 842.48,
+      "original_text": "So let us look at that.",
+      "translated_text": "So let us look at that."
+    },
+    {
+      "start": 844.48,
+      "end": 849.48,
+      "original_text": "First let us look at how to get VTH from the original circuit.",
+      "translated_text": "First, let us look at how to get VTH from the original circuit."
+    },
+    {
+      "start": 850.48,
+      "end": 855.48,
+      "original_text": "Since the two circuits are equivalent, the open circuit voltage must be the same in both cases.",
+      "translated_text": "Since the two circuits are equivalent, the open circuit voltage must be the same in both cases."
+    },
+    {
+      "start": 856.48,
+      "end": 861.48,
+      "original_text": "Now let BoC be the open circuit voltage for the left circuit here.",
+      "translated_text": "Now let VOC be the open circuit voltage for the left circuit here."
+    },
+    {
+      "start": 862.48,
+      "end": 867.48,
+      "original_text": "That means we do not connect anything between A and B and measure this voltage BoC between A and B.",
+      "translated_text": "That means we do not connect anything between A and B and measure this voltage VOC between A and B."
+    },
+    {
+      "start": 869.48,
+      "end": 872.48,
+      "original_text": "For the Thevenin equivalent circuit, what is the open circuit voltage?",
+      "translated_text": "For the Thevenin equivalent circuit, what is the open circuit voltage?"
+    },
+    {
+      "start": 872.48,
+      "end": 880.48,
+      "original_text": "If we do not connect anything between A and B, there is no current and therefore there is no voltage drop across RTH.",
+      "translated_text": "If we do not connect anything between A and B, there is no current, and therefore, there is no voltage drop across RTH."
+    },
+    {
+      "start": 881.48,
+      "end": 886.48,
+      "original_text": "And therefore this open circuit voltage would be the same as this VTH.",
+      "translated_text": "And therefore, this open circuit voltage would be the same as this VTH."
+    },
+    {
+      "start": 888.48,
+      "end": 899.48,
+      "original_text": "And therefore we conclude that this VTH is the same as the open circuit voltage seen between A and B in the original circuit.",
+      "translated_text": "And therefore, we conclude that this VTH is the same as the open circuit voltage seen between A and B in the original circuit."
+    },
+    {
+      "start": 900.48,
+      "end": 903.48,
+      "original_text": "And that is what this equation tells us.",
+      "translated_text": "And that is what this equation tells us."
+    },
+    {
+      "start": 906.48,
+      "end": 910.48,
+      "original_text": "What about RTH, the Thevenin resistance here?",
+      "translated_text": "What about RTH, the Thevenin resistance here?"
+    },
+    {
+      "start": 911.48,
+      "end": 915.48,
+      "original_text": "That can be found by different methods and let us see what those methods are.",
+      "translated_text": "That can be found by different methods, and let us see what those methods are."
+    },
+    {
+      "start": 917.48,
+      "end": 923.48,
+      "original_text": "Method one, here is our original circuit and that is the Thevenin equivalent representation.",
+      "translated_text": "Method one, here is our original circuit, and that is the Thevenin equivalent representation."
+    },
+    {
+      "start": 924.48,
+      "end": 929.48,
+      "original_text": "What we do is deactivate all independent sources in the original circuit.",
+      "translated_text": "What we do is deactivate all independent sources in the original circuit."
+    },
+    {
+      "start": 930.48,
+      "end": 935.48,
+      "original_text": "And we do the same thing in the Thevenin equivalent circuit as well.",
+      "translated_text": "And we do the same thing in the Thevenin equivalent circuit as well."
+    },
+    {
+      "start": 936.48,
+      "end": 941.48,
+      "original_text": "And in the Thevenin equivalent circuit, the only independent source is this voltage source here.",
+      "translated_text": "And in the Thevenin equivalent circuit, the only independent source is this voltage source here."
+    },
+    {
+      "start": 942.48,
+      "end": 946.48,
+      "original_text": "And when we deactivate that, we replace that with a short circuit like that.",
+      "translated_text": "And when we deactivate that, we replace that with a short circuit, like that."
+    },
+    {
+      "start": 947.48,
+      "end": 954.48,
+      "original_text": "And what we see then between A and B is simply the Thevenin resistance RTH.",
+      "translated_text": "And what we see then between A and B is simply the Thevenin resistance RTH."
+    },
+    {
+      "start": 955.48,
+      "end": 963.48,
+      "original_text": "And now if we look into the port AB of the original circuit with the voltage sources and current sources deactivated,",
+      "translated_text": "And now, if we look into the port AB of the original circuit, with the voltage sources and current sources deactivated."
+    },
+    {
+      "start": 964.48,
+      "end": 968.48,
+      "original_text": "then whatever resistance we see must be the same as RTH.",
+      "translated_text": "Then whatever resistance we see must be the same as RTH."
+    },
+    {
+      "start": 969.48,
+      "end": 981.48,
+      "original_text": "Often RTH can be found by inspection of the original circuit with the independent voltage sources and independent current sources deactivated.",
+      "translated_text": "Often, RTH can be found by inspection of the original circuit, with the independent voltage sources and independent current sources deactivated."
+    },
+    {
+      "start": 982.48,
+      "end": 985.48,
+      "original_text": "And if that does not work, what we can do is to use a test source.",
+      "translated_text": "And if that does not work, what we can do is use a test source."
+    },
+    {
+      "start": 986.48,
+      "end": 993.48,
+      "original_text": "We can use either a test voltage source like that or we can use a test current source like this.",
+      "translated_text": "We can use either a test voltage source, like that, or we can use a test current source, like this."
+    },
+    {
+      "start": 994.48,
+      "end": 1007.48,
+      "original_text": "And what we do then is, for example, if we use a voltage source, then we find this current IS and then RTH is given by VS divided by IS.",
+      "translated_text": "And what we do then is, for example, if we use a voltage source, then we find this current IS, and then RTH is given by VS divided by IS."
+    },
+    {
+      "start": 1008.48,
+      "end": 1018.48,
+      "original_text": "In this case where we have a test current source, then we find this voltage drop between A and B and then RTH is given by VS by IS.",
+      "translated_text": "In this case, where we have a test current source, then we find this voltage drop between A and B, and then RTH is given by VS by IS."
+    },
+    {
+      "start": 1019.48,
+      "end": 1024.48,
+      "original_text": "Let us look at our second method now.",
+      "translated_text": "Let us look at our second method now."
+    },
+    {
+      "start": 1025.48,
+      "end": 1029.48,
+      "original_text": "This is our original circuit and that is the Thevenin equivalent.",
+      "translated_text": "This is our original circuit, and that is the Thevenin equivalent."
+    },
+    {
+      "start": 1030.48,
+      "end": 1031.48,
+      "original_text": "We look at two things.",
+      "translated_text": "We look at two things."
+    },
+    {
+      "start": 1031.48,
+      "end": 1036.48,
+      "original_text": "One, the open circuit voltage between A and B in both cases.",
+      "translated_text": "One, the open circuit voltage between A and B in both cases."
+    },
+    {
+      "start": 1037.48,
+      "end": 1047.48,
+      "original_text": "Second, the short circuit current which flows from A to B when A and B are shorted and we do that again in both cases.",
+      "translated_text": "Second, the short circuit current, which flows from A to B when A and B are shorted, and we do that again in both cases."
+    },
+    {
+      "start": 1048.48,
+      "end": 1063.48,
+      "original_text": "And because the original circuit is equivalent to this Thevenin representation, VOC here, VOC here must be the same and similarly ISC here and ISC here must be the same.",
+      "translated_text": "And because the original circuit is equivalent to this Thevenin representation, VOC here, VOC here must be the same, and similarly ISC here, and ISC here must be the same."
+    },
+    {
+      "start": 1064.48,
+      "end": 1069.48,
+      "original_text": "So we use this fact to obtain RTH for the Thevenin representation.",
+      "translated_text": "So, we use this fact to obtain RTH for the Thevenin representation."
+    },
+    {
+      "start": 1070.48,
+      "end": 1071.48,
+      "original_text": "Let us see how.",
+      "translated_text": "Let us see how."
+    },
+    {
+      "start": 1072.48,
+      "end": 1074.48,
+      "original_text": "Let us look at this circuit.",
+      "translated_text": "Let us look at this circuit."
+    },
+    {
+      "start": 1075.48,
+      "end": 1082.48,
+      "original_text": "The open circuit voltage between A and B is the same as VTH here because there is no voltage drop across RTH.",
+      "translated_text": "The open circuit voltage between A and B is the same as VTH here, because there is no voltage drop across RTH."
+    },
+    {
+      "start": 1083.48,
+      "end": 1089.48,
+      "original_text": "The current being zero and therefore we get VOC equal to VTH.",
+      "translated_text": "The current being zero, and therefore, we get VOC equal to VTH."
+    },
+    {
+      "start": 1090.48,
+      "end": 1091.48,
+      "original_text": "This equation here.",
+      "translated_text": "This equation here."
+    },
+    {
+      "start": 1092.48,
+      "end": 1093.48,
+      "original_text": "All right.",
+      "translated_text": "All right."
+    },
+    {
+      "start": 1093.48,
+      "end": 1095.48,
+      "original_text": "Let us now look at the short circuit current.",
+      "translated_text": "Let us now look at the short circuit current."
+    },
+    {
+      "start": 1096.48,
+      "end": 1103.48,
+      "original_text": "ISC is simply VTH divided by RTH because there is no other resistance in the circuit.",
+      "translated_text": "ISC is simply VTH divided by RTH, because there is no other resistance in the circuit."
+    },
+    {
+      "start": 1104.48,
+      "end": 1108.48,
+      "original_text": "So that gives us ISC equal to VTH divided by RTH.",
+      "translated_text": "So, that gives us ISC equal to VTH divided by RTH."
+    },
+    {
+      "start": 1109.48,
+      "end": 1111.48,
+      "original_text": "And VTH is the same as VOC.",
+      "translated_text": "And VTH is the same as VOC."
+    },
+    {
+      "start": 1112.48,
+      "end": 1116.48,
+      "original_text": "Therefore ISC is equal to VOC divided by RTH.",
+      "translated_text": "Therefore, ISC is equal to VOC divided by RTH."
+    },
+    {
+      "start": 1117.48,
+      "end": 1120.48,
+      "original_text": "And that gives us a formula to obtain RTH.",
+      "translated_text": "And that gives us a formula to obtain RTH."
+    },
+    {
+      "start": 1121.48,
+      "end": 1126.48,
+      "original_text": "That is RTH equal to VOC divided by ISC.",
+      "translated_text": "That is RTH equal to VOC divided by ISC."
+    },
+    {
+      "start": 1128.48,
+      "end": 1135.48,
+      "original_text": "Now since this VOC and this VOC are identical because the two circuits are equivalent.",
+      "translated_text": "Now, since this VOC and this VOC are identical, because the two circuits are equivalent."
+    },
+    {
+      "start": 1136.48,
+      "end": 1141.48,
+      "original_text": "And also because this ISC and this ISC are the same.",
+      "translated_text": "And also because this ISC and this ISC are the same."
+    },
+    {
+      "start": 1142.48,
+      "end": 1148.48,
+      "original_text": "What we can do is in the original circuit we find the open circuit voltage and the short circuit current.",
+      "translated_text": "What we can do is, in the original circuit, we find the open circuit voltage and the short circuit current."
+    },
+    {
+      "start": 1148.48,
+      "end": 1155.48,
+      "original_text": "And then RTH is given by that open circuit voltage divided by the short circuit current.",
+      "translated_text": "And then RTH is given by that open circuit voltage divided by the short circuit current."
+    },
+    {
+      "start": 1156.48,
+      "end": 1161.48,
+      "original_text": "And note here that we do not deactivate any sources in this case.",
+      "translated_text": "And note here that we do not deactivate any sources in this case."
+    },
+    {
+      "start": 1162.48,
+      "end": 1167.48,
+      "original_text": "So the independent sources are left as they are in the original circuit.",
+      "translated_text": "So, the independent sources are left as they are in the original circuit."
+    },
+    {
+      "start": 1171.48,
+      "end": 1177.48,
+      "original_text": "Let us find the Thevenin equivalent of this circuit here as seen from RL.",
+      "translated_text": "Let us find the Thevenin equivalent of this circuit here, as seen from RL."
+    },
+    {
+      "start": 1178.48,
+      "end": 1182.48,
+      "original_text": "So we need to find VTH and RTH.",
+      "translated_text": "So, we need to find VTH and RTH."
+    },
+    {
+      "start": 1183.48,
+      "end": 1188.48,
+      "original_text": "Let us find VTH first and how do we do that?",
+      "translated_text": "Let us find VTH first, and how do we do that?"
+    },
+    {
+      "start": 1189.48,
+      "end": 1194.48,
+      "original_text": "VTH is the same as VOC, the open circuit voltage between A and B.",
+      "translated_text": "VTH is the same as VOC, the open circuit voltage between A and B."
+    },
+    {
+      "start": 1195.48,
+      "end": 1201.48,
+      "original_text": "So we remove RL and then find this voltage and that is the same as VTH.",
+      "translated_text": "So, we remove RL, and then find this voltage, and that is the same as VTH."
+    },
+    {
+      "start": 1202.48,
+      "end": 1207.48,
+      "original_text": "That is a straightforward calculation.",
+      "translated_text": "That is a straightforward calculation."
+    },
+    {
+      "start": 1208.48,
+      "end": 1210.48,
+      "original_text": "There is no current through this two ohms resistance.",
+      "translated_text": "There is no current through this two-ohms resistance."
+    },
+    {
+      "start": 1211.48,
+      "end": 1215.48,
+      "original_text": "So no voltage drop there and therefore VOC is the same as this voltage drop.",
+      "translated_text": "So, no voltage drop there, and therefore, VOC is the same as this voltage drop."
+    },
+    {
+      "start": 1216.48,
+      "end": 1223.48,
+      "original_text": "And that can be found by voltage division that is three ohms divided by nine ohms times nine volts.",
+      "translated_text": "And that can be found by voltage division, that is three ohms divided by nine ohms times nine volts."
+    },
+    {
+      "start": 1224.48,
+      "end": 1226.48,
+      "original_text": "So that comes to three volts.",
+      "translated_text": "So, that comes to three volts."
+    },
+    {
+      "start": 1227.48,
+      "end": 1232.48,
+      "original_text": "So our VTH which is the same as VOC is three volts.",
+      "translated_text": "So, our VTH, which is the same as VOC, is three volts."
+    },
+    {
+      "start": 1234.48,
+      "end": 1238.48,
+      "original_text": "Next let us find RTH and how do we do that?",
+      "translated_text": "Next, let us find RTH, and how do we do that?"
+    },
+    {
+      "start": 1239.48,
+      "end": 1244.48,
+      "original_text": "In the original circuit we deactivate the independent sources.",
+      "translated_text": "In the original circuit, we deactivate the independent sources."
+    },
+    {
+      "start": 1245.48,
+      "end": 1248.48,
+      "original_text": "In this case there is only one independent source that is a voltage source.",
+      "translated_text": "In this case, there is only one independent source, that is a voltage source."
+    },
+    {
+      "start": 1249.48,
+      "end": 1252.48,
+      "original_text": "So we short it and then we look from this port AB.",
+      "translated_text": "So, we short it, and then we look from this port AB."
+    },
+    {
+      "start": 1253.48,
+      "end": 1258.48,
+      "original_text": "And this is what we see from AB.",
+      "translated_text": "And this is what we see from AB."
+    },
+    {
+      "start": 1259.48,
+      "end": 1266.48,
+      "original_text": "This six ohms and three ohms come in parallel and that combination comes in series with these two ohms.",
+      "translated_text": "This six ohms and three ohms come in parallel, and that combination comes in series with these two ohms."
+    },
+    {
+      "start": 1267.48,
+      "end": 1274.48,
+      "original_text": "And therefore our RTH turns out to be three parallel six plus two or four ohms.",
+      "translated_text": "And therefore, our RTH turns out to be three parallel six, plus two, or four ohms."
+    },
+    {
+      "start": 1275.48,
+      "end": 1282.48,
+      "original_text": "So our Thevenin equivalent circuit has VTH equal to three volts and RTH equal to four ohms.",
+      "translated_text": "So, our Thevenin equivalent circuit has VTH equal to three volts, and RTH equal to four ohms."
+    },
+    {
+      "start": 1286.48,
+      "end": 1291.48,
+      "original_text": "Another example, this is a little more complicated than the previous example.",
+      "translated_text": "Another example, this is a little more complicated than the previous example."
+    },
+    {
+      "start": 1292.48,
+      "end": 1298.48,
+      "original_text": "We have two independent sources now, a current source six amperes and a voltage source 48 volts.",
+      "translated_text": "We have two independent sources now, a current source six amperes, and a voltage source 48 volts."
+    },
+    {
+      "start": 1299.48,
+      "end": 1303.48,
+      "original_text": "And we want to find the Thevenin equivalent circuit as seen from AB.",
+      "translated_text": "And we want to find the Thevenin equivalent circuit as seen from AB."
+    },
+    {
+      "start": 1304.48,
+      "end": 1308.48,
+      "original_text": "Let us look at RTH first. How do we find RTH?",
+      "translated_text": "Let us look at RTH first; how do we find RTH?"
+    },
+    {
+      "start": 1309.48,
+      "end": 1315.48,
+      "original_text": "We deactivate the independent sources that is this current source and this voltage source.",
+      "translated_text": "We deactivate the independent sources, that is this current source, and this voltage source."
+    },
+    {
+      "start": 1316.48,
+      "end": 1322.48,
+      "original_text": "The current source is replaced with an open circuit and the voltage source is replaced with a short circuit.",
+      "translated_text": "The current source is replaced with an open circuit, and the voltage source is replaced with a short circuit."
+    },
+    {
+      "start": 1323.48,
+      "end": 1328.48,
+      "original_text": "And now we look from AB and find the resistance.",
+      "translated_text": "And now we look from AB, and find the resistance."
+    },
+    {
+      "start": 1329.48,
+      "end": 1331.48,
+      "original_text": "That resistance is our RTH.",
+      "translated_text": "That resistance is our RTH."
+    },
+    {
+      "start": 1332.48,
+      "end": 1338.48,
+      "original_text": "And that is fairly straightforward to do this four ohms and two ohms are in series.",
+      "translated_text": "And that is fairly straightforward to do; this four ohms, and two ohms are in series."
+    },
+    {
+      "start": 1339.48,
+      "end": 1348.48,
+      "original_text": "So therefore we have six ohms and that combination comes in parallel with 12 ohms and that entire combination is four ohms.",
+      "translated_text": "So, therefore, we have six ohms, and that combination comes in parallel with 12 ohms, and that entire combination is four ohms."
+    },
+    {
+      "start": 1349.48,
+      "end": 1355.48,
+      "original_text": "On this side, we have four ohms in parallel with 12 ohms and that turns out to be three ohms.",
+      "translated_text": "On this side, we have four ohms in parallel with 12 ohms, and that turns out to be three ohms."
+    },
+    {
+      "start": 1356.48,
+      "end": 1362.48,
+      "original_text": "So altogether between A and B we have four ohms plus three ohms or seven ohms.",
+      "translated_text": "So, altogether between A and B, we have four ohms plus three ohms, or seven ohms."
+    },
+    {
+      "start": 1363.48,
+      "end": 1365.48,
+      "original_text": "And that is our RTH.",
+      "translated_text": "And that is our RTH."
+    },
+    {
+      "start": 1368.48,
+      "end": 1370.48,
+      "original_text": "Let us now look at VTH.",
+      "translated_text": "Let us now look at VTH."
+    },
+    {
+      "start": 1371.48,
+      "end": 1373.48,
+      "original_text": "VTH is the same as VOC.",
+      "translated_text": "VTH is the same as VOC."
+    },
+    {
+      "start": 1374.48,
+      "end": 1376.48,
+      "original_text": "This voltage here.",
+      "translated_text": "This voltage here."
+    },
+    {
+      "start": 1377.48,
+      "end": 1380.48,
+      "original_text": "And how do we go about finding that voltage drop?",
+      "translated_text": "And how do we go about finding that voltage drop?"
+    },
+    {
+      "start": 1381.48,
+      "end": 1387.48,
+      "original_text": "We note that this current I must be zero because there is no return path for this current.",
+      "translated_text": "We note that this current I must be zero, because there is no return path for this current."
+    },
+    {
+      "start": 1388.48,
+      "end": 1389.48,
+      "original_text": "There is an open circuit here.",
+      "translated_text": "There is an open circuit here."
+    },
+    {
+      "start": 1390.48,
+      "end": 1397.48,
+      "original_text": "And if this current were not zero, then that would lead to violation of the charge conservation principle.",
+      "translated_text": "And if this current were not zero, then that would lead to a violation of the charge conservation principle."
+    },
+    {
+      "start": 1398.48,
+      "end": 1399.48,
+      "original_text": "Alright.",
+      "translated_text": "Alright."
+    },
+    {
+      "start": 1400.48,
+      "end": 1403.48,
+      "original_text": "Once we figure that out, the rest of the calculation is straightforward.",
+      "translated_text": "Once we figure that out, the rest of the calculation is straightforward."
+    },
+    {
+      "start": 1404.48,
+      "end": 1408.48,
+      "original_text": "What we do now is find this voltage drop between A and C.",
+      "translated_text": "What we do now is find this voltage drop between A and C."
+    },
+    {
+      "start": 1409.48,
+      "end": 1416.48,
+      "original_text": "This voltage drop between C and B and then VAB is simply VAC plus VCB.",
+      "translated_text": "This voltage drop between C and B, and then VAB is simply VAC plus VCB."
+    },
+    {
+      "start": 1417.48,
+      "end": 1418.48,
+      "original_text": "So let us do that.",
+      "translated_text": "So, let us do that."
+    },
+    {
+      "start": 1420.48,
+      "end": 1424.48,
+      "original_text": "Since this current is zero, we have two independent circuits here.",
+      "translated_text": "Since this"
+    },
+    {
+      "start": 1425.48,
+      "end": 1429.48,
+      "original_text": "One circuit is here and the other circuit is here.",
+      "translated_text": "One circuit is here and the other circuit is here."
+    },
+    {
+      "start": 1430.48,
+      "end": 1432.48,
+      "original_text": "And that makes things very easy.",
+      "translated_text": "And that makes things very easy."
+    },
+    {
+      "start": 1433.48,
+      "end": 1434.48,
+      "original_text": "Alright.",
+      "translated_text": "Alright."
+    },
+    {
+      "start": 1435.48,
+      "end": 1436.48,
+      "original_text": "Let us look at VAC first.",
+      "translated_text": "Let us look at VAC first."
+    },
+    {
+      "start": 1437.48,
+      "end": 1439.48,
+      "original_text": "What is this resistance?",
+      "translated_text": "What is this resistance?"
+    },
+    {
+      "start": 1440.48,
+      "end": 1443.48,
+      "original_text": "As we have already found out, that is four ohms.",
+      "translated_text": "As we have already found out, that is four ohms."
+    },
+    {
+      "start": 1444.48,
+      "end": 1448.48,
+      "original_text": "And therefore six amperes going through four ohms gives us 24 volts.",
+      "translated_text": "And therefore six amperes going through four ohms gives us 24 volts."
+    },
+    {
+      "start": 1449.48,
+      "end": 1450.48,
+      "original_text": "So that is VAC.",
+      "translated_text": "So that is VAC."
+    },
+    {
+      "start": 1452.48,
+      "end": 1454.48,
+      "original_text": "What about VCB?",
+      "translated_text": "What about VCB?"
+    },
+    {
+      "start": 1455.48,
+      "end": 1462.48,
+      "original_text": "VCB is given by voltage division of this 48 volts between 12 ohms and 4 ohms.",
+      "translated_text": "VCB is given by voltage division of this 48 volts between 12 ohms and 4 ohms."
+    },
+    {
+      "start": 1462.48,
+      "end": 1471.48,
+      "original_text": "So it would be 12 divided by 16 times 48 and that turns out to be 36 volts.",
+      "translated_text": "So it would be 12 divided by 16 times 48 and that turns out to be 36 volts."
+    },
+    {
+      "start": 1472.48,
+      "end": 1481.48,
+      "original_text": "So altogether between A and B, we have 24 volts plus 36 volts and that comes to 60 volts.",
+      "translated_text": "So altogether between A and B, we have 24 volts plus 36 volts and that comes to 60 volts."
+    },
+    {
+      "start": 1482.48,
+      "end": 1487.48,
+      "original_text": "So that is our open circuit voltage and that is the same as VTH.",
+      "translated_text": "So that is our open circuit voltage and that is the same as VTH."
+    },
+    {
+      "start": 1488.48,
+      "end": 1495.48,
+      "original_text": "So we have VTH equal to 60 volts, RTH equal to 7 ohms and our Thevenin equivalent circuit.",
+      "translated_text": "So we have VTH equal to 60 volts, RTH equal to 7 ohms and our Thevenin equivalent circuit."
+    },
+    {
+      "start": 1496.48,
+      "end": 1498.48,
+      "original_text": "Therefore looks like this.",
+      "translated_text": "Therefore looks like this."
+    },
+    {
+      "start": 1503.48,
+      "end": 1507.48,
+      "original_text": "Let us now look at a graphical method for finding VTH and RTH.",
+      "translated_text": "Let us now look at a graphical method for finding VTH and RTH."
+    },
+    {
+      "start": 1508.48,
+      "end": 1513.48,
+      "original_text": "This is a Thevenin equivalent circuit of some original circuit.",
+      "translated_text": "This is a Thevenin equivalent circuit of some original circuit."
+    },
+    {
+      "start": 1514.48,
+      "end": 1523.48,
+      "original_text": "And what we do is connect voltage source here and plot this current as a function of this voltage.",
+      "translated_text": "And what we do is connect voltage source here and plot this current as a function of this voltage."
+    },
+    {
+      "start": 1524.48,
+      "end": 1532.48,
+      "original_text": "And the plot that we are going to get is shown over here and let us now try to understand why the plot looks like this.",
+      "translated_text": "And the plot that we are going to get is shown over here and let us now try to understand why the plot looks like this."
+    },
+    {
+      "start": 1533.48,
+      "end": 1534.48,
+      "original_text": "What is this current?",
+      "translated_text": "What is this current?"
+    },
+    {
+      "start": 1535.48,
+      "end": 1541.48,
+      "original_text": "It is VTH minus V divided by RTH, this equation.",
+      "translated_text": "It is VTH minus V divided by RTH, this equation."
+    },
+    {
+      "start": 1542.48,
+      "end": 1546.48,
+      "original_text": "And note that it has a negative slope.",
+      "translated_text": "And note that it has a negative slope."
+    },
+    {
+      "start": 1547.48,
+      "end": 1554.48,
+      "original_text": "The slope is minus 1 over RTH and that has reflected in this plot here.",
+      "translated_text": "The slope is minus 1 over RTH and that has reflected in this plot here."
+    },
+    {
+      "start": 1558.48,
+      "end": 1563.48,
+      "original_text": "What about the intercept of this line on the V axis?",
+      "translated_text": "What about the intercept of this line on the V axis?"
+    },
+    {
+      "start": 1564.48,
+      "end": 1570.48,
+      "original_text": "To find that we put I equal to 0 and we get V equal to VTH.",
+      "translated_text": "To find that we put I equal to 0 and we get V equal to VTH."
+    },
+    {
+      "start": 1571.48,
+      "end": 1578.48,
+      "original_text": "That gives us the x-intercept and VTH remember is the same as VOC.",
+      "translated_text": "That gives us the x-intercept and VTH remember is the same as VOC."
+    },
+    {
+      "start": 1579.48,
+      "end": 1581.48,
+      "original_text": "What about the y-intercept?",
+      "translated_text": "What about the y-intercept?"
+    },
+    {
+      "start": 1582.48,
+      "end": 1586.48,
+      "original_text": "To find that what we do is put V equal to 0.",
+      "translated_text": "To find that what we do is put V equal to 0."
+    },
+    {
+      "start": 1587.48,
+      "end": 1592.48,
+      "original_text": "That gives us I equal to VTH divided by RTH, this quantity here.",
+      "translated_text": "That gives us I equal to VTH divided by RTH, this quantity here."
+    },
+    {
+      "start": 1593.48,
+      "end": 1598.48,
+      "original_text": "And if you recall that is the same as the short circuit current.",
+      "translated_text": "And if you recall that is the same as the short circuit current."
+    },
+    {
+      "start": 1599.48,
+      "end": 1608.48,
+      "original_text": "That means it is the current that would flow if we connect these two nodes by a wire, just a short circuit.",
+      "translated_text": "That means it is the current that would flow if we connect these two nodes by a wire, just a short circuit."
+    },
+    {
+      "start": 1609.48,
+      "end": 1618.48,
+      "original_text": "So now from a plot like this we immediately find VTH as the intercept on the V axis.",
+      "translated_text": "So now from a plot like this we immediately find VTH as the intercept on the V axis."
+    },
+    {
+      "start": 1619.48,
+      "end": 1625.48,
+      "original_text": "And IAC which is equal to VTH by RTH as the intercept on the I axis.",
+      "translated_text": "And IAC which is equal to VTH by RTH as the intercept on the I axis."
+    },
+    {
+      "start": 1625.48,
+      "end": 1633.48,
+      "original_text": "And from these two numbers we can find our Thevenin voltage and Thevenin resistance.",
+      "translated_text": "And from these two numbers we can find our Thevenin voltage and Thevenin resistance."
+    },
+    {
+      "start": 1636.48,
+      "end": 1645.48,
+      "original_text": "And as a remark let us mention that instead of a voltage source here we could have also connected load resistor, say R.",
+      "translated_text": "And as a remark let us mention that instead of a voltage source here we could have also connected load resistor, say R."
+    },
+    {
+      "start": 1646.48,
+      "end": 1651.48,
+      "original_text": "We read that resistance and then plotted I versus V again.",
+      "translated_text": "We read that resistance and then plotted I versus V again."
+    },
+    {
+      "start": 1651.48,
+      "end": 1654.48,
+      "original_text": "We would get the same plot once again.",
+      "translated_text": "We would get the same plot once again."
+    },
+    {
+      "start": 1658.48,
+      "end": 1667.48,
+      "original_text": "Let us apply the graphical method that we just discussed for this circuit which we have already considered earlier.",
+      "translated_text": "Let us apply the graphical method that we just discussed for this circuit which we have already considered earlier."
+    },
+    {
+      "start": 1668.48,
+      "end": 1671.48,
+      "original_text": "And here is the SQL circuit file.",
+      "translated_text": "And here is the SQL circuit file."
+    },
+    {
+      "start": 1672.48,
+      "end": 1677.48,
+      "original_text": "So you can run this simulation and obtain the plot that we are going to look at very soon.",
+      "translated_text": "So you can run this simulation and obtain the plot that we are going to look at very soon."
+    },
+    {
+      "start": 1678.48,
+      "end": 1681.48,
+      "original_text": "Okay, so how do we go about it?",
+      "translated_text": "Okay, so how do we go about it?"
+    },
+    {
+      "start": 1682.48,
+      "end": 1689.48,
+      "original_text": "We connect a voltage source between A and B like that and then plot this current as a function of this voltage.",
+      "translated_text": "We connect a voltage source between A and B like that and then plot this current as a function of this voltage."
+    },
+    {
+      "start": 1690.48,
+      "end": 1696.48,
+      "original_text": "And when we do that, VOC is given by the intercept on the V axis.",
+      "translated_text": "And when we do that, VOC is given by the intercept on the V axis."
+    },
+    {
+      "start": 1697.48,
+      "end": 1703.48,
+      "original_text": "And IAC, the short circuit current is given by the intercept on the I or the current axis.",
+      "translated_text": "And IAC, the short circuit current is given by the intercept on the I or the current axis."
+    },
+    {
+      "start": 1704.48,
+      "end": 1709.48,
+      "original_text": "And here is the result, I as a function of V.",
+      "translated_text": "And here is the result, I as a function of V."
+    },
+    {
+      "start": 1710.48,
+      "end": 1716.48,
+      "original_text": "The intercept on the V axis is 60 volts and that gives us VOC.",
+      "translated_text": "The intercept on the V axis is 60 volts and that gives us VOC."
+    },
+    {
+      "start": 1717.48,
+      "end": 1725.48,
+      "original_text": "And the intercept on the current axis is 8.57 amperes and that gives us IAC.",
+      "translated_text": "And the intercept on the current axis is 8.57 amperes and that gives us IAC."
+    },
+    {
+      "start": 1726.48,
+      "end": 1735.48,
+      "original_text": "And VTH is the same as VOC, 60 volts and RTH is the same as VOC divided by IAC.",
+      "translated_text": "And VTH is the same as VOC, 60 volts and RTH is the same as VOC divided by IAC."
+    },
+    {
+      "start": 1736.48,
+      "end": 1740.48,
+      "original_text": "And that turns out to be 60 divided by 8.57 or 7 ohms.",
+      "translated_text": "And that turns out to be 60 divided by 8.57 or 7 ohms."
+    },
+    {
+      "start": 1741.48,
+      "end": 1750.48,
+      "original_text": "And these numbers of course are the same as what we got earlier when we analyzed this circuit using different methods.",
+      "translated_text": "And these numbers of course are the same as what we got earlier when we analyzed this circuit using different methods."
+    },
+    {
+      "start": 1751.48,
+      "end": 1757.48,
+      "original_text": "To summarize, we have become familiar with Thevenin's theorem.",
+      "translated_text": "To summarize, we have become familiar with Thevenin's theorem."
+    },
+    {
+      "start": 1758.48,
+      "end": 1763.48,
+      "original_text": "We have also seen how to represent a given circuit with this Thevenin equivalent form.",
+      "translated_text": "We have also seen how to represent a given circuit with this Thevenin equivalent form."
+    },
+    {
+      "start": 1764.48,
+      "end": 1768.48,
+      "original_text": "This background will be useful to understand RC circuits, amplifiers, etc.",
+      "translated_text": "This background will be useful to understand RC circuits, amplifiers, etc."
+    },
+    {
+      "start": 1769.48,
+      "end": 1772.48,
+      "original_text": "That is all for now. See you next time.",
+      "translated_text": "That is all for now. See you next time."
+    },
+    {
+      "start": 1781.48,
+      "end": 1784.48,
+      "original_text": "Thevenin's theorem",
+      "translated_text": "Thevenin's theorem"
+    },
+    {
+      "start": 1785.48,
+      "end": 1789.48,
+      "original_text": "Thevenin's theorem",
+      "translated_text": "Thevenin's theorem"
+    }
+  ]
+}

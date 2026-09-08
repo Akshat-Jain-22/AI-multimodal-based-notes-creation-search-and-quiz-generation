@@ -1,0 +1,61 @@
+{
+  "source_language": "ur",
+  "language_confidence": 0.5803431272506714,
+  "sentences": [
+    {
+      "start": 0.0,
+      "original_text": "Most of the people make saphaltas, but I believe that it teaches us a lot more than saphaltas.",
+      "corrected_text": "Most of the people make mistakes, but I believe that it teaches us a lot more than mistakes."
+    },
+    {
+      "start": 7.0,
+      "original_text": "When we succeed in some work, we are happy, but we do not get the chance to think more about our mistakes.",
+      "corrected_text": "When we succeed in some work, we are happy, but we do not get the chance to think more about our saphaltas."
+    },
+    {
+      "start": 14.0,
+      "original_text": "When we succeed, we stop and think that the mistake has happened and how can we fix it?",
+      "corrected_text": "When we succeed, we stop and think that a mistake has happened and how can we fix it?"
+    },
+    {
+      "start": 20.0,
+      "original_text": "In history, there are many such great people who have faced saphaltas many times in their life, but do not give up.",
+      "corrected_text": "In history, there are many such great people who have faced safaltas many times in their life, but do not give up."
+    },
+    {
+      "start": 28.0,
+      "original_text": "If I had stopped after the first time of saphaltas, then maybe the world would never know.",
+      "corrected_text": "If I had stopped after the first time of saphalta, then maybe the world would never know."
+    },
+    {
+      "start": 33.0,
+      "original_text": "I teach them patience, hard work and self-sacrifice.",
+      "corrected_text": "I teach them patience, hard work and self-sacrifice."
+    },
+    {
+      "start": 38.0,
+      "original_text": "It makes us pray to get out of our limits.",
+      "corrected_text": "It makes us pray to get out of our difficulties."
+    },
+    {
+      "start": 41.0,
+      "original_text": "The biggest thing is that saphaltas make us helpless and make us understand the real value of saphaltas.",
+      "corrected_text": "The biggest thing is that successes make us helpless and make us understand the real value of successes."
+    },
+    {
+      "start": 49.0,
+      "original_text": "That is why I believe that saphaltas are not infinite.",
+      "corrected_text": "That is why I believe that saphalts are not infinite."
+    },
+    {
+      "start": 52.0,
+      "original_text": "In fact, it is the first step to increase the number of saphalts.",
+      "corrected_text": "In fact, it is the first step to increase the number of saphaltas."
+    },
+    {
+      "start": 55.0,
+      "original_text": "If we continue to learn from our mistakes, then we will be able to achieve our goal.",
+      "corrected_text": "If we continue to learn from our mistakes, then we will be able to achieve our goal."
+    }
+  ]
+}

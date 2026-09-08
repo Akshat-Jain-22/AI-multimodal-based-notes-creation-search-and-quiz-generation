@@ -1,29 +1,29 @@
-venv/
-node_modules/
-.env
-*.json
-*.m4a
-*.mp3
-*.mp4
-*.pptx
-*.pyc
-__pycache__/
-.DS_Store
+# venv/
+# node_modules/
+# .env
+# *.json
+# *.m4a
+# *.mp3
+# *.mp4
+# *.pptx
+# *.pyc
+# __pycache__/
+# .DS_Store
 
-extracted_images/
-temp_pdf/
-pipeline_runs/
-chroma_db/
+# extracted_images/
+# temp_pdf/
+# pipeline_runs/
+# chroma_db/
 
-*.json
-*.m4a
-scripts/.env
-*.json
-*.m4a
-*.npz
-*.db
+# *.json
+# *.m4a
+# scripts/.env
+# *.json
+# *.m4a
+# *.npz
+# *.db
 
-scripts/lecture_notes.md
-scripts/lecture_notes_polished.md
-scripts/quiz.md
-scripts/search_index.npz
+# scripts/lecture_notes.md
+# scripts/lecture_notes_polished.md
+# scripts/quiz.md
+# scripts/search_index.npz

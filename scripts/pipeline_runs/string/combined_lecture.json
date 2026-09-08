@@ -1,0 +1,113 @@
+{
+  "sources_used": [
+    "audio"
+  ],
+  "timeline": [
+    {
+      "timestamp": 0.0,
+      "source": "audio",
+      "content": "Welcome back to basic electronics. In this lecture we will look at a very useful theorem"
+    },
+    {
+      "timestamp": 23.92,
+      "source": "audio",
+      "content": "called the Thevenin's theorem. We will first try to understand why it is possible to represent"
+    },
+    {
+      "timestamp": 28.8,
+      "source": "audio",
+      "content": "a circuit with its Thevenin equivalent form. We will then look at how to extract the associated"
+    },
+    {
+      "timestamp": 34.84,
+      "source": "audio",
+      "content": "parameters namely the Thevenin resistance and the Thevenin voltage. After that we will consider"
+    },
+    {
+      "timestamp": 41.56,
+      "source": "audio",
+      "content": "a couple of examples to illustrate how a circuit can be represented by its Thevenin equivalent."
+    },
+    {
+      "timestamp": 48.32,
+      "source": "audio",
+      "content": "We will also see how the Thevenin parameters can be extracted graphically. So, let us"
+    },
+    {
+      "timestamp": 54.04,
+      "source": "audio",
+      "content": "get started. Thevenin's theorem is a very useful and important theorem and particularly"
+    },
+    {
+      "timestamp": 62.76,
+      "source": "audio",
+      "content": "in electronic circuits we will find it very useful. But before we look at the statement"
+    },
+    {
+      "timestamp": 69.16,
+      "source": "audio",
+      "content": "of the Thevenin's theorem, let us see briefly where it comes from and we will do that"
+    },
+    {
+      "timestamp": 75.8,
+      "source": "audio",
+      "content": "with the help of this example. Here is a circuit to which we have connected a load resistor"
+    },
+    {
+      "timestamp": 87.08,
+      "source": "audio",
+      "content": "RL and we are interested in this voltage across RL and in particular we want to ask this"
+    },
+    {
+      "timestamp": 95.64,
+      "source": "audio",
+      "content": "question how is V related to the circuit parameters. We begin by assigning node voltages to"
+    },
+    {
+      "timestamp": 106.64,
+      "source": "audio",
+      "content": "these various nodes in the circuit with respect to reference node. So, let us first choose"
+    },
+    {
+      "timestamp": 110.96,
+      "source": "audio",
+      "content": "a reference node. We have taken that as the reference node. So, the node voltage there"
+    },
+    {
+      "timestamp": 115.56,
+      "source": "audio",
+      "content": "is 0 volts and with respect to that reference node, this voltage at node A is V1. The"
+    },
+    {
+      "timestamp": 125.06,
+      "source": "audio",
+      "content": "node voltage at B is V2 and the voltage at node C is V3. Now what we will do is"
+    },
+    {
+      "timestamp": 133.48,
+      "source": "audio",
+      "content": "write KCL equations in terms of V1, V2 and V3 at these nodes, nodes A, B and C and in"
+    },
+    {
+      "timestamp": 145.48,
+      "source": "audio",
+      "content": "doing that let us define G1 the conductance as 1 over R1, G2 equal to 1 over R2, etc. These"
+    },
+    {
+      "timestamp": 157.16,
+      "source": "audio",
+      "content": "are our KCL equations. Let us look at KCL at node A that is our node A. We have 3 currents"
+    },
+    {
+      "timestamp": 166.0,
+      "source": "audio",
+      "content": "entering or leaving node A. There is one current going like that and that is V1 minus V3 divided"
+    },
+    {
+      "timestamp": 175.0,
+      "source": "audio",
+      "content": "by R1. So, that is G1 times V1 minus V3."
+    }
+  ],
+  "supplementary_pptx": null
+}
