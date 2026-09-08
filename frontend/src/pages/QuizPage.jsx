@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { generateQuiz } from "../api.js";
+import { generateQuiz, resolveMediaUrl } from "../api.js";
+import { useAuth } from "../context/AuthContext.jsx";
 import TraceDivider from "../components/TraceDivider.jsx";
 import MathMarkdown from "../components/MathMarkdown.jsx";
 import { downloadText, slugForFilename } from "../utils/download.js";
 
 export default function QuizPage() {
   const { classId } = useParams();
+  const { user } = useAuth();
 
   const [topic, setTopic] = useState("");
   const [format, setFormat] = useState("mcq");
@@ -46,6 +48,7 @@ export default function QuizPage() {
         difficulty,
         count: countValue,
         needs_diagram: needsDiagram,
+        language: user.preferred_language,
       });
       setQuiz(result);
     } catch (e) {
@@ -183,6 +186,18 @@ export default function QuizPage() {
                   <div className="quiz-question-text">
                     <MathMarkdown>{`**Q${qi + 1}.** ${q.question}`}</MathMarkdown>
                   </div>
+
+                  {q.diagram && (
+                    <div className="quiz-diagram">
+                      <img
+                        src={resolveMediaUrl(q.diagram.image_file)}
+                        alt={q.diagram.caption || `Diagram for Q${qi + 1}`}
+                      />
+                      {q.diagram.caption && (
+                        <p className="quiz-diagram-caption muted">{q.diagram.caption}</p>
+                      )}
+                    </div>
+                  )}
 
                   {hasOptions ? (
                     <div className="quiz-options">

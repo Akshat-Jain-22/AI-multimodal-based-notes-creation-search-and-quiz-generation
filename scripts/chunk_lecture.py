@@ -1,6 +1,8 @@
 import json
 import sys
 
+from describe_images import describe_diagram_images
+
 
 def chunk_timeline(combined_data, chunk_duration_sec=360):
     """Split the combined timeline into chunks of roughly chunk_duration_sec each."""
@@ -101,6 +103,13 @@ def build_chunks(combined_lecture_path, chunk_duration_sec=360, overlap_sec=45):
         context_text = format_chunk_as_text(context_events) if context_events else ""
         main_text = format_chunk_as_text(chunk_events)
         diagram_images = collect_diagram_images(chunk_events)
+        # Pre-filter approach: collect_diagram_images()'s cheap length-based
+        # heuristic decides WHICH images are even candidates; the (real,
+        # billed) vision call only runs on those, not every captured frame.
+        # Adds a "description" key to each entry — see describe_images.py's
+        # module docstring for why ocr_text is passed through as the
+        # mandatory grounding hint rather than an optional extra.
+        diagram_images = describe_diagram_images(diagram_images)
 
         formatted_chunks.append({
             "chunk_number": i,

@@ -148,13 +148,17 @@ def run_pipeline(lecture_title, audio_path=None, video_path=None, pptx_path=None
     screen_data_path = None
     if video_path:
         print("\n[5/8] Extracting screen content (OCR + frame capture)...")
-        screen_result = extract_screen_content(video_path)
+        # output_dir=work_dir anchors extracted_images/ inside THIS lecture's
+        # own folder — without it, two lectures whose video/pptx files
+        # happened to share a filename could silently collide on the same
+        # extracted_images/ location (see screen_to_text.py's docstring).
+        screen_result = extract_screen_content(video_path, output_dir=work_dir)
         screen_data_path = _write_json(screen_result, os.path.join(work_dir, "screen_content.json"))
 
     pptx_data_path = None
     if pptx_path:
         print("\n[supplementary] Extracting PPTX content...")
-        pptx_result = extract_pptx_content(pptx_path)
+        pptx_result = extract_pptx_content(pptx_path, output_dir=work_dir)
         pptx_data_path = _write_json(pptx_result, os.path.join(work_dir, "pptx_content.json"))
 
     print("\n[5/8] Fusing sources into one timeline...")

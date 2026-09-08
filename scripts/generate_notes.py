@@ -67,24 +67,46 @@ def generate_notes_for_chunk(chunk_text, context_text, chunk_number, retries=2):
 
 
 def format_diagram_images_markdown(diagram_images):
-    """Build a Markdown block embedding each likely-diagram image, using the
-    nearby OCR text (if any) to form a more descriptive caption than just a
-    timestamp — e.g. 'R1, R2, R3, RL circuit' instead of 'Captured at 65.0s'."""
+    """Build a Markdown block embedding each likely-diagram image.
+
+    Two-line format per image (this exact shape matters —
+    chunk_notes_for_search.py's parse_diagram_paragraph() parses it):
+      1. ![alt text](path) — kept SHORT and OCR-snippet-based, since this
+         becomes the real HTML alt attribute when notes render in the
+         frontend (MathMarkdown/react-markdown), not a place for a full
+         paragraph.
+      2. *caption* — the full sentence-level description from
+         describe_images.py when available (chunk_lecture.py's
+         build_chunks() already calls describe_diagram_images() on every
+         diagram candidate before notes generation ever sees it), falling
+         back to the same short text used for the alt attribute if a
+         description wasn't produced for some reason.
+
+    NOTE: chunk_notes_for_search.py currently only extracts the alt text
+    (line 1) into its diagram_images metadata for indexing — the richer
+    description on line 2 isn't folded into searchable passage text yet.
+    That's a separate, still-open change, not done here.
+    """
     if not diagram_images:
         return ""
 
     lines = ["**Diagrams/board content from this segment:**", ""]
     for img in diagram_images:
         path = img["image_file"].replace("\\", "/")
-        ocr_hint = img.get("ocr_text", "").strip()
+        ocr_hint = (img.get("ocr_text") or "").strip()
+        description = (img.get("description") or "").strip()
 
         if ocr_hint:
+            # Short snippet of the OCR text as the alt text, falling back
+            # to the timestamp if it's empty/unhelpful.
             snippet = " ".join(ocr_hint.split())[:60]
-            caption = f"{snippet} (captured at {img['timestamp']:.1f}s)"
+            alt_text = f"{snippet} (captured at {img['timestamp']:.1f}s)"
         else:
-            caption = f"Captured at {img['timestamp']:.1f}s"
+            alt_text = f"Captured at {img['timestamp']:.1f}s"
 
-        lines.append(f"![{caption}]({path})")
+        caption = description if description else alt_text
+
+        lines.append(f"![{alt_text}]({path})")
         lines.append(f"*{caption}*")
         lines.append("")
 

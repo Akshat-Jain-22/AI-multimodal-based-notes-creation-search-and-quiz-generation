@@ -17,7 +17,23 @@ def frame_difference(frame1, frame2, threshold=30, percent_trigger=1.0):
     return percent_changed > percent_trigger
 
 
-def extract_screen_content(video_path, sample_interval_sec=5, percent_trigger=1.0):
+def extract_screen_content(video_path, sample_interval_sec=5, percent_trigger=1.0, output_dir=None):
+    """output_dir anchors where extracted_images/ is created — pass the
+    lecture's own work_dir when called from run_pipeline.py, so every
+    lecture's captured frames live inside that lecture's own folder instead
+    of wherever the process's cwd happened to be at capture time (two
+    different pipeline runs previously could silently write to two
+    different "extracted_images/" locations depending on what directory the
+    process was launched from). Defaults to None (today's cwd-relative
+    behavior) so standalone CLI use is unaffected.
+
+    image_file is always stored as an ABSOLUTE path regardless of
+    output_dir, since chunk_lecture.py/generate_notes.py embed it directly
+    into notes markdown, and api.py needs a reliable absolute path to
+    compute a relative sub-path (for building a servable URL) against the
+    lecture's known work_dir later — a bare relative path recorded here
+    would be ambiguous about what it's relative TO by the time it's read
+    back days later in a different process."""
     cap = cv2.VideoCapture(video_path)
     fps = cap.get(cv2.CAP_PROP_FPS)
     if not fps or fps <= 0:
@@ -25,7 +41,8 @@ def extract_screen_content(video_path, sample_interval_sec=5, percent_trigger=1.
     frame_interval = int(fps * sample_interval_sec)
 
     video_basename = os.path.splitext(os.path.basename(video_path))[0]
-    images_dir = os.path.join("extracted_images", video_basename)
+    images_root = output_dir if output_dir else "."
+    images_dir = os.path.join(images_root, "extracted_images", video_basename)
     os.makedirs(images_dir, exist_ok=True)
 
     events = []
@@ -44,8 +61,11 @@ def extract_screen_content(video_path, sample_interval_sec=5, percent_trigger=1.
                 rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 pil_img = Image.fromarray(rgb_frame)
 
+                # OCR text
                 ocr_text = pytesseract.image_to_string(pil_img).strip()
 
+                # Save the actual frame as an image file (always, even if OCR is empty —
+                # a diagram-only slide with no text is still worth keeping)
                 img_filename = f"frame_{round(timestamp,1)}s.png"
                 img_path = os.path.join(images_dir, img_filename)
                 pil_img.save(img_path)
@@ -53,7 +73,7 @@ def extract_screen_content(video_path, sample_interval_sec=5, percent_trigger=1.
                 events.append({
                     "timestamp": round(timestamp, 2),
                     "ocr_text": ocr_text,
-                    "image_file": img_path
+                    "image_file": os.path.abspath(img_path)
                 })
                 print(f"[{timestamp:.2f}s] Captured — OCR: {len(ocr_text)} chars, saved: {img_filename}")
 
@@ -62,7 +82,7 @@ def extract_screen_content(video_path, sample_interval_sec=5, percent_trigger=1.
         frame_idx += 1
 
     cap.release()
-    return {"video_source": video_path, "images_directory": images_dir, "events": events}
+    return {"video_source": video_path, "images_directory": os.path.abspath(images_dir), "events": events}
 
 
 if __name__ == "__main__":

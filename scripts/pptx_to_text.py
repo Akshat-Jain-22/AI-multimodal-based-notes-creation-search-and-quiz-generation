@@ -37,7 +37,14 @@ def process_shapes(shapes, slide_text, image_entries, slide_num, images_dir):
 
                 image_entries.append({
                     "source": "embedded_picture",
-                    "image_file": img_filename,   
+                    # Was previously the bare filename with no directory at
+                    # all (img_filename, not img_path) — pointed nowhere,
+                    # since the file was actually saved under images_dir/.
+                    # Now an absolute path, matching screen_to_text.py's
+                    # convention, so downstream steps (chunk_lecture.py,
+                    # describe_images.py, api.py's media-serving endpoint)
+                    # can reliably locate and reference it.
+                    "image_file": os.path.abspath(img_path),
                     "ocr_text": ocr_text
                 })
             except Exception as e:
@@ -54,11 +61,16 @@ def convert_pptx_to_pdf(pptx_path, output_dir="temp_pdf"):
     return os.path.join(output_dir, pdf_name)
 
 
-def extract_pptx_content(pptx_path):
+def extract_pptx_content(pptx_path, output_dir=None):
+    """output_dir anchors where extracted_images/ is created — pass the
+    lecture's own work_dir when called from run_pipeline.py. See
+    screen_to_text.py's extract_screen_content() docstring for the full
+    rationale (same fix, same reasoning, applied here too)."""
     prs = Presentation(pptx_path)
 
     pptx_basename = os.path.splitext(os.path.basename(pptx_path))[0]
-    images_dir = os.path.join("extracted_images", pptx_basename)
+    images_root = output_dir if output_dir else "."
+    images_dir = os.path.join(images_root, "extracted_images", pptx_basename)
     os.makedirs(images_dir, exist_ok=True)
 
     structured_slides = []
@@ -95,7 +107,9 @@ def extract_pptx_content(pptx_path):
 
             slide_data["images"].append({
                 "source": "full_slide_render",
-                "image_file": full_img_filename,
+                # Same fix as process_shapes() above — was the bare filename
+                # with no directory (full_img_filename), now an absolute path.
+                "image_file": os.path.abspath(full_img_path),
                 "ocr_text": full_slide_text
             })
             print(f"Slide {i}: saved full-slide image ({full_img_filename}) + OCR ({len(full_slide_text)} chars)")
@@ -104,7 +118,7 @@ def extract_pptx_content(pptx_path):
 
     return {
         "source_pptx": os.path.basename(pptx_path),
-        "images_directory": images_dir,
+        "images_directory": os.path.abspath(images_dir),
         "slides": structured_slides
     }
 

@@ -28,37 +28,20 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableLambda, RunnableParallel, RunnablePassthrough
 
+from translate_notes import resolve_language_name
+
 load_dotenv()
 
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 PERSIST_DIR = "chroma_db"
 COLLECTION_NAME = "lecture_notes"
 
-
-def _cosine_relevance_score_fn(distance: float) -> float:
-    """Corrects a known langchain_chroma miscalibration for cosine space
-    (see e.g. langchain-ai/langchain issues #18709 and #10864 — the latter
-    reproduced with this exact setup: all-MiniLM-L6-v2 + normalize_
-    embeddings=True). Chroma's cosine DISTANCE is 1 - cosine_similarity,
-    ranging [0, 2]. LangChain's built-in cosine relevance function instead
-    returns `1 - distance` directly, which algebraically equals raw cosine
-    SIMILARITY again (range [-1, 1]) — not a score genuinely normalized to
-    [0, 1] the way the "relevance score" API promises and the way
-    DEFAULT_SCORE_THRESHOLD below is meant to be compared against. This is
-    the actual "scores not cleanly in [0,1]" bug — not something specific
-    to this project's data. Kept identical to build_search_index.py's copy
-    of this function since both files construct their own Chroma instance.
-
-    This maps distance to a true [0, 1] score instead:
-        1 - distance/2  ==  (1 + cosine_similarity) / 2
-    which linearly maps cosine_similarity's real range [-1, 1] onto [0, 1],
-    with 0.5 meaning genuinely orthogonal/unrelated content — not an
-    arbitrary number that happens to fall in the middle of a mis-scaled range.
-    """
-    return 1.0 - distance / 2.0
-
-
-DEFAULT_SCORE_THRESHOLD = 0.675
+# Starting point based on scores observed on the real Thevenin/Norton corpus
+# (relevant passages scored ~0.39–0.63 there). Retrieval quality is corpus-
+# and embedding-model-dependent, so treat this as a tunable knob, not a fixed
+# constant — revisit once you have more lectures indexed and can see whether
+# genuinely irrelevant passages start slipping in above this line.
+DEFAULT_SCORE_THRESHOLD = 0.35
 DEFAULT_MAX_RESULTS = 25
 
 _vectorstore = None
@@ -76,7 +59,6 @@ def get_vectorstore(persist_directory=PERSIST_DIR):
             embedding_function=embeddings,
             persist_directory=persist_directory,
             collection_metadata={"hnsw:space": "cosine"},
-            relevance_score_fn=_cosine_relevance_score_fn,
         )
     return _vectorstore
 
@@ -214,6 +196,8 @@ def _search_multi(inputs):
     return merged
 
 
+# A proper Runnable, composable with `|` like any other LCEL step, and
+# directly reusable from generate_quiz.py's retrieval chain.
 retrieval_runnable = RunnableLambda(_search_multi)
 
 
@@ -243,7 +227,7 @@ ANSWER_PROMPT = ChatPromptTemplate.from_template("""Answer the student's questio
 lecture/section each part of your answer comes from (e.g. "as covered in [Lecture Title —
 Section]"). If the passages don't fully answer the question, say what's missing rather than
 guessing or using outside knowledge.
-
+{language_instruction}
 Student's question: {question}
 
 Source passages:
@@ -253,6 +237,11 @@ Answer:""")
 
 llm = ChatGroq(model="openai/gpt-oss-120b", max_tokens=800)
 
+# The full retrieval + grounded-answer pipeline as one LCEL chain. Retrieval
+# happens once and its output ("sources") is reused both to build the LLM's
+# context and to hand back to the caller for display. CLI-only (see the
+# __main__ loop at the bottom) — always answers in English, so
+# language_instruction is hardcoded empty here rather than threaded through.
 qa_chain = (
     RunnableParallel({
         "sources": RunnableLambda(lambda q: retrieval_runnable.invoke({"query": q})),
@@ -261,7 +250,9 @@ qa_chain = (
     | RunnableParallel({
         "sources": lambda x: x["sources"],
         "answer": (
-            RunnableLambda(lambda x: {"context": format_docs(x["sources"]), "question": x["question"]})
+            RunnableLambda(lambda x: {
+                "context": format_docs(x["sources"]), "question": x["question"], "language_instruction": ""
+            })
             | ANSWER_PROMPT
             | llm
             | StrOutputParser()
@@ -270,26 +261,119 @@ qa_chain = (
 )
 
 
-def answer_query(query, lecture_id_filter=None, max_tokens=800):
+# ---------------------------------------------------------------------------
+# Language support — mirrors the approach in generate_quiz.py, but with one
+# extra step: MODEL_NAME ("all-MiniLM-L6-v2") is an English-only embedding
+# model, so a query typed in another language would embed poorly against
+# this project's English-language index. Retrieval therefore always runs on
+# an English version of the query (translated on the fly if needed); only
+# the FINAL answer generation is localized into the student's language. The
+# retrieved source passages themselves are left in English — translating
+# snippets nobody asked to read closely would be wasted LLM cost for little
+# benefit, unlike lecture notes (which a student reads start to end).
+# ---------------------------------------------------------------------------
+
+ANSWER_LANGUAGE_INSTRUCTION_TEMPLATE = """
+Write your entire answer in {language}. Keep technical terms, variable-style names (e.g. R_TH,
+V_OC), numeric values, and units as-is — translate only the surrounding natural-language
+explanation.
+"""
+
+QUERY_TRANSLATION_PROMPT = ChatPromptTemplate.from_template(
+    "Translate the following student question into English. Preserve its exact meaning, and keep "
+    "any technical terms or variable-style names (e.g. R_TH, V_OC) as-is. Return ONLY the "
+    "translated question text, nothing else — no quotes, no commentary.\n\n"
+    "Question ({language}): {query}\n\nEnglish translation:"
+)
+
+NO_RESULTS_PROMPT = ChatPromptTemplate.from_template(
+    "Reply with ONE short sentence in {language}, telling a student that no relevant lecture "
+    "content was found for their question. Do not restate the question, add a greeting, or add "
+    "any other commentary — output ONLY that one sentence.\n\nAnswer:"
+)
+
+
+def _answer_language_instruction(language):
+    language_name = resolve_language_name(language)
+    if not language or language_name.strip().lower() == "english":
+        return ""
+    return ANSWER_LANGUAGE_INSTRUCTION_TEMPLATE.format(language=language_name)
+
+
+def _translate_query_for_retrieval(query, language_name, retries=2):
+    """Best-effort translation of a non-English query into English for
+    retrieval purposes only — the original query is still what gets shown
+    back to the student and passed to the answer-generation step. Falls
+    back to searching with the original-language query on failure (reduced
+    recall against an English index, but not a crash)."""
+    for attempt in range(retries):
+        try:
+            translated = (QUERY_TRANSLATION_PROMPT | llm | StrOutputParser()).invoke(
+                {"language": language_name, "query": query}
+            )
+            translated = translated.strip().strip('"')
+            return translated if translated else query
+        except Exception as e:
+            if attempt < retries - 1:
+                continue
+            print(f"Warning: failed to translate query into English for retrieval ({e}); "
+                  f"searching with the original-language query instead (may reduce recall).")
+            return query
+
+
+def _localized_no_results_message(language_name):
+    try:
+        return (NO_RESULTS_PROMPT | llm | StrOutputParser()).invoke({"language": language_name}).strip()
+    except Exception as e:
+        print(f"Warning: failed to localize the 'no results' message into {language_name}: {e}")
+        return "No relevant content found for this query."
+
+
+def answer_query(query, lecture_id_filter=None, max_tokens=800, language="en"):
     """Retrieval + grounded answer, scoped to lecture_id_filter (typically
     every lecture_id in one class, for multi-tenant isolation). Used by
     api.py's /search endpoint — qa_chain above is left untouched since it's
     still used by this file's own CLI loop and takes a plain query string
-    with no scoping."""
-    sources = search_multi(query, lecture_id_filter=lecture_id_filter)
+    with no scoping.
+
+    `language` is a code like 'hi' (see db.py's users.preferred_language).
+    Retrieval always runs in English (see module-level comment above);
+    only the final answer is written in `language`."""
+    language_name = resolve_language_name(language)
+    needs_translation = language and language_name.strip().lower() != "english"
+
+    retrieval_query = _translate_query_for_retrieval(query, language_name) if needs_translation else query
+    sources = search_multi(retrieval_query, lecture_id_filter=lecture_id_filter)
+
     if not sources:
-        return {"sources": [], "answer": "No relevant content found for this query."}
+        answer = (
+            _localized_no_results_message(language_name)
+            if needs_translation else
+            "No relevant content found for this query."
+        )
+        return {"sources": [], "answer": answer}
+
     context = format_docs(sources)
-    answer = (ANSWER_PROMPT | llm | StrOutputParser()).invoke({"question": query, "context": context})
+    language_instruction = _answer_language_instruction(language)
+    answer = (ANSWER_PROMPT | llm | StrOutputParser()).invoke({
+        "question": query, "context": context, "language_instruction": language_instruction
+    })
     return {"sources": sources, "answer": answer}
 
 
-def generate_grounded_answer(query, results, max_tokens=800):
+def generate_grounded_answer(query, results, max_tokens=800, language="en"):
     """Kept for callers that already have a retrieved result set in hand."""
     if not results:
-        return "No relevant content found for this query."
+        return (
+            _localized_no_results_message(resolve_language_name(language))
+            if language and language != "en" else
+            "No relevant content found for this query."
+        )
     context = format_docs(results)
-    return (ANSWER_PROMPT | llm | StrOutputParser()).invoke({"question": query, "context": context})
+    language_instruction = _answer_language_instruction(language)
+    return (ANSWER_PROMPT | llm | StrOutputParser()).invoke({
+        "question": query, "context": context, "language_instruction": language_instruction
+    })
 
 
 if __name__ == "__main__":

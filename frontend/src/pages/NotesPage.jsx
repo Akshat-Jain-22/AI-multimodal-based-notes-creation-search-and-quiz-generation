@@ -22,10 +22,10 @@ export default function NotesPage() {
     setNotes(null);
     setError(null);
     setConfirmingDelete(false);
-    getLectureNotes(lectureId)
+    getLectureNotes(lectureId, user.preferred_language)
       .then(setNotes)
       .catch((e) => setError(e.message));
-  }, [lectureId]);
+  }, [lectureId, user.preferred_language]);
 
   async function handleDelete() {
     setDeleting(true);
@@ -34,6 +34,9 @@ export default function NotesPage() {
       await deleteLecture(lectureId);
       navigate(`/classes/${classId}/lectures`);
     } catch (e) {
+      // Most likely a 403 if this teacher doesn't own the class — the
+      // delete button is shown to any teacher client-side, but the backend
+      // is the real authority here.
       setDeleteError(e.message);
       setDeleting(false);
       setConfirmingDelete(false);
@@ -95,6 +98,13 @@ export default function NotesPage() {
                 </button>
               </div>
             </div>
+          )}
+
+          {user.preferred_language && notes.language !== user.preferred_language && (
+            <p className="muted" style={{ marginTop: -6, marginBottom: 16 }}>
+              Showing these notes in English — translating them into your preferred language
+              wasn't available for this lecture right now. Reloading the page will try again.
+            </p>
           )}
 
           <TraceDivider />

@@ -34,7 +34,9 @@ SESSION_LIFETIME_HOURS = 24 * 7  # 1 week
 PBKDF2_ITERATIONS = 260_000
 
 
+# ---------------------------------------------------------------------------
 # Connection handling
+# ---------------------------------------------------------------------------
 
 @contextmanager
 def get_connection(db_path=DB_PATH):
@@ -97,18 +99,41 @@ def init_db(db_path=DB_PATH):
             created_at TEXT NOT NULL
         );
 
+        CREATE TABLE IF NOT EXISTS lecture_translations (
+            lecture_id TEXT NOT NULL REFERENCES lectures(lecture_id) ON DELETE CASCADE,
+            language TEXT NOT NULL,
+            notes_path TEXT NOT NULL,
+            created_at TEXT NOT NULL,
+            PRIMARY KEY (lecture_id, language)
+        );
+
         CREATE INDEX IF NOT EXISTS idx_classes_teacher ON classes(teacher_id);
         CREATE INDEX IF NOT EXISTS idx_enrollments_student ON enrollments(student_id);
         CREATE INDEX IF NOT EXISTS idx_enrollments_class ON enrollments(class_id);
         CREATE INDEX IF NOT EXISTS idx_lectures_class ON lectures(class_id);
+        CREATE INDEX IF NOT EXISTS idx_translations_lecture ON lecture_translations(lecture_id);
         """)
+
+        # users.preferred_language: added after the original table definition
+        # shipped, so a plain CREATE TABLE IF NOT EXISTS above won't add it to
+        # a DB file that already has a `users` table. ALTER TABLE ADD COLUMN
+        # has no IF NOT EXISTS in SQLite, so check pragma_table_info first —
+        # this makes the migration safe to run every time init_db() runs,
+        # same idempotency guarantee as the rest of this function.
+        existing_cols = {row["name"] for row in conn.execute("PRAGMA table_info(users)")}
+        if "preferred_language" not in existing_cols:
+            conn.execute(
+                "ALTER TABLE users ADD COLUMN preferred_language TEXT NOT NULL DEFAULT 'en'"
+            )
 
 
 def _now():
     return datetime.now(timezone.utc).isoformat()
 
 
+# ---------------------------------------------------------------------------
 # Password hashing
+# ---------------------------------------------------------------------------
 
 def _hash_password(password, salt=None):
     if salt is None:
@@ -124,7 +149,9 @@ def _verify_password(password, password_hash, salt):
     return secrets.compare_digest(check, password_hash)
 
 
+# ---------------------------------------------------------------------------
 # Users
+# ---------------------------------------------------------------------------
 
 def create_user(username, password, role, display_name=None, db_path=DB_PATH):
     """role: 'teacher' | 'student'. Returns the new user's id.
@@ -151,6 +178,29 @@ def get_user_by_username(username, db_path=DB_PATH):
         return dict(row) if row else None
 
 
+def set_user_language(user_id, language, db_path=DB_PATH):
+    """Sets a user's preferred_language (e.g. 'en', 'hi', 'es'). No validation
+    of the language code here on purpose — that belongs at the API layer
+    (auth.py), which is what actually knows the list of supported languages
+    and can return a clean 400 for an invalid one."""
+    with get_connection(db_path) as conn:
+        cur = conn.execute(
+            "UPDATE users SET preferred_language = ? WHERE id = ?", (language, user_id)
+        )
+        return cur.rowcount > 0
+
+
+def get_user_language(user_id, db_path=DB_PATH):
+    """Returns the user's preferred_language, or 'en' if the user doesn't
+    exist (safe fallback rather than raising, since callers on the
+    notes/search/quiz path already treat 'en' as the no-op default)."""
+    with get_connection(db_path) as conn:
+        row = conn.execute(
+            "SELECT preferred_language FROM users WHERE id = ?", (user_id,)
+        ).fetchone()
+        return row["preferred_language"] if row else "en"
+
+
 def authenticate_user(username, password, db_path=DB_PATH):
     """Returns the user dict (password fields stripped) on success, else None."""
     user = get_user_by_username(username, db_path)
@@ -163,7 +213,9 @@ def authenticate_user(username, password, db_path=DB_PATH):
     return user
 
 
+# ---------------------------------------------------------------------------
 # Sessions
+# ---------------------------------------------------------------------------
 
 def create_session(user_id, db_path=DB_PATH):
     token = secrets.token_urlsafe(32)
@@ -206,7 +258,9 @@ def delete_session(token, db_path=DB_PATH):
         conn.execute("DELETE FROM sessions WHERE token = ?", (token,))
 
 
+# ---------------------------------------------------------------------------
 # Classes
+# ---------------------------------------------------------------------------
 
 def _generate_join_code(length=6):
     alphabet = string.ascii_uppercase + string.digits
@@ -304,7 +358,9 @@ def get_classes_for_user(user, db_path=DB_PATH):
     return get_classes_for_student(user["id"], db_path)
 
 
+# ---------------------------------------------------------------------------
 # Access control
+# ---------------------------------------------------------------------------
 
 def user_has_access_to_class(user_id, class_id, db_path=DB_PATH):
     """True if user_id is the teacher who owns class_id, or a student
@@ -332,7 +388,9 @@ def user_has_access_to_lecture(user_id, lecture_id, db_path=DB_PATH):
         return user_has_access_to_class(user_id, row["class_id"], db_path)
 
 
+# ---------------------------------------------------------------------------
 # Lectures
+# ---------------------------------------------------------------------------
 
 def add_lecture(lecture_id, class_id, title, notes_path, work_dir, uploaded_by, db_path=DB_PATH):
     """Registers a pipeline run's output against a class. uploaded_by must
@@ -404,6 +462,49 @@ def remove_student_from_class(student_id, class_id, db_path=DB_PATH):
 def delete_lecture(lecture_id, db_path=DB_PATH):
     with get_connection(db_path) as conn:
         conn.execute("DELETE FROM lectures WHERE lecture_id = ?", (lecture_id,))
+
+
+# ---------------------------------------------------------------------------
+# Lecture translations — a cache. One row per (lecture_id, language) so the
+# first student to request a given language pays the translation cost, and
+# every student after that (in this class or any other class using the same
+# lecture) gets a cache hit. Rows cascade-delete automatically when their
+# parent lecture is deleted (see lecture_translations' FK in init_db above);
+# the caller is still responsible for deleting the on-disk .md files
+# themselves, same as it already does for the original notes_path.
+# ---------------------------------------------------------------------------
+
+def get_lecture_translation(lecture_id, language, db_path=DB_PATH):
+    with get_connection(db_path) as conn:
+        row = conn.execute(
+            "SELECT * FROM lecture_translations WHERE lecture_id = ? AND language = ?",
+            (lecture_id, language),
+        ).fetchone()
+        return dict(row) if row else None
+
+
+def add_lecture_translation(lecture_id, language, notes_path, db_path=DB_PATH):
+    """Idempotent upsert — safe to call again if a translation is regenerated
+    (e.g. the cached file was manually deleted from disk but the DB row
+    survived)."""
+    with get_connection(db_path) as conn:
+        conn.execute(
+            "INSERT INTO lecture_translations (lecture_id, language, notes_path, created_at) "
+            "VALUES (?, ?, ?, ?) "
+            "ON CONFLICT(lecture_id, language) DO UPDATE SET notes_path = excluded.notes_path, "
+            "created_at = excluded.created_at",
+            (lecture_id, language, notes_path, _now()),
+        )
+
+
+def get_translations_for_lecture(lecture_id, db_path=DB_PATH):
+    """Used when deleting a lecture, so the API layer can clean up every
+    translated .md file on disk, not just the original notes_path."""
+    with get_connection(db_path) as conn:
+        rows = conn.execute(
+            "SELECT * FROM lecture_translations WHERE lecture_id = ?", (lecture_id,)
+        ).fetchall()
+        return [dict(r) for r in rows]
 
 
 if __name__ == "__main__":

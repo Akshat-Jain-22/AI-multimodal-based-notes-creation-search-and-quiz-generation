@@ -1,6 +1,7 @@
 import { Routes, Route, NavLink, useParams, useLocation, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import LanguageSelect from "./components/LanguageSelect.jsx";
 import AuthPage from "./pages/AuthPage.jsx";
 import ClassesPage from "./pages/ClassesPage.jsx";
 import UploadPage from "./pages/UploadPage.jsx";
@@ -22,6 +23,9 @@ function NavItem({ to, children, end }) {
   );
 }
 
+// Sub-nav shown only while inside a class (Teams-style: pick a class, then
+// see its channels). classId comes from the URL, not props, since this
+// renders from inside the <Routes> tree via a wildcard match below.
 function ClassNav() {
   const { classId } = useParams();
   const { user } = useAuth();
@@ -62,6 +66,7 @@ function TopNav() {
           <span className="muted">
             {user.display_name} · {user.role}
           </span>
+          <LanguageSelect />
           <button className="btn btn-secondary" onClick={logout}>
             Log out
           </button>

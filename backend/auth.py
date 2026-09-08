@@ -28,6 +28,7 @@ from fastapi import APIRouter, Depends, HTTPException, Response, Cookie
 from pydantic import BaseModel
 
 import db
+from translate_notes import LANGUAGE_NAMES
 
 router = APIRouter(tags=["auth"])
 
@@ -36,7 +37,9 @@ SESSION_COOKIE_NAME = "session_token"
 COOKIE_MAX_AGE_SECONDS = db.SESSION_LIFETIME_HOURS * 3600
 
 
+# ---------------------------------------------------------------------------
 # Request/response models
+# ---------------------------------------------------------------------------
 
 class RegisterRequest(BaseModel):
     username: str
@@ -55,9 +58,16 @@ class UserResponse(BaseModel):
     username: str
     role: str
     display_name: str
+    preferred_language: str
 
 
+class UpdateLanguageRequest(BaseModel):
+    language: str
+
+
+# ---------------------------------------------------------------------------
 # Dependencies — use these in api.py to protect endpoints
+# ---------------------------------------------------------------------------
 
 def get_current_user(session_token: str = Cookie(default=None, alias=SESSION_COOKIE_NAME)) -> dict:
     """FastAPI dependency: resolves the logged-in user from the session
@@ -88,7 +98,9 @@ def require_role(role: str):
     return _check
 
 
+# ---------------------------------------------------------------------------
 # Endpoints
+# ---------------------------------------------------------------------------
 
 @router.post("/auth/register", response_model=UserResponse)
 def register(request: RegisterRequest, response: Response):
@@ -107,6 +119,7 @@ def register(request: RegisterRequest, response: Response):
             display_name=request.display_name,
         )
     except Exception as e:
+        # sqlite3.IntegrityError on duplicate username surfaces here
         if "UNIQUE" in str(e):
             raise HTTPException(status_code=409, detail="Username already taken.")
         raise HTTPException(status_code=500, detail=f"Registration failed: {e}")
@@ -122,7 +135,7 @@ def register(request: RegisterRequest, response: Response):
 
     user = db.get_user_by_id(user_id)
     return UserResponse(id=user["id"], username=user["username"], role=user["role"],
-                         display_name=user["display_name"])
+                         display_name=user["display_name"], preferred_language=user["preferred_language"])
 
 
 @router.post("/auth/login", response_model=UserResponse)
@@ -141,7 +154,7 @@ def login(request: LoginRequest, response: Response):
     )
 
     return UserResponse(id=user["id"], username=user["username"], role=user["role"],
-                         display_name=user["display_name"])
+                         display_name=user["display_name"], preferred_language=user["preferred_language"])
 
 
 @router.post("/auth/logout")
@@ -155,4 +168,27 @@ def logout(response: Response, session_token: str = Cookie(default=None, alias=S
 @router.get("/auth/me", response_model=UserResponse)
 def me(user: dict = Depends(get_current_user)):
     return UserResponse(id=user["id"], username=user["username"], role=user["role"],
-                         display_name=user["display_name"])
+                         display_name=user["display_name"], preferred_language=user["preferred_language"])
+
+
+@router.patch("/auth/language", response_model=UserResponse)
+def update_language(request: UpdateLanguageRequest, user: dict = Depends(get_current_user)):
+    """Lets a logged-in user (teacher or student) set the language notes,
+    search answers, and quizzes should be shown in for them going forward.
+    Validated against translate_notes.py's LANGUAGE_NAMES (which includes
+    'en') so a typo/garbage code fails fast here with a clear 400, rather
+    than silently reaching the LLM translation step later and producing
+    something unpredictable."""
+    language = request.language.strip().lower()
+    if language not in LANGUAGE_NAMES:
+        supported = ", ".join(sorted(LANGUAGE_NAMES.keys()))
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unsupported language '{request.language}'. Supported codes: {supported}.",
+        )
+
+    db.set_user_language(user["id"], language)
+
+    updated = db.get_user_by_id(user["id"])
+    return UserResponse(id=updated["id"], username=updated["username"], role=updated["role"],
+                         display_name=updated["display_name"], preferred_language=updated["preferred_language"])

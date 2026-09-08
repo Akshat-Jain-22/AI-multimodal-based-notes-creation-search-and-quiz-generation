@@ -4,6 +4,7 @@ import {
   login as apiLogin,
   logout as apiLogout,
   register as apiRegister,
+  updateLanguage as apiUpdateLanguage,
 } from "../api.js";
 
 const AuthContext = createContext(null);
@@ -35,8 +36,14 @@ export function AuthProvider({ children }) {
     setUser(null);
   }
 
+  async function setLanguage(language) {
+    const u = await apiUpdateLanguage({ language });
+    setUser(u);
+    return u;
+  }
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, setLanguage }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { search } from "../api.js";
+import { useAuth } from "../context/AuthContext.jsx";
 import TraceDivider from "../components/TraceDivider.jsx";
 import MathMarkdown from "../components/MathMarkdown.jsx";
 import { downloadText, slugForFilename } from "../utils/download.js";
 
 export default function SearchPage() {
   const { classId } = useParams();
+  const { user } = useAuth();
   const [query, setQuery] = useState("");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -18,7 +20,7 @@ export default function SearchPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await search({ query: query.trim(), classId });
+      const res = await search({ query: query.trim(), classId, language: user.preferred_language });
       setResult(res);
     } catch (e) {
       setError(e.message);
@@ -98,7 +100,14 @@ export default function SearchPage() {
 
             {result.sources.length > 0 && (
               <>
-                <h3 style={{ marginTop: 28 }}>Sources ({result.sources.length})</h3>
+                <h3 style={{ marginTop: 28 }}>
+                  Sources ({result.sources.length})
+                  {result.language && result.language !== "en" && (
+                    <span className="muted" style={{ fontWeight: "normal", fontSize: "0.75rem", marginLeft: 8 }}>
+                      shown in English
+                    </span>
+                  )}
+                </h3>
                 <div className="stack">
                   {result.sources.map((s, i) => (
                     <div className="source-item" key={i}>
